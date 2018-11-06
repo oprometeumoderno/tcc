@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+  \PYG{l+lScalar+lScalarPlain}{DOMAIN}\PYG{p+pIndicator}{:}
+    \PYG{c+c1}{\PYGZsh{}definições pertencentes ao grupo DOMAIN}
+  \PYG{l+lScalar+lScalarPlain}{AGENT}\PYG{p+pIndicator}{:}
+      \PYG{c+c1}{\PYGZsh{}definições pertencentes ao grupo AGENT}
+  \PYG{l+lScalar+lScalarPlain}{ENVIRONMENT}\PYG{p+pIndicator}{:}
+      \PYG{c+c1}{\PYGZsh{}definições pertencentes ao grupo ENVIRONMENT}
+\end{Verbatim}

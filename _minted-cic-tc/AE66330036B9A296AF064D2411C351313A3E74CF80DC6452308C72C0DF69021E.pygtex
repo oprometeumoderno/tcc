@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{l+lScalar+lScalarPlain}{DOMAIN}\PYG{p+pIndicator}{:}
+  \PYG{l+lScalar+lScalarPlain}{width}\PYG{p+pIndicator}{:} \PYG{l+lScalar+lScalarPlain}{800}
+  \PYG{l+lScalar+lScalarPlain}{height}\PYG{p+pIndicator}{:} \PYG{l+lScalar+lScalarPlain}{600}
+  \PYG{l+lScalar+lScalarPlain}{caption}\PYG{p+pIndicator}{:} \PYG{l+lScalar+lScalarPlain}{My Barbell project}
+  \PYG{l+lScalar+lScalarPlain}{target\PYGZus{}fps}\PYG{p+pIndicator}{:} \PYG{l+lScalar+lScalarPlain}{60}  \PYG{c+c1}{\PYGZsh{} valor padrão}
+  \PYG{l+lScalar+lScalarPlain}{background\PYGZus{}color}\PYG{p+pIndicator}{:} \PYG{p+pIndicator}{[}\PYG{n+nv}{255}\PYG{p+pIndicator}{,}\PYG{n+nv}{255}\PYG{p+pIndicator}{,}\PYG{n+nv}{255}\PYG{p+pIndicator}{,} \PYG{n+nv}{0}\PYG{p+pIndicator}{]}
+  \PYG{l+lScalar+lScalarPlain}{draw\PYGZus{}joints}\PYG{p+pIndicator}{:} \PYG{l+lScalar+lScalarPlain}{true}
+  \PYG{l+lScalar+lScalarPlain}{joint\PYGZus{}color}\PYG{p+pIndicator}{:} \PYG{p+pIndicator}{[}\PYG{n+nv}{150}\PYG{p+pIndicator}{,} \PYG{n+nv}{150}\PYG{p+pIndicator}{,} \PYG{n+nv}{150}\PYG{p+pIndicator}{,} \PYG{n+nv}{0}\PYG{p+pIndicator}{]}
+  \PYG{l+lScalar+lScalarPlain}{joint\PYGZus{}width}\PYG{p+pIndicator}{:} \PYG{l+lScalar+lScalarPlain}{2}
+  \PYG{l+lScalar+lScalarPlain}{ppm}\PYG{p+pIndicator}{:} \PYG{l+lScalar+lScalarPlain}{75}
+\end{Verbatim}

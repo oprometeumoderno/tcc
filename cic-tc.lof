@@ -1,0 +1,22 @@
+\select@language {brazilian}
+\addvspace {10\p@ }
+\select@language {english}
+\addvspace {10\p@ }
+\select@language {brazilian}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Ciclo de aprendizado do agente via intera\IeC {\c c}\IeC {\~a}o com o ambiente}}{17}{figure.2.1}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Problema de aprendizado por refor\IeC {\c c}o conhecido como \textit {Robotic Arm}.}}{19}{figure.2.2}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Fim de um epis\IeC {\'o}dio: o agente n\IeC {\~a}o foi capaz de superar um obst\IeC {\'a}culo.}}{21}{figure.2.3}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Um rob\IeC {\^o} real e sua vers\IeC {\~a}o modelada em um simulador.}}{24}{figure.2.4}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Alguns dos cen\IeC {\'a}rios dispon\IeC {\'\i }veis na base do Gym.}}{30}{figure.3.1}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Representa\IeC {\c c}\IeC {\~a}o gr\IeC {\'a}fica do ambiente do \textit {cartpole} em OpenAI}}{50}{figure.5.1}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
