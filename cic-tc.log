@@ -1,13 +1,13 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.19)  6 NOV 2018 08:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.19)  11 NOV 2018 20:13
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
 **cic-tc.tex
-(/home/henrique/Projects/tcc/iiufrgs/inputs/cic-tc.tex
+(/home/henrique/Projects/tcc-cic/cic-tc.tex
 LaTeX2e <2016/02/01>
 Babel <3.9q> and hyphenation patterns for 81 language(s) loaded.
-(/home/henrique/Projects/tcc/iiufrgs/inputs/iiufrgs.cls
+(/home/henrique/Projects/tcc-cic/iiufrgs.cls
 Document Class: iiufrgs 2010/08/13 v4.4.0 Formatacao de documentos para o II/UFRGS
 (/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
 Document Class: report 2014/09/29 v1.4h Standard LaTeX document class
@@ -55,11 +55,11 @@ File: babel.def 2016/02/24 3.9q Babel common definitions
 Language: portuges 2008/03/18 v1.2q Portuguese support from the babel system
 \l@brazilian = a dialect from \language\l@portuges 
 Package babel Info: Making " an active character on input line 145.
-)) (/home/henrique/Projects/tcc/iiufrgs/inputs/brazilian.babel) (/home/henrique/Projects/tcc/iiufrgs/inputs/english.babel) (/usr/share/texlive/texmf-dist/tex/latex/lastpage/lastpage.sty
+)) (/home/henrique/Projects/tcc-cic/brazilian.babel) (/home/henrique/Projects/tcc-cic/english.babel) (/usr/share/texlive/texmf-dist/tex/latex/lastpage/lastpage.sty
 Package: lastpage 2015/03/29 v1.2m Refers to last page's name (HMM; JPG)
 ) (/usr/share/texlive/texmf-dist/tex/latex/tools/indentfirst.sty
 Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
-) (/home/henrique/Projects/tcc/iiufrgs/inputs/iidefs.sty
+) (/home/henrique/Projects/tcc-cic/iidefs.sty
 Package: iidefs 
  (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
@@ -75,15 +75,15 @@ Package graphics Info: Driver file: pdftex.def on input line 95.
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
  (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
 Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
-)
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
 \Gread@gobject=\count89
 ))
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
-)) (/usr/share/texlive/texmf-dist/tex/latex/setspace/setspace.sty
+))
+(/usr/share/texlive/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
 ) (/usr/share/texlive/texmf-dist/tex/latex/ccaption/ccaption.sty
 Package: ccaption 2011/08/07 v3.2c Extended captioning and new floats
@@ -283,7 +283,7 @@ Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
  (/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
-)) (/home/henrique/Projects/tcc/iiufrgs/inputs/abntex2cite.sty
+)) (/home/henrique/Projects/tcc-cic/abntex2cite.sty
 Package: abntex2cite 2014/01/26 v1.9.2 abnTeX2
  (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
@@ -299,7 +299,7 @@ LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count105
 \calc@Cskip=\skip64
-) (/home/henrique/Projects/tcc/iiufrgs/inputs/abntex2abrev.sty) (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+) (/home/henrique/Projects/tcc-cic/abntex2abrev.sty) (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
 Package: expl3 2016/01/19 v6377 L3 programming layer (loader) 
  (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3-code.tex
 Package: expl3 2016/01/19 v6377 L3 programming layer (code)
@@ -466,11 +466,11 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 )
 \@float@every@figure=\toks22
 \@float@every@table=\toks23
-) (/home/henrique/Projects/tcc/iiufrgs/inputs/cic.def
+) (/home/henrique/Projects/tcc-cic/cic.def
 File: cic.def 2014/04/12 Definições para a CIC
-) (/home/henrique/Projects/tcc/iiufrgs/inputs/dipl.def
+) (/home/henrique/Projects/tcc-cic/dipl.def
 File: dipl.def 2014/04/14 Projeto de Diplomação
-) (/home/henrique/Projects/tcc/iiufrgs/inputs/nominata.def) (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+) (/home/henrique/Projects/tcc-cic/nominata.def) (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2015/03/17 v1.2c Input encoding file
 \inpenc@prehook=\toks24
 \inpenc@posthook=\toks25
@@ -779,6 +779,15 @@ Now handling font encoding PU ...
    defining Unicode char U+2026 (decimal 8230)
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
+)) (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks26
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )) (/usr/share/texlive/texmf-dist/tex/latex/blindtext/blindtext.sty
 Package: blindtext 2012/01/06 V2.0 blindtext-Package
 \c@blindtext=\count143
@@ -799,12 +808,12 @@ Package: blindtext 2012/01/06 V2.0 blindtext-Package
 \c@blind@randommax=\count158
 \c@blind@pangramcount=\count159
 \c@blind@pangrammax=\count160
-) (/home/henrique/Projects/tcc/iiufrgs/inputs/pythonhighlight.sty
+) (/home/henrique/Projects/tcc-cic/pythonhighlight.sty
 Package: pythonhighlight 2011/09/19 python code highlighting; provided by Olivier Verdier <olivier.verdier@gmail.com>
  (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
 \lst@mode=\count161
 \lst@gtempboxa=\box44
-\lst@token=\toks26
+\lst@token=\toks27
 \lst@length=\count162
 \lst@currlwidth=\dimen158
 \lst@column=\count163
@@ -825,10 +834,10 @@ File: listings.cfg 2015/06/04 1.6 listings configuration
 Package: listings 2015/06/04 1.6 (Carsten Heinz)
 ) (/usr/share/texlive/texmf-dist/tex/latex/minted/minted.sty
 Package: minted 2015/09/09 v2.1 Yet another Pygments shim for LaTeX
- (/usr/share/texlive/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
-Package: fancyvrb 2008/02/07
 
-Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix <2008/02/07> (tvz)
+(/usr/share/texlive/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2008/02/07
+ Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix <2008/02/07> (tvz)
 \FV@CodeLineNo=\count169
 \FV@InFile=\read1
 \FV@TabBox=\box46
@@ -842,7 +851,7 @@ Package: catchfile 2011/03/01 v1.6 Catch the contents of a file (HO)
 )
 runsystem(uname -s > "cic-tc.w18")...executed.
 
- (/home/henrique/Projects/tcc/iiufrgs/inputs/cic-tc.w18)
+ (/home/henrique/Projects/tcc-cic/cic-tc.w18)
 runsystem(rm -- "cic-tc.w18")...executed.
 
 ) (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
@@ -857,7 +866,7 @@ Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
 ) (/usr/share/texlive/texmf-dist/tex/latex/lineno/lineno.sty
 Package: lineno 2005/11/02 line numbers on paragraphs v4.41
 \linenopenalty=\count175
-\output=\toks27
+\output=\toks28
 \linenoprevgraf=\count176
 \linenumbersep=\dimen162
 \linenumberwidth=\dimen163
@@ -888,42 +897,42 @@ File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 \minted@bgbox=\box50
 \minted@code=\write5
 \c@minted@FancyVerbLineTemp=\count183
-\@float@every@listing=\toks28
+\@float@every@listing=\toks29
 \c@listing=\count184
 )
 runsystem(mkdir -p "_minted-cic-tc")...executed.
 
- (/home/henrique/Projects/tcc/iiufrgs/inputs/_minted-cic-tc/default.pygstyle)
+ (/home/henrique/Projects/tcc-cic/_minted-cic-tc/default.pygstyle)
 runsystem(which "pygmentize" && touch "cic-tc.aex")...executed.
 
 runsystem(rm "cic-tc.aex")...executed.
 
- (/home/henrique/Projects/tcc/iiufrgs/inputs/cic-tc.aux)
+ (/home/henrique/Projects/tcc-cic/cic-tc.aux)
 \openout1 = `cic-tc.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 121.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 122.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
-(lastpage)             ! on input line 121.
+(lastpage)             ! on input line 122.
  (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count185
@@ -931,12 +940,12 @@ Package lastpage Info: Please have a look at the pageslts package at
 \scratchbox=\box51
 \nofMPsegments=\count186
 \nofMParguments=\count187
-\everyMPshowfont=\toks29
+\everyMPshowfont=\toks30
 \MPscratchCnt=\count188
 \MPscratchDim=\dimen173
 \MPnumerator=\count189
 \makeMPintoPDFobject=\count190
-\everyMPtoPDFconversion=\toks30
+\everyMPtoPDFconversion=\toks31
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
  (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
@@ -949,24 +958,26 @@ Package grfext Info: Graphics extension search list:
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 121.
-Package tocstyle Info: prepare \l@part for redefinition on input line 121.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 122.
+Package tocstyle Info: prepare \l@part for redefinition on input line 122.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 121.
-Package tocstyle Info: prepare \l@chapter for redefinition on input line 121.
-Package tocstyle Info: prepare \l@section for redefinition on input line 121.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 121.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 121.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 121.
-Package tocstyle Info: prepare \l@subsection for redefinition on input line 121.
-Package tocstyle Info: prepare \l@subsubsection for redefinition on input line 121.
-Package tocstyle Info: prepare \l@table for redefinition on input line 121.
-Package tocstyle Info: prepare \l@figure for redefinition on input line 121.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 122.
+Package tocstyle Info: prepare \l@chapter for redefinition on input line 122.
+Package tocstyle Info: prepare \l@section for redefinition on input line 122.
+LaTeX Font Info:    Try loading font information for U+msa on input line 122.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 122.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Package tocstyle Info: prepare \l@subsection for redefinition on input line 122.
+Package tocstyle Info: prepare \l@subsubsection for redefinition on input line 122.
+Package tocstyle Info: prepare \l@table for redefinition on input line 122.
+Package tocstyle Info: prepare \l@figure for redefinition on input line 122.
 \AtBeginShipoutBox=\box52
-Package hyperref Info: Link coloring ON on input line 121.
+Package hyperref Info: Link coloring ON on input line 122.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
  (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -974,10 +985,10 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count191
 )
-LaTeX Info: Redefining \ref on input line 121.
-LaTeX Info: Redefining \pageref on input line 121.
-LaTeX Info: Redefining \nameref on input line 121.
- (/home/henrique/Projects/tcc/iiufrgs/inputs/cic-tc.out) (/home/henrique/Projects/tcc/iiufrgs/inputs/cic-tc.out)
+LaTeX Info: Redefining \ref on input line 122.
+LaTeX Info: Redefining \pageref on input line 122.
+LaTeX Info: Redefining \nameref on input line 122.
+ (/home/henrique/Projects/tcc-cic/cic-tc.out) (/home/henrique/Projects/tcc-cic/cic-tc.out)
 \@outlinefile=\write6
 \openout6 = `cic-tc.out'.
 
@@ -1017,72 +1028,80 @@ LaTeX Info: Redefining \nameref on input line 121.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \c@lstlisting=\count192
-(/home/henrique/Projects/tcc/iiufrgs/inputs/_minted-cic-tc/default-pyg-prefix.pygstyle)
+(/home/henrique/Projects/tcc-cic/_minted-cic-tc/default-pyg-prefix.pygstyle)
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 127.
+(babel)             in language  on input line 128.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 127.
+(babel)             in language  on input line 128.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 127.
+(babel)             in language  on input line 128.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 127.
+(babel)             in language  on input line 128.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 127.
+(babel)             in language  on input line 128.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 130.
+(babel)             in language  on input line 131.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 130.
+(babel)             in language  on input line 131.
  [2
 
 
 ]
-LaTeX Font Info:    Try loading font information for T1+phv on input line 133.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 134.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <12> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 133.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 134.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 148.
+(babel)             in language  on input line 149.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 148.
+(babel)             in language  on input line 149.
  [3
 
 ]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 148.
+(babel)             in language  on input line 149.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 173.
+(babel)             in language  on input line 220.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 173.
+(babel)             in language  on input line 220.
  [4
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 190--196
+Underfull \hbox (badness 10000) in paragraph at lines 281--291
 
  []
 
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 201.
+(babel)             in language  on input line 291.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 201.
-[5]
+(babel)             in language  on input line 291.
+ [5]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 209.
+(babel)             in language  on input line 296.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 209.
- [6
+(babel)             in language  on input line 296.
+ [6]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 304.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 304.
+ [7
 
 ]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 209.
- (/home/henrique/Projects/tcc/iiufrgs/inputs/cic-tc.lof
+(babel)             in language  on input line 304.
+ (/home/henrique/Projects/tcc-cic/cic-tc.lof
 number indent by \l@... (lof, 1):  18.0pt
 text indent by \l@... (lof, 1):  27.60004pt
 number indent by parent (lof, 1):  18.0pt
@@ -1130,37 +1149,37 @@ number noindent (lof, 1): 0.0pt
 \openout7 = `cic-tc.lof'.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 212.
+(babel)             in language  on input line 307.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 212.
- [7
-
-]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 212.
- (/home/henrique/Projects/tcc/iiufrgs/inputs/cic-tc.lot)
-\tf@lot=\write8
-\openout8 = `cic-tc.lot'.
-
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 216.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 216.
+(babel)             in language  on input line 307.
  [8
 
 ]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 216.
+(babel)             in language  on input line 307.
+ (/home/henrique/Projects/tcc-cic/cic-tc.lot)
+\tf@lot=\write8
+\openout8 = `cic-tc.lot'.
+
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 228.
+(babel)             in language  on input line 311.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 228.
+(babel)             in language  on input line 311.
  [9
 
 ]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 228.
- (/home/henrique/Projects/tcc/iiufrgs/inputs/cic-tc.toc
+(babel)             in language  on input line 311.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 323.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 323.
+ [10
+
+]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 323.
+ (/home/henrique/Projects/tcc-cic/cic-tc.toc
 number indent by \l@... (toc, 0):  0.0pt
 text indent by \l@... (toc, 0):  18.0pt
 number indent by parent (toc, 0):  0.0pt
@@ -1189,6 +1208,20 @@ text indent calculated (toc, 0): 18.0pt
 number indent calculated (toc, 0): 0.0pt
 text noindent (toc, 0): 30.0pt
 number noindent (toc, 0): 0.0pt
+number indent by \l@... (toc, 1):  18.0pt
+text indent by \l@... (toc, 1):  27.60004pt
+number indent by parent (toc, 1):  18.0pt
+text indent calculated (toc, 1): 21.0pt
+number indent calculated (toc, 1): 18.0pt
+text noindent (toc, 1): 30.0pt
+number noindent (toc, 1): 0.0pt
+number indent by \l@... (toc, 2):  45.60004pt
+text indent by \l@... (toc, 2):  38.39996pt
+number indent by parent (toc, 2):  39.0pt
+text indent calculated (toc, 2): 30.0pt
+number indent calculated (toc, 2): 39.0pt
+text noindent (toc, 2): 30.0pt
+number noindent (toc, 2): 0.0pt
 number indent by \l@... (toc, 1):  18.0pt
 text indent by \l@... (toc, 1):  27.60004pt
 number indent by parent (toc, 1):  18.0pt
@@ -1330,7 +1363,7 @@ number indent calculated (toc, 1): 18.0pt
 text noindent (toc, 1): 30.0pt
 number noindent (toc, 1): 0.0pt
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <12> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 27.
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 29.
 number indent by \l@... (toc, 1):  18.0pt
 text indent by \l@... (toc, 1):  27.60004pt
 number indent by parent (toc, 1):  18.0pt
@@ -1434,26 +1467,14 @@ number noindent (toc, 0): 0.0pt
 \openout9 = `cic-tc.toc'.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 231.
+(babel)             in language  on input line 326.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 231.
- [10
-
-]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 231.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 301.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 301.
+(babel)             in language  on input line 326.
  [11
 
 ]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 344.
+(babel)             in language  on input line 326.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -1463,43 +1484,48 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 353.
+(babel)             in language  on input line 396.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 353.
-[12]
+(babel)             in language  on input line 396.
+[12
+
+]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 439.
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 376.
+(babel)             in language  on input line 448.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 376.
+(babel)             in language  on input line 448.
  [13]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 399.
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 14
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 403.
+(babel)             in language  on input line 471.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 403.
+(babel)             in language  on input line 471.
 [14]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 403.
+(babel)             in language  on input line 494.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 409.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+(babel)             in language  on input line 498.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 441.
+(babel)             in language  on input line 498.
+ [15]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 441.
- [15
+(babel)             in language  on input line 498.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 511.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 540.
 
-]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1508,36 +1534,25 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 474.
+(babel)             in language  on input line 544.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 474.
-[16] <fluxo_ar.png, id=312, 591.20876pt x 624.3325pt>
-File: fluxo_ar.png Graphic file (type png)
- <use fluxo_ar.png>
-Package pdftex.def Info: fluxo_ar.png used on input line 479.
-(pdftex.def)             Requested size: 277.41176pt x 292.95999pt.
+(babel)             in language  on input line 544.
+[16
+
+]
+
+LaTeX Warning: Reference `robotichand' on page 17 undefined on input line 550.
+
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 485.
+(babel)             in language  on input line 569.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 492.
+(babel)             in language  on input line 573.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 492.
- [17 </home/henrique/Projects/tcc/iiufrgs/inputs/fluxo_ar.png>]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 506.
- <roboticarm.png, id=321, 474.77374pt x 401.5pt>
-File: roboticarm.png Graphic file (type png)
- <use roboticarm.png>
-Package pdftex.def Info: roboticarm.png used on input line 517.
-(pdftex.def)             Requested size: 277.41176pt x 234.60393pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
+(babel)             in language  on input line 573.
+ [17]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1546,26 +1561,24 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 531.
+(babel)             in language  on input line 604.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 531.
-[18]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 532.
-
-
-LaTeX Warning: Reference `robotichand' on page 19 undefined on input line 542.
-
+(babel)             in language  on input line 604.
+[18] <fluxo_ar.png, id=335, 591.20876pt x 624.3325pt>
+File: fluxo_ar.png Graphic file (type png)
+ <use fluxo_ar.png>
+Package pdftex.def Info: fluxo_ar.png used on input line 642.
+(pdftex.def)             Requested size: 277.41176pt x 292.95999pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 548.
+(babel)             in language  on input line 645.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 548.
- [19 </home/henrique/Projects/tcc/iiufrgs/inputs/roboticarm.png (PNG copy)>]
+(babel)             in language  on input line 645.
+ [19]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 557.
+(babel)             in language  on input line 648.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -1575,29 +1588,31 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 567.
+(babel)             in language  on input line 667.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 567.
-[20]
+(babel)             in language  on input line 667.
+[20 </home/henrique/Projects/tcc-cic/fluxo_ar.png>]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 567.
- <walkingrobot.png, id=337, 1408.26125pt x 704.6325pt>
-File: walkingrobot.png Graphic file (type png)
- <use walkingrobot.png>
-Package pdftex.def Info: walkingrobot.png used on input line 576.
-(pdftex.def)             Requested size: 277.41176pt x 138.79514pt.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 581.
+(babel)             in language  on input line 669.
+ <roboticarm.png, id=349, 474.77374pt x 401.5pt>
+File: roboticarm.png Graphic file (type png)
+ <use roboticarm.png>
+Package pdftex.def Info: roboticarm.png used on input line 680.
+(pdftex.def)             Requested size: 277.41176pt x 234.60393pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 6110) has occurred while \output is active []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 593.
+(babel)             in language  on input line 694.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 593.
- [21 </home/henrique/Projects/tcc/iiufrgs/inputs/walkingrobot.png>]
+(babel)             in language  on input line 694.
+ [21 </home/henrique/Projects/tcc-cic/roboticarm.png (PNG copy)>]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 600.
+(babel)             in language  on input line 695.
+
+
+LaTeX Warning: Reference `robotichand' on page 22 undefined on input line 705.
+
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -1607,79 +1622,85 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 619.
+(babel)             in language  on input line 711.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 619.
+(babel)             in language  on input line 711.
 [22]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 626.
-
-
-Package blindtext Warning: brazilian not defined, using English instead.
-(blindtext)                 on input line 629.
-
+(babel)             in language  on input line 720.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 631.
-<mujocosimulator.png, id=356, 1926.19624pt x 1082.0425pt>
-File: mujocosimulator.png Graphic file (type png)
- <use mujocosimulator.png>
-Package pdftex.def Info: mujocosimulator.png used on input line 635.
-(pdftex.def)             Requested size: 384.1096pt x 215.76074pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
+(babel)             in language  on input line 730.
+ <walkingrobot.png, id=359, 1408.26125pt x 704.6325pt>
+File: walkingrobot.png Graphic file (type png)
+ <use walkingrobot.png>
+Package pdftex.def Info: walkingrobot.png used on input line 739.
+(pdftex.def)             Requested size: 277.41176pt x 138.79514pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 654.
+(babel)             in language  on input line 743.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 654.
+(babel)             in language  on input line 743.
  [23]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 744.
+
+Underfull \vbox (badness 2165) has occurred while \output is active []
+
+
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 24
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 681.
+(babel)             in language  on input line 762.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 681.
-[24 </home/henrique/Projects/tcc/iiufrgs/inputs/mujocosimulator.png>]
+(babel)             in language  on input line 762.
+[24 </home/henrique/Projects/tcc-cic/walkingrobot.png>]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 686.
+(babel)             in language  on input line 763.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 694.
+(babel)             in language  on input line 788.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 694.
+(babel)             in language  on input line 788.
  [25]
-\openout3 = `cic-tc.pyg'.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 789.
 
- (/home/henrique/Projects/tcc/iiufrgs/inputs/_minted-cic-tc/C2ABEC521D62D0232741ECF0F816F49C3A3E74CF80DC6452308C72C0DF69021E.pygtex
-LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <12> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 2.
+
+Package blindtext Warning: brazilian not defined, using English instead.
+(blindtext)                 on input line 792.
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 794.
+<mujocosimulator.png, id=381, 1926.19624pt x 1082.0425pt>
+File: mujocosimulator.png Graphic file (type png)
+ <use mujocosimulator.png>
+Package pdftex.def Info: mujocosimulator.png used on input line 798.
+(pdftex.def)             Requested size: 384.1096pt x 215.76074pt.
 
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 26
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 14.
+(babel)             in language  on input line 817.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 14.
-[26])
+(babel)             in language  on input line 817.
+[26 </home/henrique/Projects/tcc-cic/mujocosimulator.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 731.
+(babel)             in language  on input line 844.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 731.
+(babel)             in language  on input line 844.
  [27]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 731.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 733.
+(babel)             in language  on input line 849.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -1689,55 +1710,44 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 741.
+(babel)             in language  on input line 857.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 741.
-[28
+(babel)             in language  on input line 857.
+[28]
+\openout3 = `cic-tc.pyg'.
 
-]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+ (/home/henrique/Projects/tcc-cic/_minted-cic-tc/C2ABEC521D62D0232741ECF0F816F49C3A3E74CF80DC6452308C72C0DF69021E.pygtex
+LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <12> not available
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 2.
+)
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 748.
+(babel)             in language  on input line 893.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 748.
- [29] <environments.png, id=390, 942.52126pt x 368.37625pt>
-File: environments.png Graphic file (type png)
- <use environments.png>
-Package pdftex.def Info: environments.png used on input line 760.
-(pdftex.def)             Requested size: 384.1096pt x 150.12463pt.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 766.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
+(babel)             in language  on input line 893.
+ [29]
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 30
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 776.
+(babel)             in language  on input line 894.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 776.
-[30 </home/henrique/Projects/tcc/iiufrgs/inputs/environments.png>]
-Overfull \hbox (139.87836pt too wide) in paragraph at lines 776--776
-[]\T1/ptm/m/n/12 rllab, mo-veit [][]$<[]https : / / stackover^^]ow . com / questions / 48490828 / should-[]i-[]using-[]mujoco-[]or-[]moveit-[]for-[]modeling>[]$[][]; 
- []
+(babel)             in language  on input line 894.
+[30]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 894.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 896.
 
-
-Overfull \hbox (6.4396pt too wide) in paragraph at lines 776--776
-[]\T1/ptm/m/n/12 andersonrochatavares@gmail.com, per-gun-tar se ele co-nhece ar-ti-gos e/ou fra-meworks
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 781.
+(babel)             in language  on input line 904.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 781.
-[31]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 781.
+(babel)             in language  on input line 904.
+ [31
 
+]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1746,35 +1756,32 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 799.
+(babel)             in language  on input line 911.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 799.
-[32
-
-]
+(babel)             in language  on input line 911.
+[32] <environments.png, id=414, 942.52126pt x 368.37625pt>
+File: environments.png Graphic file (type png)
+ <use environments.png>
+Package pdftex.def Info: environments.png used on input line 923.
+(pdftex.def)             Requested size: 384.1096pt x 150.12463pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 799.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 801.
-
-
-LaTeX Warning: Reference `experiments:cartpole' on page 33 undefined on input line 808.
-
-
-LaTeX Warning: Reference `experiments:cartpole_barbell' on page 33 undefined on input line 810.
-
+(babel)             in language  on input line 929.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 811.
+(babel)             in language  on input line 939.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 811.
- [33]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 811.
+(babel)             in language  on input line 939.
+ [33 </home/henrique/Projects/tcc-cic/environments.png>]
+Overfull \hbox (139.87836pt too wide) in paragraph at lines 939--939
+[]\T1/ptm/m/n/12 rllab, mo-veit [][]$<[]https : / / stackover^^]ow . com / questions / 48490828 / should-[]i-[]using-[]mujoco-[]or-[]moveit-[]for-[]modeling>[]$[][]; 
+ []
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+
+Overfull \hbox (6.4396pt too wide) in paragraph at lines 939--939
+[]\T1/ptm/m/n/12 andersonrochatavares@gmail.com, per-gun-tar se ele co-nhece ar-ti-gos e/ou fra-meworks
+ []
 
 
 Underfull \hbox (badness 10000) has occurred while \output is active
@@ -1782,19 +1789,33 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 831.
+(babel)             in language  on input line 944.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 831.
+(babel)             in language  on input line 944.
 [34]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 944.
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 831.
+(babel)             in language  on input line 962.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 831.
- [35]
+(babel)             in language  on input line 962.
+ [35
+
+]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 832.
+(babel)             in language  on input line 962.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 964.
+
+
+LaTeX Warning: Reference `experiments:cartpole' on page 36 undefined on input line 971.
+
+
+LaTeX Warning: Reference `experiments:cartpole_barbell' on page 36 undefined on input line 973.
+
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -1804,21 +1825,20 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 845.
+(babel)             in language  on input line 974.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 845.
+(babel)             in language  on input line 974.
 [36]
-\openout3 = `cic-tc.pyg'.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 974.
 
- (/home/henrique/Projects/tcc/iiufrgs/inputs/_minted-cic-tc/8EC6C2BC9F3EDE9B913562E4B05BA6BC3A3E74CF80DC6452308C72C0DF69021E.pygtex)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 867.
+(babel)             in language  on input line 994.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 867.
+(babel)             in language  on input line 994.
  [37]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 868.
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1827,46 +1847,48 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 885.
+(babel)             in language  on input line 994.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 885.
+(babel)             in language  on input line 994.
 [38]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 995.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1008.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1008.
+ [39]
 \openout3 = `cic-tc.pyg'.
 
- (/home/henrique/Projects/tcc/iiufrgs/inputs/_minted-cic-tc/AE66330036B9A296AF064D2411C351313A3E74CF80DC6452308C72C0DF69021E.pygtex)
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 909.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 912.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 912.
- [39]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 920.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
+ (/home/henrique/Projects/tcc-cic/_minted-cic-tc/8EC6C2BC9F3EDE9B913562E4B05BA6BC3A3E74CF80DC6452308C72C0DF69021E.pygtex)
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 40
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 927.
+(babel)             in language  on input line 1030.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 927.
+(babel)             in language  on input line 1030.
 [40]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1031.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1048.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1048.
+ [41]
 \openout3 = `cic-tc.pyg'.
 
- (/home/henrique/Projects/tcc/iiufrgs/inputs/_minted-cic-tc/A60673F7BC9FF92B6D46EF316A77063C3A3E74CF80DC6452308C72C0DF69021E.pygtex)
+ (/home/henrique/Projects/tcc-cic/_minted-cic-tc/AE66330036B9A296AF064D2411C351313A3E74CF80DC6452308C72C0DF69021E.pygtex)
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 950.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 950.
- [41]
+(babel)             in language  on input line 1072.
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1875,51 +1897,45 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 966.
+(babel)             in language  on input line 1075.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 966.
+(babel)             in language  on input line 1075.
 [42]
-Overfull \hbox (0.89505pt too wide) in paragraph at lines 966--967
-[]\T1/ptm/b/n/12 color\T1/ptm/m/n/12 : aqui, deve ser de-cla-rada uma lista de qua-tro va-lo-res re-ais no in-ter-valo $\OT1/cmr/m/n/12 [0\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 255]$\T1/ptm/m/n/12 ,
- []
-
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 968.
+(babel)             in language  on input line 1083.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 989.
+(babel)             in language  on input line 1090.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 989.
+(babel)             in language  on input line 1090.
  [43]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+\openout3 = `cic-tc.pyg'.
 
-
+ (/home/henrique/Projects/tcc-cic/_minted-cic-tc/A60673F7BC9FF92B6D46EF316A77063C3A3E74CF80DC6452308C72C0DF69021E.pygtex)
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 44
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1007.
+(babel)             in language  on input line 1113.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1007.
+(babel)             in language  on input line 1113.
 [44]
-
-LaTeX Warning: Reference `experiments:cartpole_barbell' on page 45 undefined on input line 1011.
-
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1013.
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1027.
+(babel)             in language  on input line 1129.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1027.
+(babel)             in language  on input line 1129.
  [45]
+Overfull \hbox (0.89505pt too wide) in paragraph at lines 1129--1130
+[]\T1/ptm/b/n/12 color\T1/ptm/m/n/12 : aqui, deve ser de-cla-rada uma lista de qua-tro va-lo-res re-ais no in-ter-valo $\OT1/cmr/m/n/12 [0\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 255]$\T1/ptm/m/n/12 ,
+ []
+
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1041.
+(babel)             in language  on input line 1131.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -1929,28 +1945,22 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1047.
+(babel)             in language  on input line 1152.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1047.
+(babel)             in language  on input line 1152.
 [46]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1048.
+(babel)             in language  on input line 1170.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1052.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1052.
+(babel)             in language  on input line 1170.
  [47]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1052.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1058.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1068.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1073--1074
+LaTeX Warning: Reference `experiments:cartpole_barbell' on page 48 undefined on input line 1174.
 
- []
-
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1176.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -1960,83 +1970,125 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1074.
+(babel)             in language  on input line 1190.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1074.
-[48
+(babel)             in language  on input line 1190.
+[48]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1204.
 
-] <cartpoleopenai.png, id=482, 602.25pt x 401.5pt>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1210.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1210.
+ [49]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1211.
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 50
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1215.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1215.
+[50]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1215.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1221.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1231.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1236--1237
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1237.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1237.
+ [51
+
+] <cartpoleopenai.png, id=506, 602.25pt x 401.5pt>
 File: cartpoleopenai.png Graphic file (type png)
  <use cartpoleopenai.png>
-Package pdftex.def Info: cartpoleopenai.png used on input line 1092.
+Package pdftex.def Info: cartpoleopenai.png used on input line 1255.
 (pdftex.def)             Requested size: 341.43437pt x 227.6321pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1098.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1101.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1101.
-[49]
-\openout3 = `cic-tc.pyg'.
-
- (/home/henrique/Projects/tcc/iiufrgs/inputs/_minted-cic-tc/D274D65B7E63B88445C5001295EDF9C93A3E74CF80DC6452308C72C0DF69021E.pygtex
-Underfull \hbox (badness 10000) has occurred while \output is active
-\T1/ptm/m/n/10.95 50
- []
-
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 11.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 11.
-[50 </home/henrique/Projects/tcc/iiufrgs/inputs/cartpoleopenai.png>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 45.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 45.
- [51])
-\openout3 = `cic-tc.pyg'.
-
- (/home/henrique/Projects/tcc/iiufrgs/inputs/_minted-cic-tc/E75B8789D0FD084AB762219F6784D6B79E6738BF0D6C93BE9A44FD02A555005A.pygtex
-LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <12> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 10.
-)
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1182.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1184.
+(babel)             in language  on input line 1261.
 
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 52
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1188.
+(babel)             in language  on input line 1264.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1188.
+(babel)             in language  on input line 1264.
 [52]
+\openout3 = `cic-tc.pyg'.
+
+ (/home/henrique/Projects/tcc-cic/_minted-cic-tc/D274D65B7E63B88445C5001295EDF9C93A3E74CF80DC6452308C72C0DF69021E.pygtex
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1191.
+(babel)             in language  on input line 11.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1191.
- [53]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1191.
- (/home/henrique/Projects/tcc/iiufrgs/inputs/cic-tc.bbl
+(babel)             in language  on input line 11.
+ [53 </home/henrique/Projects/tcc-cic/cartpoleopenai.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 54
  []
 
 Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 45.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 45.
+[54])
+\openout3 = `cic-tc.pyg'.
+
+ (/home/henrique/Projects/tcc-cic/_minted-cic-tc/E75B8789D0FD084AB762219F6784D6B79E6738BF0D6C93BE9A44FD02A555005A.pygtex
+LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <12> not available
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 10.
+)
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1345.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1347.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1351.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1351.
+ [55]
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 56
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1354.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1354.
+[56]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1354.
+ (/home/henrique/Projects/tcc-cic/cic-tc.bbl
+Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 3.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 3.
-[54
+ [57
 
 ]
 Package babel Info: Redefining portuges shorthand "|
@@ -2047,44 +2099,49 @@ LaTeX Warning: Empty `thebibliography' environment on input line 8.
 
 ) 
 AED: lastpage setting LastPage
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 58
+ []
+
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1206.
+(babel)             in language  on input line 1369.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1206.
-[55
+(babel)             in language  on input line 1369.
+[58
 
 ]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1206.
+(babel)             in language  on input line 1369.
 runsystem(rm "cic-tc.pyg")...executed.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1206.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1206.
- (/home/henrique/Projects/tcc/iiufrgs/inputs/cic-tc.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1206.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1206.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1369.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1369.
+ (/home/henrique/Projects/tcc-cic/cic-tc.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1369.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1369.
 Package rerunfilecheck Info: File `cic-tc.out' has not changed.
-(rerunfilecheck)             Checksum: F5A147B5D7A8135788A3AF1372E05EE3;7562.
+(rerunfilecheck)             Checksum: E4B31E6F0FD709D5E1AC800B67217449;8070.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1206.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1369.
  ) 
 Here is how much of TeX's memory you used:
- 23080 strings out of 493029
- 382867 string characters out of 6136234
- 505410 words of memory out of 5000000
- 26196 multiletter control sequences out of 15000+600000
- 42841 words of font info for 52 fonts, out of 8000000 for 9000
+ 23379 strings out of 493029
+ 385500 string characters out of 6136234
+ 506080 words of memory out of 5000000
+ 26471 multiletter control sequences out of 15000+600000
+ 44750 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  48i,10n,48p,10362b,562s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /home/henrique/Projects/tcc/iiufrgs/inputs/cic-tc.pdf (55 pages, 2912644 bytes).
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on /home/henrique/Projects/tcc-cic/cic-tc.pdf (58 pages, 2921065 bytes).
 PDF statistics:
- 594 PDF objects out of 1000 (max. 8388607)
- 508 compressed objects within 6 object streams
- 114 named destinations out of 1000 (max. 500000)
- 383 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 621 PDF objects out of 1000 (max. 8388607)
+ 531 compressed objects within 6 object streams
+ 119 named destinations out of 1000 (max. 500000)
+ 399 words of extra memory for PDF output out of 10000 (max. 10000000)
 

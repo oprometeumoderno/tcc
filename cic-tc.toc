@@ -1,41 +1,43 @@
 \select@language {brazilian}
 \select@language {english}
 \select@language {brazilian}
-\contentsline {chapter}{1~Introdu\IeC {\c c}\IeC {\~a}o}{11}{CHAPTER.1}
-\contentsline {section}{\numberline {1.1}Motiva\IeC {\c c}\IeC {\~a}o}{12}{section.1.1}
-\contentsline {section}{\numberline {1.2}Estrutura}{14}{section.1.2}
-\contentsline {chapter}{2~Conceitos B\IeC {\'a}sicos}{15}{CHAPTER.2}
-\contentsline {section}{\numberline {2.1}Aprendizado por Refor\IeC {\c c}o}{15}{section.2.1}
-\contentsline {subsection}{\numberline {2.1.1}Agente}{17}{subsection.2.1.1}
-\contentsline {subsection}{\numberline {2.1.2}Ambiente}{18}{subsection.2.1.2}
-\contentsline {subsection}{\numberline {2.1.3}Estado}{19}{subsection.2.1.3}
-\contentsline {subsection}{\numberline {2.1.4}A\IeC {\c c}\IeC {\~a}o}{20}{subsection.2.1.4}
-\contentsline {subsection}{\numberline {2.1.5}Epis\IeC {\'o}dio}{21}{subsection.2.1.5}
-\contentsline {subsection}{\numberline {2.1.6}Recompensa}{21}{subsection.2.1.6}
-\contentsline {section}{\numberline {2.2}Defini\IeC {\c c}\IeC {\~a}o formal de um problema de aprendizado por refor\IeC {\c c}o}{22}{section.2.2}
-\contentsline {section}{\numberline {2.3}Q-learning}{23}{section.2.3}
-\contentsline {section}{\numberline {2.4}Simuladores de aprendizado por refor\IeC {\c c}o}{23}{section.2.4}
-\contentsline {section}{\numberline {2.5}A linguagem YAML}{26}{section.2.5}
-\contentsline {chapter}{3~Estado da Arte}{28}{CHAPTER.3}
-\contentsline {section}{\numberline {3.1}Gym}{28}{section.3.1}
-\contentsline {section}{\numberline {3.2}MuJoCo}{31}{section.3.2}
-\contentsline {chapter}{4~Desenvolvimento???}{32}{CHAPTER.4}
-\contentsline {section}{\numberline {4.1}Caracter\IeC {\'\i }sticas b\IeC {\'a}sicas do funcionamento sistema}{33}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Ciclo de aprendizado}{33}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}Representa\IeC {\c c}\IeC {\~a}o dos elementos envolvidos}{34}{subsection.4.1.2}
-\contentsline {section}{\numberline {4.2}Estrutura compreendida pelo Barbell}{36}{section.4.2}
-\contentsline {section}{\numberline {4.3}\textit {Domain}}{38}{section.4.3}
-\contentsline {section}{\numberline {4.4}\textit {Agent}}{40}{section.4.4}
-\contentsline {subsection}{\numberline {4.4.1}\textit {Parts}}{41}{subsection.4.4.1}
-\contentsline {subsection}{\numberline {4.4.2}\textit {Joints}}{43}{subsection.4.4.2}
-\contentsline {subsection}{\numberline {4.4.3}\textit {Actions}}{45}{subsection.4.4.3}
-\contentsline {section}{\numberline {4.5}\textit {Environment}}{46}{section.4.5}
-\contentsline {subsection}{\numberline {4.5.1}\textit {Objects}}{47}{subsection.4.5.1}
-\contentsline {chapter}{5~Experimentos}{48}{CHAPTER.5}
-\contentsline {section}{\numberline {5.1}Cartpole}{48}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}\textit {Cartpole} no OpenAI \leavevmode {\color {magenta}cuidar pra chamar o Gym de maneira consistente; as vezes aparece openai gym, as vezes openai, as vezes s\IeC {\'o} gym}}{48}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}\textit {Cartpole} no \textit {Barbell}}{49}{subsection.5.1.2}
-\contentsline {section}{\numberline {5.2}Lunar Landing}{52}{section.5.2}
-\contentsline {section}{\numberline {5.3}Rob\IeC {\^o} que atira bolinha (arrumar nome melhor)}{53}{section.5.3}
-\contentsline {chapter}{6~Conclus\IeC {\~a}o}{54}{CHAPTER.6}
-\contentsline {chapter}{\xspace {}Refer{\^e}ncias}{55}{schapter.7}
+\contentsline {chapter}{1~Introdu\IeC {\c c}\IeC {\~a}o}{12}{CHAPTER.1}
+\contentsline {section}{\numberline {1.1}Motiva\IeC {\c c}\IeC {\~a}o}{13}{section.1.1}
+\contentsline {section}{\numberline {1.2}Estrutura}{15}{section.1.2}
+\contentsline {chapter}{2~Conceitos B\IeC {\'a}sicos}{16}{CHAPTER.2}
+\contentsline {section}{\numberline {2.1}Defini\IeC {\c c}\IeC {\~a}o formal do problema de aprendizado por refor\IeC {\c c}o}{16}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Estado}{17}{subsection.2.1.1}
+\contentsline {section}{\numberline {2.2}Aprendizado por Refor\IeC {\c c}o}{18}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Agente}{20}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Ambiente}{21}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Estado}{22}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}A\IeC {\c c}\IeC {\~a}o}{23}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.5}Epis\IeC {\'o}dio}{23}{subsection.2.2.5}
+\contentsline {subsection}{\numberline {2.2.6}Recompensa}{24}{subsection.2.2.6}
+\contentsline {section}{\numberline {2.3}Defini\IeC {\c c}\IeC {\~a}o formal de um problema de aprendizado por refor\IeC {\c c}o}{25}{section.2.3}
+\contentsline {section}{\numberline {2.4}Q-learning}{26}{section.2.4}
+\contentsline {section}{\numberline {2.5}Simuladores de aprendizado por refor\IeC {\c c}o}{26}{section.2.5}
+\contentsline {section}{\numberline {2.6}A linguagem YAML}{28}{section.2.6}
+\contentsline {chapter}{3~Estado da Arte}{31}{CHAPTER.3}
+\contentsline {section}{\numberline {3.1}Gym}{31}{section.3.1}
+\contentsline {section}{\numberline {3.2}MuJoCo}{34}{section.3.2}
+\contentsline {chapter}{4~Desenvolvimento???}{35}{CHAPTER.4}
+\contentsline {section}{\numberline {4.1}Caracter\IeC {\'\i }sticas b\IeC {\'a}sicas do funcionamento sistema}{36}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Ciclo de aprendizado}{36}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Representa\IeC {\c c}\IeC {\~a}o dos elementos envolvidos}{37}{subsection.4.1.2}
+\contentsline {section}{\numberline {4.2}Estrutura compreendida pelo Barbell}{39}{section.4.2}
+\contentsline {section}{\numberline {4.3}\textit {Domain}}{41}{section.4.3}
+\contentsline {section}{\numberline {4.4}\textit {Agent}}{43}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}\textit {Parts}}{44}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}\textit {Joints}}{46}{subsection.4.4.2}
+\contentsline {subsection}{\numberline {4.4.3}\textit {Actions}}{48}{subsection.4.4.3}
+\contentsline {section}{\numberline {4.5}\textit {Environment}}{49}{section.4.5}
+\contentsline {subsection}{\numberline {4.5.1}\textit {Objects}}{50}{subsection.4.5.1}
+\contentsline {chapter}{5~Experimentos}{51}{CHAPTER.5}
+\contentsline {section}{\numberline {5.1}Cartpole}{51}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}\textit {Cartpole} no OpenAI \leavevmode {\color {magenta}cuidar pra chamar o Gym de maneira consistente; as vezes aparece openai gym, as vezes openai, as vezes s\IeC {\'o} gym}}{51}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}\textit {Cartpole} no \textit {Barbell}}{52}{subsection.5.1.2}
+\contentsline {section}{\numberline {5.2}Lunar Landing}{55}{section.5.2}
+\contentsline {section}{\numberline {5.3}Rob\IeC {\^o} que atira bolinha (arrumar nome melhor)}{56}{section.5.3}
+\contentsline {chapter}{6~Conclus\IeC {\~a}o}{57}{CHAPTER.6}
+\contentsline {chapter}{\xspace {}Refer{\^e}ncias}{58}{schapter.7}
