@@ -1,8 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-  \PYG{l+lScalar+lScalarPlain}{PARTS}\PYG{p+pIndicator}{:}
-    \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{PART\PYGZus{}A}\PYG{p+pIndicator}{:}
-        \PYG{c+c1}{\PYGZsh{} definições das características da parte PART\PYGZus{}A}
-    \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{PART\PYGZus{}B}\PYG{p+pIndicator}{:}
-        \PYG{c+c1}{\PYGZsh{} definições das características da parte PART\PYGZus{}B}
-    \PYG{c+c1}{\PYGZsh{} ...}
-\end{Verbatim}
