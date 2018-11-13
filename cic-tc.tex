@@ -325,96 +325,307 @@ custo associado à adoção de um \textit{framework} para construção de simula
 % aqui comeca o texto propriamente dito
 \chapter{Introdução}
 Aprendizado por reforço compreende uma subárea da inteligência artificial que
-trabalha com a noção de um agente que explora um ambiente a fim de buscar uma
-solução para determinado problema. Sem nenhum instrução prévia,
-é tarefa do agente buscar, dentro do espaço de soluções possíveis, uma maneira
-satisfatória de resolver o problema através da sua interação com o ambiente.
-Para determinar se uma solução encontrada é satisfatória, usa-se, em aprendizado
-por reforço, a noção de recompensa. A recompensa é um sinal númerico e pode ser
-calculada após cada ação tomada pelo agente, ou ao final de cada episódio
-(\textit{delayed reward}), é um número que encapsula a qualidade daquela ação ou
- do conjunto de várias ações tomadas ao longo do tempo. Com base única e
-exclusivamente, então, nas recompensas recebidas pelo agente,
-o agente deve buscar uma solução (comportamento) que a maximize (de forma a resolvar o problema). Esta busca  é normalmente feita através
-de uma combinação entre ajustes nas ações que o agente tomou e que levaram à maior recompensa até o momento (\textit{exploitation}) e a avaliação do resultado de ações completamente
-novas ou desconhecidas pelo agente (\textit{exploration}).
+trabalha com a noção de um agente que, inserido dentro de um ambiente, busca uma
+solução para um determinado problema. Sem nenhuma instrução prévia, é tarefa do
+agente executar ações dentro do ambiente no qual está inserido, para resolver
+o problema através delas. A única maneira que o agente tem, entretanto, de
+avaliar uma ação tomada em um determinado momento, dá-se através da noção de
+\textit{recompensa}, que nada mais é do que um número escalar que é informado
+depois de cada ação tomada e que representa a qualidade desta. Com base única e
+exclusivamente, portanto, nas
+recompensas recebidas, o agente deve buscar um comportamento (chamado de
+\textit{política}) que o leve a tomar sempre a melhor ação em um determinado
+instante, visando maximizar a soma de recompensas recebidas durante uma série
+de ações. Esta busca pelo melhor comportamento possível é normalmente feita
+através de uma combinação entre ajustes na melhor política encontrada até o
+momento (técnica chamada de \textit{exploitation}) e a busca por comportamentos
+completamente novos ou diferentes do atual (\textit{exploration}).
 
 
-Diferentemente de outras áreas da IA, como o aprendizado supervisionado, no aprendizado por reforço a qualidade da ação tomada pelo agente não
-é verificada usando-se como base uma ação ideal ou ótima,  conhecida de antemão, e tampouco o agente passa por qualquer tipo de treinamento onde este é exposto a
-exemplos de ação ótima em cada situação. Tal método de aprendizado é normalmente usado, portanto, em tarefas onde o ambiente é desconhecido
-pelo agente, e é um modo de aprendizado bastante próximo das maneiras com que
-animais e humanos buscam formas de exercer tarefas com as quais nunca houve contato prévio.
+Diferentemente de outras áreas da IA, como o aprendizado supervisionado, no
+aprendizado por reforço a qualidade da ação tomada pelo agente não é verificada
+usando-se como base uma ação ideal ou ótima, conhecida de antemão, e tampouco o
+agente passa por qualquer tipo de treinamento onde este é exposto a exemplos de
+ação ótima em cada situação. Tal método de aprendizado é normalmente usado,
+portanto, em tarefas onde o ambiente é desconhecido pelo agente, e é um modo de
+aprendizado bastante próximo das maneiras com que animais e humanos buscam
+formas de exercer tarefas com as quais nunca houve contato prévio.
 
 
-Um exemplo que pode servir para a compreensão do aprendizado por reforço é o experimento do psicólogo Edward Thorndike.
-No seu experimento, gatos eram colocados em gaiolas fechadas e precisavam encontrar uma maneira de sair para que pudessem
-consumir uma porção de peixe posicionada próxima à gaiola. Para abri-la, era necessário apenas que uma alavanca presente em
-seu interior fosse puxada; entretanto, não houve qualquer tipo de instrução prévia: a partir do momento em que os felinos
-eram trancados nas gaiolas, eles deveriam explorar e, principalmente, interagir de forma autônoma com o interior da gaiola até que, por si mesmos,
-encontrassem o dispositivo de abertura de seus cárceres. No momento que um gato encontrava a saída, o tempo levado até a sua fuga era anotado
- e o experimento era repetido.
-Thorndike percebeu que, uma vez que os gatos aprendiam que era a alavanca o dispositivo responsável pela sua
-soltura – e que, consequentemente, os permitia que consumissem a porção de peixe –, o tempo transcorrido entre o momento
-que o animal era recolocado na gaiola e o instante em que ele abria a mesma diminuia consideravelmente. Isso se dá porque,
-dentre todos os comportamentos adotados dentro da gaiola, o único que era observado pelos gatos como o comportamento que
-levava à recompensa era o ato de puxar a alavanca. O pesquisador, então, formulou o que ele chamou de "Lei do efeito",
-que estabelece que comportamentos e ações que, em uma determinada situação, levam a efeitos gratificantes tendem a se
-repetir e, por sua vez, comportamentos e ações que levem a efeitos indesejáveis ou insatisfatórios tendem a ser abandonados.
+% Aprendizado por reforço compreende uma subárea da inteligência artificial que
+% trabalha com a noção de um agente que explora um ambiente a fim de buscar uma
+% solução para determinado problema. Sem nenhum instrução prévia,
+% é tarefa do agente buscar, dentro do espaço de soluções possíveis, uma maneira
+% satisfatória de resolver o problema através da sua interação com o ambiente.
+% Para determinar se uma solução encontrada é satisfatória, usa-se, em aprendizado
+% por reforço, a noção de recompensa. A recompensa é um sinal númerico e pode ser
+% calculada após cada ação tomada pelo agente, ou ao final de cada episódio
+% (\textit{delayed reward}), é um número que encapsula a qualidade daquela ação ou
+%  do conjunto de várias ações tomadas ao longo do tempo. Com base única e
+% exclusivamente, então, nas recompensas recebidas pelo agente,
+% o agente deve buscar uma solução (comportamento) que a maximize (de forma a resolvar o problema). Esta busca  é normalmente feita através
+% de uma combinação entre ajustes nas ações que o agente tomou e que levaram à maior recompensa até o momento (\textit{exploitation}) e a avaliação do resultado de ações completamente
+% novas ou desconhecidas pelo agente (\textit{exploration}).
 
-% Thorndike, E. L. (1898). Animal intelligence: An experimental study of the associative processes in animals.
+%
+% Diferentemente de outras áreas da IA, como o aprendizado supervisionado, no aprendizado por reforço a qualidade da ação tomada pelo agente não
+% é verificada usando-se como base uma ação ideal ou ótima,  conhecida de antemão, e tampouco o agente passa por qualquer tipo de treinamento onde este é exposto a
+% exemplos de ação ótima em cada situação. Tal método de aprendizado é normalmente usado, portanto, em tarefas onde o ambiente é desconhecido
+% pelo agente, e é um modo de aprendizado bastante próximo das maneiras com que
+% animais e humanos buscam formas de exercer tarefas com as quais nunca houve contato prévio.
+
+
+Um exemplo que pode servir para a compreensão do aprendizado por reforço é o
+experimento do psicólogo Edward Thorndike [add citation]. No seu experimento,
+gatos eram
+colocados em gaiolas fechadas e precisavam encontrar uma maneira de sair para
+que pudessem consumir uma porção de peixe posicionada próxima à gaiola. Para
+abri-la, era necessário apenas que uma alavanca presente em seu interior fosse
+puxada; entretanto, não houve qualquer tipo de instrução prévia: a partir do
+momento em que os felinos eram trancados nas gaiolas, eles deveriam explorar e,
+principalmente, interagir de forma autônoma com o interior da gaiola até que,
+por si mesmos, encontrassem o dispositivo de abertura de seus cárceres. No
+momento que um gato encontrava a saída, o tempo levado até a sua fuga era
+anotado e o experimento, repetido. Thorndike percebeu que a partir do momento em
+que os
+gatos aprendiam que era a alavanca o dispositivo responsável pela sua soltura
+--- e que, consequentemente, os permitia que consumissem a porção de peixe ---,
+o tempo transcorrido entre o momento que o animal era recolocado na gaiola e o
+instante em que ele abria a mesma diminuia consideravelmente. Isso se dá porque,
+dentre todos os comportamentos adotados dentro da gaiola, o único que era
+observado pelos gatos como o comportamento que levava à recompensa era o ato de
+puxar a alavanca. O pesquisador, então, formulou o que ele chamou de "Lei do
+efeito", que estabelece que comportamentos e ações que, em uma determinada
+situação, levam a efeitos gratificantes tendem a se repetir e, por sua vez,
+comportamentos e ações que levem a efeitos indesejáveis ou insatisfatórios
+tendem a ser abandonados.
+
+% Thorndike, E. L. (1898). Animal intelligence: An experimental study of the
+% associative processes in animals.
 % Psychological Monographs: General and Applied, 2(4), i-109.
 
-Princípios bastante próximos dos postulados pela Lei proposta por Thorndike foram a base para os primeiros experimentos
-envolvendo aprendizado por reforço, na metade do século passado. Em 1952, um dos grandes expoentes da inteligência artificial,
-Marvin Minsky, fez um experimento que utilizava uma forma bem simples de AR para simular a maneira com que um rato
+Princípios bastante próximos dos postulados pela Lei proposta por Thorndike
+foram a base para os primeiros experimentos envolvendo aprendizado por reforço,
+na metade do século passado. Em 1952, um dos grandes expoentes da inteligência
+artificial, Marvin Minsky, fez um experimento que utilizava uma forma bem
+simples de AR para simular a maneira com que um rato navegava por um labirinto
+\bruno{add citation}. No experimento, agentes que simulavam o comportamento de
+ratos recebiam recompensas mais altas quando desenvolviam um método de busca que
+achasse a saída do labirinto, e recompensas nulas em caso contrário. Deste
+então, diversos experimentos foram formulados visando-se a resolução de
+problemas através de um agente que busca uma solução de maneira praticamente
+autônoma, sendo guiado apenas pela noção de recompensa, que encapsula o sucesso
+ou fracasso da solução encontrada.
+
 %
 %Minsky, M.: Theory of Neural-Analog Reinforcement System and its
 %Applications to the Brain-Model Problem (Ph. D. Thesis). University of
 %Princeton, Princeton, NJ, 1954
+
+Aprendizado por reforço é, portanto, um método de aprendizado de máquina pelo
+qual um agente, ao interagir com um ambiente, executa uma ação e recebe uma
+recompensa sobre a sua ação tomada, corrigindo seu comportamento de acordo com a
+recompensa recebida ou de acordo com as modificações produzidas no ambiente por
+aquela ação, sempre de forma a maximizar o valor esperado relativo às
+recompensas recebidas pela sua série de decisões. Por causa disto, algoritmos
+de aprendizado por reforço são amplamente usados em situações onde problemas
+devem ser resolvidos através de uma sequência de decisões, como quando
+deseja-se, por exemplo, ensinar um agente a disputar partidas de jogos de
+tabuleiro (como no xadrez, onde uma série de jogadas leva à vitória) ou ensinar
+um robô a executar tarefas que exijam uma série de movimentos (como fazer com
+que um um robô quadrúpede se locomova em trote da maneira mais rápida possível
+[add citation], por exemplo).
+
+% https://ieeexplore.ieee.org/abstract/document/1307456
+
+Para facilitar o treinamento de um agente em um problema de aprendizado por
+reforço, normalmente emprega-se o uso de simuladores. De matrizes que podem
+representar um tabuleiro de xadrez até motores de física que representam as
+leis da física do mundo real, simuladores são usados para modelar problemas de
+maneira a acelerar o processo de treinamento de um agente, dado que, dentro do
+ambiente controlado de um simulador, situações que podem demorar algum tempo na
+vida real (como um braço robótico tentando aprender a melhor forma de pegar um
+objeto próximo a ele) podem ser retratadas de maneira acelerada. Além do ganho
+de tempo, elementos de natureza aleatória podem ser facilmente controlados
+dentro de um ambiente simulado: no problema trabalhado na tese de Andrew Ng
+\bruno{add citation}, por exemplo, um agente é treinado para ser capaz de
+controlar um helicóptero, a fim de estabilizá-lo levando em consideração fatores
+imprevisíveis do sistema (e.g. vento, chuva e demais fatores que podem
+interferir na estabilidade do veículo). Nota-se que o problema, portanto, tem um
+objetivo prático: desenvolver um controle para um helicóptero que mantenha sua
+estabilidade, independentemente de fatores externos. O problema surge na
+necessidade de treinar o agente: como proceder com o treinamento em ambientes
+que possuam diferentes níveis de imprevisibilidade e cujos fatores como chuva
+e vento atuem em diferentes intensidades? Logicamente, o objetivo final do
+processo é ter um veículo autocontrolado capaz de manter sua estabilidade sob
+qualquer tipo de interpérie; para que isso seja possível, todavia, é necessário
+que o agente seja treinado em diferentes tipos de ambiente, o que pode se tornar
+inviável dadas restrições como o tempo disponível para o projeto e a necessidade dos
+desenvolvedores de se deslocar até locações onde há condições ideais para o
+treinamento. A solução que é amplamente usada nesses casos, portanto, é a
+modelagem de locações em um simulador que representa diferentes tipos de terreno
+e que permite ao pesquisador que este configure os diferentes
+fatores do ambiente de acordo com sua necessidade.
+
+%http://rail.eecs.berkeley.edu/deeprlcourse-fa17/docs/ng-thesis.pdf
+
+Por vezes é necessário, portanto, que haja um ambiente de treinamento que ofereça
+condições diversas ao agente que está sendo desenvolvido. Esse é um dos cenários
+que exige a presença de um simulador: um ambiente sob o controle dos
+desenvolvedores que forneça para eles a liberdade de controlar as condições que
+serão apresentadas ao agente. Simuladores, deste modo, funcionam como uma
+ferramenta auxiliar ao processo de desenvolvimento de agentes que atuam no mundo
+real: inicialmente, treina-se o agente
+em um ambiente simulado, para depois dar-se prosseguimento ao treinamento em um
+ambiente
+real. Mesmo que simuladores não consigam representar com o máximo de precisão
+as intempéries que podem atingir uma aeronave, por exemplo, eles ainda são úteis
+nas fases iniciais de treinamento, após as quais o agente está apto a suportar
+um ambiente real.
+
+
+Simuladores também são uma ferramenta que ajuda a mitigar o problema de
+reprodutibilidade de experimentos. Quando um novo algoritmo de aprendizado
+por reforço é proposto, por exemplo, há a necessidade de que ele seja facilmente
+reproduzido por aqueles que têm acesso ao seu artigo de origem. Um simulador,
+neste caso, pode facilmente recriar as condições em que o algoritmo foi testado,
+produzindo resultados semelhantes e ajudando na tarefa de verificação do
+trabalho.
+
+
+\section{Motivação}
+Há diversos \textit{frameworks} capazes de fornecer ao desenvolvedor as
+ferramentas necessárias para a simulação do seu problema de aprendizado por
+reforço, mas cada um deles possui as suas próprias limitações: normalmente, o
+que se observa é uma espécie de compensação entre simplicidade e robustez, onde
+o usuário do \textit{framework} se vê obrigado a escolher entre uma ferramenta
+com um alto poder computacional, capaz de simular ambientes com um alto grau de
+fidelidade, mas que exige uma compreensão maior dos seus mecanismos por parte do
+desenvolvedor, e uma ferramenta de uso simples, mas que não é tão robusta. Além
+disso, ainda não há a consolidação de um modelo de representação de simulações
+na comunidade de programadores e pesquisadores cujo trabalho envolve AR de
+alguma forma; diferentes ferramentas de construção de simulações, ao adotarem
+formas diferentes de representarem a maneira com que elementos são simulados e a
+maneira com que um algoritmo realiza a leitura das informações destes elementos,
+não permitem que usuários de \textit{frameworks} diferentes troquem informações
+entre si sem antes realizarem adaptações em seu código.
+
+
+Recentemente, entretanto, surgiu na comunidade uma ferramenta que fornece
+simuladores de problemas famosos de aprendizado por reforço e que propõe uma
+padronização na representação dos problemas: o \textit{framework} chamado Gym,
+desenvolvido pela OpenAI, uma organização de pesquisadores e entusiastas
+de inteligência artificial sem fins lucrativos. A ferramenta fornece uma vasta
+gama de simulações de diversos problemas de aprendizado por reforço e, para
+cada um deles, há um canal onde pessoas podem submeter suas soluções, sendo
+montada uma classificação das melhores entre elas, com base em fatores como
+o tempo necessário para que o agente aprendesse a solucionar o problema. É
+importante ressaltar, também, que há, para aqueles que submetem suas soluções,
+a opção de torná-las públicas, permitindo que outras pessoas executem testes
+com elas.
+
+
+Através da plataforma proposta pela OpenAI, um grande passo em direção à
+padronização de simuladores é dado. Através de uma interface pública
+que serve como ponto
+intermediário entre o simulador e o algoritmo que tenta resolver o problema,
+criou-se uma espécie de uniformização não só na maneira como algoritmos
+realizam a leitura das informações a respeito do ambiente simulado, permitindo que
+soluções desenvolvidas por pessoas diferentes para um determinado problema
+tornem-se intercambiáveis, como também na maneira que os resultados de cada
+solução são representados. Entretanto, apesar da sua vasta documentação
+a respeito de cada um dos cenários fornecidos, pouco é dito sobre a construção
+de cenários novos. A proposta do \textit{framework} Gym certamente é
+bastante inovadora, mas peca no que toca às possibilidades de expansão da
+ferramenta através de contribuições da comunidade.
+
+
+O trabalho aqui desenvolvido visa, portanto, fornecer um conjunto de ferramentas
+que sirva como uma espécie de extensão ao Gym, permitindo que desenvolvedores
+construam simulações de uma maneira simples, rápida e eficiente, de tal forma
+que o resultado seja compatível com a API proposta pela OpenAI. Ao propor um
+\textit{framework} que ao mesmo tempo não exija uma quantidade considerável
+de tempo para que o seu usuário possa reproduzir o seu problema de AR de
+maneira fidedigna e que produza resultados que sejam compatíveis com a
+plataforma Gym, a ferramenta descrita neste trabalho será capaz de fornecer uma
+ferramenta de uso simples e que garante ao desenvolvedor a possibilidade de
+trocar informações com a extensa base de usuários do \textit{framework} Gym.
+
 %
-navegava por um labirinto \bruno{add citation}. No experimento, agentes que simulavam o comportamento de ratos recebiam recompensas mais altas quando desenvolviam um
-método de busca que achasse a saída do labirinto, e recompensas baixas em caso contrário.
-Deste então, diversos experimentos foram formulados visando-se a resolução de problemas através de um agente que busca uma solução
-de maneira praticamente autônoma, sendo guiado apenas pela noção de recompensa, que encapsula o sucesso ou fracasso da solução encontrada.
+% Para facilitar o treinamento de um agente de aprendizado por reforço, é comum
+% o uso de simulações para modelar um problema. Ainda utilizando como exemplo os
+% dois casos citados no parágrafo anterior, o tabuleiro de xadrez poderia ser
+% representado por uma matriz, onde cada célula guarda um dado que representa qual
+% peça encontra-se naquela célula em um determinado momento (ou se não há peça
+% nenhuma na célula), e o robô,
+%
+% Nos dois exemplos citados
+% anteriormente, o tabuleiro de xadrez pode ser simulado de uma maneira muito
+%
+% Muitas vezes, um ambiente de um problema de aprendizado por reforço deve
+% seguir leis físicas que sejam bastante próximas da física do mundo real. Em um
+% problema que visava encontrar a maneira de locomover-se mais rapidamente para
+% robôs quadrúpedes,
+
+
+% Pelo fato dos algoritmos de aprendizado por reforço não fornecerem ao agente,
+% como \textit{feedback}, uma exemplo de escolha ou ação considerada ótima em cada
+% momento, é comum  o emprego de AR em situações e ambientes desconhecidos, ou
+% seja, aonde não se saiba de antemão qual é a política ou comportamento
+% considerado ótimo. Um exemplo recorrente é o aprendizado de maneiras eficientes
+% de locomoção: um robô pode ser treinado para aprender a locomover-se em um
+% determinado terreno, e diferentes processos de treinamento (que baseiem-se em
+% diferentes sensores/estados, por exemplo) podem resultar no aprendizado de
+% maneiras distintas de deslocar-se, dependendo de como a solução/comportamento
+% encontrada é avaliada e da disposição das diferentes partes físicas que formam o
+% agente. Cabe à equipe responsável pelo desenvolvimento do agente, portanto,
+% testar, através de um processo altamente iterativo, agentes de diversas configurações
+%  físicas (e.g., número e tipos de juntas)
+%  em ambientes que apresentem situações distintas para poder encontrar, por fim, qual
+% agente é mais recomendado para resolver
+% determinada tarefa. \bruno{essa ultima frase nao ta totalmente certa. O objetivo nao
+% é otimizar a forma/partes que vao compor um agente/robo. Normalemnte a
+% estrutura do robo ja existe. O que a gente quer é poder criar uma simulacao desse
+% robo existente de forma facil, em uma simulacao de diferentes tipos de
+% situacoes ou ambientes nos quais esse robo pode ser empregado. E.g., se quer simular
+% o robo XYZ em um ambiente no qual ele precisa aprender a pegar
+% diferentes utensilios de cozinha; ou em um ambiente no qual ele precisa aprender a se
+% locomover em terrenos com diferentes tipos de obstaculos.}
+
+
 % Desde então, diversos experimentos foram formulados visando-se a execução de tarefas onde o modo
 % de executá-las não possui nenhuma espécie de tradução direta para código \bruno{como assim? tu quer dizer, onde nao é facil escrever manualmente
 % codigo que resolva elas? clarificar}. Nestes casos, usa-se aprendizado por reforço
 % para fazer com que máquinas aprendam de maneira automática a executar tarefas que envolvem desde jogos de tabuleiro a locomoção
 % automática de robôs humanóides e sua interação com objetos. \par
-Aprendizado por reforço é, portanto, um método de aprendizado de máquina pelo qual um agente, ao interagir com um ambiente,
-executa uma ação e recebe uma recompensa sobre a sua ação tomada, corrigindo seu comportamento de acordo com a recompensa recebida,
-sempre de forma a maximizá-la.
 
+ %
+ % Dentro do campo da inteligência artificial, há a abordagem de Aprendizado por
+ % Reforço (AR). Esta subárea da IA preocupa-se com agentes (i.e.  entidades dotadas
+ % de capacidade de aprendizado) que, inseridos dentro de um ambiente, interagem com
+ % ele para atingir um determinado objetivo. O agente, através de leituras sucessivas
+ % do estado (i.e. conjunto de informações consideradas relevantes) do ambiente,
+ % determina uma ação que será tomada por ele, sendo o conjunto de várias ações
+ % tomadas ao longo do tempo avaliadas, resultando em uma recompensa --- um
+ % sinal numérico avaliando a qualidade, naquele momento em particular, da
+ % consequência de suas ações. Uma série de ações que converta-se na resolução do
+ % problema proposto (um agente que joga damas, por exemplo, resolve o problema de
+ % vencer seu adversário) resulta em recompensas mais altas, conquanto ações que
+ % não resolvam o problema (ou resolvam-o apenas parcialmente) resultam em
+ % recompensas mais baixas (ou nulas). O objetivo, portanto, do agente, é encontrar
+ % uma função matemática que, dado o estado do ambiente  --- e também o estado do
+ % próprio agente naquele momento --- como entrada, forneça um resultado que
+ % corresponda a uma ação que torne o agente mais próximo de resolver o problema
+ % ou que resolva-o por completo. Posto que a recompensa recebida sobre a ação
+  % produzida
+ % pelo cálculo do agente é a única métrica que ele tem para avaliar a qualidade
+ % da sua ação --- diferentemente de outros métodos de aprendizado, onde uma
+ % saída ótima/correta é mostrada para o agente --- e que recompensas mais altas
+ % implicam que as ações que resultaram nelas são consideradas melhores, o agente
+ % deve, portanto, buscar a maximização da recompensa através de um processo que
+ % combina o refinamento da série de ações tomadas por ele (\textit{exploitation}) com a busca por ações não tomadas
+ % até aquele momento (\textit{exploration}).
 
-
-
-
- Dentro do campo da inteligência artificial, há a abordagem de Aprendizado por
- Reforço (AR). Esta subárea da IA preocupa-se com agentes (i.e.  entidades dotadas
- de capacidade de aprendizado) que, inseridos dentro de um ambiente, interagem com
- ele para atingir um determinado objetivo. O agente, através de leituras sucessivas
- do estado (i.e. conjunto de informações consideradas relevantes) do ambiente,
- determina uma ação que será tomada por ele, sendo o conjunto de várias ações
- tomadas ao longo do tempo avaliadas, resultando em uma recompensa --- um
- sinal numérico avaliando a qualidade, naquele momento em particular, da
- consequência de suas ações. Uma série de ações que converta-se na resolução do
- problema proposto (um agente que joga damas, por exemplo, resolve o problema de
- vencer seu adversário) resulta em recompensas mais altas, conquanto ações que
- não resolvam o problema (ou resolvam-o apenas parcialmente) resultam em
- recompensas mais baixas (ou nulas). O objetivo, portanto, do agente, é encontrar
- uma função matemática que, dado o estado do ambiente  --- e também o estado do
- próprio agente naquele momento --- como entrada, forneça um resultado que
- corresponda a uma ação que torne o agente mais próximo de resolver o problema
- ou que resolva-o por completo. Posto que a recompensa recebida sobre a ação produzida
- pelo cálculo do agente é a única métrica que ele tem para avaliar a qualidade
- da sua ação --- diferentemente de outros métodos de aprendizado, onde uma
- saída ótima/correta é mostrada para o agente --- e que recompensas mais altas
- implicam que as ações que resultaram nelas são consideradas melhores, o agente
- deve, portanto, buscar a maximização da recompensa através de um processo que
- combina o refinamento da série de ações tomadas por ele (\textit{exploitation}) com a busca por ações não tomadas
- até aquele momento (\textit{exploration}).
-aasa
 
 %
 %  Pelo fato dos algoritmos de aprendizado por reforço não fornecerem ao agente, como \textit{feedback}, uma saída ou ação considerada ótima em cada momento, é comum
@@ -444,27 +655,27 @@ aasa
 % No caso de empresas que desenvolvem soluções em robótica é uma prática comum
 % testar robôs de diferentes formatos em vários tipos de terreno (plano, rugoso, com obstáculos, etc.) a fim de encontrar qual modelo
 % de agente é o mais robusto e mais capaz de enfrentar situações diversas e locomover-se por todo tipo de percurso. \par
-
-Problemas de inteligência artificial, de um modo geral, tratam da capacidade de um agente de aprender a resolver um problema nunca antes visto por ele,
-seja através da exposição ao agente de vários exemplos onde o problema foi resolvido, seja através de um método que avalia a qualidade da
-solução encontrada pelo agente, como é o caso de AR. Em aplicações reais, como é o caso de veículos autônomos, deseja-se que o veículo
-aprenda a comportar-se de maneira correta e eficiente sob diversos tipos de condições: no caso de veículos autônomos, deseja-se que o carro
-saiba deslocar-se tanto em estradas com pouco tráfego quanto em estradas de maior movimento; no caso de aeronaves autoguiadas, deseja-se
-que elas saibam reagir a condições climáticas que possam vir a desestabilizá-las.
-
-
-É necessário, portanto, que haja um ambiente de treinamento que ofereça condições diversas ao agente que está sendo desenvolvido. Esse é um dos
-cenários que exige a presença de um simulador: um ambiente sob o controle dos desenvolvedores que forneça para eles a liberdade de controlar
-as condições que serão apresentadas ao agente. Simuladores, deste modo, funcionam como uma ferramenta auxiliar ao processo de treinamento: inicialmente,
-treina-se o agente em um ambiente virtual (simulado), para depois testar o agente em um ambiente real. Mesmo que simuladores não consigam
-representar com o máximo de precisão as intempéries que podem atingir uma aeronave, por exemplo, eles ainda são úteis nas fases iniciais
-de treinamento, após as quais o agente está apto a suportar um ambiente real.
-
-
-Simuladores também são uma ferramenta que ajuda a mitigar o problema de reprodutibilidade de experimentos. Quando um novo algoritmo de aprendizado
-por reforço é proposto, por exemplo, há a necessidade de que ele seja facilmente reproduzido por aqueles que têm acesso ao seu artigo
-científico de origem. Um simulador, neste caso, pode facilmente recriar as condições em que o algoritmo foi testado, produzindo resultados
-semelhantes e ajudando na tarefa de verificação do trabalho.
+%
+% Problemas de inteligência artificial, de um modo geral, tratam da capacidade de um agente de aprender a resolver um problema nunca antes visto por ele,
+% seja através da exposição ao agente de vários exemplos onde o problema foi resolvido, seja através de um método que avalia a qualidade da
+% solução encontrada pelo agente, como é o caso de AR. Em aplicações reais, como é o caso de veículos autônomos, deseja-se que o veículo
+% aprenda a comportar-se de maneira correta e eficiente sob diversos tipos de condições: no caso de veículos autônomos, deseja-se que o carro
+% saiba deslocar-se tanto em estradas com pouco tráfego quanto em estradas de maior movimento; no caso de aeronaves autoguiadas, deseja-se
+% que elas saibam reagir a condições climáticas que possam vir a desestabilizá-las.
+%
+%
+% É necessário, portanto, que haja um ambiente de treinamento que ofereça condições diversas ao agente que está sendo desenvolvido. Esse é um dos
+% cenários que exige a presença de um simulador: um ambiente sob o controle dos desenvolvedores que forneça para eles a liberdade de controlar
+% as condições que serão apresentadas ao agente. Simuladores, deste modo, funcionam como uma ferramenta auxiliar ao processo de treinamento: inicialmente,
+% treina-se o agente em um ambiente virtual (simulado), para depois testar o agente em um ambiente real. Mesmo que simuladores não consigam
+% representar com o máximo de precisão as intempéries que podem atingir uma aeronave, por exemplo, eles ainda são úteis nas fases iniciais
+% de treinamento, após as quais o agente está apto a suportar um ambiente real.
+%
+%
+% Simuladores também são uma ferramenta que ajuda a mitigar o problema de reprodutibilidade de experimentos. Quando um novo algoritmo de aprendizado
+% por reforço é proposto, por exemplo, há a necessidade de que ele seja facilmente reproduzido por aqueles que têm acesso ao seu artigo
+% científico de origem. Um simulador, neste caso, pode facilmente recriar as condições em que o algoritmo foi testado, produzindo resultados
+% semelhantes e ajudando na tarefa de verificação do trabalho.
 
 
 % Problemas de inteligência artificial, de um modo geral, lidam com a capacidade de um agente de reagir quando inserido em um ambiente com
@@ -486,11 +697,11 @@ semelhantes e ajudando na tarefa de verificação do trabalho.
 % economizando tempo e realizando o treinamento de maneira mais eficiente.
 
 
-A criação deste tipo de simulação, entretanto, exige que desenvolvedores e pesquisadores compreendam o funcionamento de ferramentas de construção
-de simulações, o que pode demandar largas quantias de tempo dedicado ao estudo de tais instrumentos. O objetivo deste trabalho, a ser detalhado
-nas seções seguintes, é propor um \textit{framework} capaz de gerar código-fonte para simular diferentes agentes em diferentes tarefas de aprendizado,
-com base em uma descrição de alto nivel de tais agentes e tarefas, e que tambem gere simuladores compatíveis com API padrões na área, de forma a facilitar
-a comparação e avaliação de diferentes algoritmos existentes na tarefa de aprendizado sendo simulada.
+% A criação deste tipo de simulação, entretanto, exige que desenvolvedores e pesquisadores compreendam o funcionamento de ferramentas de construção
+% de simulações, o que pode demandar largas quantias de tempo dedicado ao estudo de tais instrumentos. O objetivo deste trabalho, a ser detalhado
+% nas seções seguintes, é propor um \textit{framework} capaz de gerar código-fonte para simular diferentes agentes em diferentes tarefas de aprendizado,
+% com base em uma descrição de alto nivel de tais agentes e tarefas, e que tambem gere simuladores compatíveis com API padrões na área, de forma a facilitar
+% a comparação e avaliação de diferentes algoritmos existentes na tarefa de aprendizado sendo simulada.
 %
 % Sendo o processo de encontrar um agente capaz de resolver um problema através de aprendizado por reforço um processo que
 % é repetido de maneira reiterada fazendo-se pequenas alterações nos elementos envolvidos, há a necessidade de dispor-se de uma quantia
@@ -501,39 +712,39 @@ a comparação e avaliação de diferentes algoritmos existentes na tarefa de ap
 % aceleradas, economizando tempo e realizando o treinamento de maneira mais eficiente. \bruno{aqui no final coloca uma frase do tipo 'A criacao deste tipo de simulacao, entretanto, pode ser complexa e demandar tempo e expertise por parte do desenvolvedor, pois envolve conhecimento sobre o uso de motores de fisica. O objetivo desse trabalho, que sera detalhado nas secoes seguintes, é propor um framework capaz de automaticamente gerar codigo-fonte para simular diferentes agentes em diferentes tarefas de aprendizado, com base em uma descricao de alto nivel de tais agentes e tarefas, e que tambem gere simuladores compativeis com API padroes na area, de forma a facilitar a comparacao e avaliacao de diferentes algoritmos existentes na tarefa de aprendizado sendo simulada}
 
 
-
-\section{Motivação}
-Há diversos \textit{frameworks} capazes de fornecer ao desenvolvedor as ferramentas necessárias para a simulação do seu problema de aprendizado por reforço,
-mas cada um deles possui as suas próprias limitações: normalmente, o que se observa é uma espécie de compensação entre simplicidade e robustez, onde o
-usuário do \textit{framework} se vê obrigado a escolher entre uma ferramenta com um alto poder computacional, capaz de simular ambientes com um alto
-grau de fidelidade, mas que exige uma compreensão maior dos seus mecanismos por parte do desenvolvedor, e uma ferramenta de uso simples, mas que
-não é tão robusta. Além disso, ainda não há a consolidação de um modelo de representação de simulações na comunidade de programadores e pesquisadores
-cujo trabalho envolve AR de alguma forma; diferentes ferramentas de construção de simulações, ao adotarem formas diferentes de representarem a maneira
-com que elementos são simulados e a maneira com que um algoritmo realiza a leitura das informações destes elementos, não permitem que usuários de
-\textit{frameworks} diferentes troquem informações entre si sem antes realizarem adaptações em seu código.
-
-
-Recentemente, entretanto, surgiu na comunidade uma ferramenta que fornece diversos problemas famosos de aprendizado por reforço e que propõe uma
-padronização na representação dos problemas: o \textit{framework} chamado Gym, desenvolvido pela OpenAI, uma organização de pesquisadores e entusiastas
-de inteligência artificial sem fins lucrativos. A ferramenta fornece uma vasta gama de simulações de diversos problemas de aprendizado por reforço. Para
-cada um deles, há um canal onde pessoas podem submeter suas soluções, sendo montada uma classificação das melhores entre elas, com base em fatores como
-o tempo necessário para que o agente aprendesse a solucionar o problema. É importante ressaltar, também, que há, para aqueles que submetem suas soluções,
-a opção de torná-las públicas, permitindo que outras pessoas executem testes com elas.
-
-
-Através da plataforma proposta pela OpenAI, um grande passo em direção à padronização de simuladores é dado. Através de uma API que serve como ponto
-intermediário entre o simulador e o algoritmo que tenta resolver o problema, criou-se uma espécie de uniformização não só na maneira como algoritmos
-realizam a leitura das informações a respeito da simulação, permitindo que soluções desenvolvidas por pessoas diferentes para um determinado problema
-tornem-se intercambiáveis, como também na maneira que os resultados de cada solução são representados. Entretanto, apesar da sua vasta documentação
-a respeito de cada um dos cenários fornecidos, pouco é dito sobre a construção de cenários novos. A proposta do \textit{framework} Gym certamente é
-bastante inovadora, mas peca no que toca às possibilidades de expansão da ferramenta através de contribuições da comunidade.
-
-
-O trabalho aqui desenvolvido visa, portanto, fornecer um conjunto de ferramentas que sirva como uma espécie de extensão ao Gym, permitindo que desenvolvedores
-construam simulações de uma maneira simples, rápida e eficiente, de tal forma que o resultado seja compatível com a API proposta pela OpenAI. Ao propor um
-\textit{framework} que ao mesmo tempo não exija uma quantiadade considerável de tempo para que o seu usuário possa reproduzir o seu problema de AR de
-maneira fidedigna e que produza resultados que sejam compatíveis com a plataforma Gym, a ferramenta descrita neste trabalho será capaz de fornecer uma
-ferramenta de uso simples e que garante ao desenvolvedor a possibilidade de trocar informações com a extensa base de usuários do \textit{framework} Gym.
+%
+% \section{Motivação}
+% Há diversos \textit{frameworks} capazes de fornecer ao desenvolvedor as ferramentas necessárias para a simulação do seu problema de aprendizado por reforço,
+% mas cada um deles possui as suas próprias limitações: normalmente, o que se observa é uma espécie de compensação entre simplicidade e robustez, onde o
+% usuário do \textit{framework} se vê obrigado a escolher entre uma ferramenta com um alto poder computacional, capaz de simular ambientes com um alto
+% grau de fidelidade, mas que exige uma compreensão maior dos seus mecanismos por parte do desenvolvedor, e uma ferramenta de uso simples, mas que
+% não é tão robusta. Além disso, ainda não há a consolidação de um modelo de representação de simulações na comunidade de programadores e pesquisadores
+% cujo trabalho envolve AR de alguma forma; diferentes ferramentas de construção de simulações, ao adotarem formas diferentes de representarem a maneira
+% com que elementos são simulados e a maneira com que um algoritmo realiza a leitura das informações destes elementos, não permitem que usuários de
+% \textit{frameworks} diferentes troquem informações entre si sem antes realizarem adaptações em seu código.
+%
+%
+% Recentemente, entretanto, surgiu na comunidade uma ferramenta que fornece diversos problemas famosos de aprendizado por reforço e que propõe uma
+% padronização na representação dos problemas: o \textit{framework} chamado Gym, desenvolvido pela OpenAI, uma organização de pesquisadores e entusiastas
+% de inteligência artificial sem fins lucrativos. A ferramenta fornece uma vasta gama de simulações de diversos problemas de aprendizado por reforço. Para
+% cada um deles, há um canal onde pessoas podem submeter suas soluções, sendo montada uma classificação das melhores entre elas, com base em fatores como
+% o tempo necessário para que o agente aprendesse a solucionar o problema. É importante ressaltar, também, que há, para aqueles que submetem suas soluções,
+% a opção de torná-las públicas, permitindo que outras pessoas executem testes com elas.
+%
+%
+% Através da plataforma proposta pela OpenAI, um grande passo em direção à padronização de simuladores é dado. Através de uma API que serve como ponto
+% intermediário entre o simulador e o algoritmo que tenta resolver o problema, criou-se uma espécie de uniformização não só na maneira como algoritmos
+% realizam a leitura das informações a respeito da simulação, permitindo que soluções desenvolvidas por pessoas diferentes para um determinado problema
+% tornem-se intercambiáveis, como também na maneira que os resultados de cada solução são representados. Entretanto, apesar da sua vasta documentação
+% a respeito de cada um dos cenários fornecidos, pouco é dito sobre a construção de cenários novos. A proposta do \textit{framework} Gym certamente é
+% bastante inovadora, mas peca no que toca às possibilidades de expansão da ferramenta através de contribuições da comunidade.
+%
+%
+% O trabalho aqui desenvolvido visa, portanto, fornecer um conjunto de ferramentas que sirva como uma espécie de extensão ao Gym, permitindo que desenvolvedores
+% construam simulações de uma maneira simples, rápida e eficiente, de tal forma que o resultado seja compatível com a API proposta pela OpenAI. Ao propor um
+% \textit{framework} que ao mesmo tempo não exija uma quantiadade considerável de tempo para que o seu usuário possa reproduzir o seu problema de AR de
+% maneira fidedigna e que produza resultados que sejam compatíveis com a plataforma Gym, a ferramenta descrita neste trabalho será capaz de fornecer uma
+% ferramenta de uso simples e que garante ao desenvolvedor a possibilidade de trocar informações com a extensa base de usuários do \textit{framework} Gym.
 
 % O trabalho aqui desenvolvido visa, portanto, fornecer um conjunto de ferramentas que seja simples de usar, não
 % exigindo, portanto, que o pesquisador desprenda uma parte considerável do tempo alocado para o projeto para compreender os mecanismos fornecidos pela ferramenta
@@ -558,7 +769,7 @@ ferramenta de uso simples e que garante ao desenvolvedor a possibilidade de troc
 % Re-expressa elas aqui nessa secao}
 
 \section{Estrutura}
-No capítulo 2 veremos blá blá blá, etc, no capítulo 3 isto e aquilo.
+\blindtext
 
 
 \chapter{Conceitos Básicos}
