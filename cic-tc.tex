@@ -773,45 +773,156 @@ trocar informações com a extensa base de usuários do \textit{framework} Gym.
 
 
 \chapter{Conceitos Básicos}
-Neste capítulo serão introduzidos os conceitos fundamentais para a compreensão
-do trabalho, através da apresentação da modelagem matemática do problema de
-aprendizado por reforço através de Processos de Decisão de Markov, bem como a
-visão geral do fluxo de um algoritmo de AR, com o uso de exemplos quando
+Neste capítulo serão apresentados os conceitos fundamentais para a compreensão
+do trabalho desenvolvido, iniciando-se pela formulação matemática do um problema
+de aprendizado por reforço através de Processos de Decisão de Markov, seguido
+pela visão geral do fluxo de um algoritmo de AR, com o uso de exemplos quando
 conveniente. O capítulo também trata do uso de simuladores para a modelagem de
-tarefas de aprendizado por reforço.
-
-%
-% Neste capítulo serão apresentados conceitos considerados fundamentais para a compreensão do trabalho, incluindo aprendizado por
-% reforço, agente, ambiente, episódio e recompensa, bem como a visão geral do fluxo de um algoritmo de AR, com o uso de exemplos quando conveniente.
-% O capítulo também trata do uso de simuladores para a modelagem de tarefas de aprendizado por reforço.
+cenários de aprendizado por reforço.
 
 \section{Definição formal do problema de aprendizado por reforço}
-% O problema de Aprendizado por Rer
+Sendo o problema de aprendizado por reforço um exemplo de situação onde decisões
+devem ser tomadas em sequência, este pode ser formulado matematicamente como um
+Processo de Decisão de Markov (também referido pela sigla MDP, do inglês
+\textit{Markov Decision Process}). Um MDP é uma ferramenta usada para modelar
+um processo de tomada de decisão por parte de um agente que, inserido em um
+ambiente, executa ações, que podem ou não modificar o estado deste ambiente.
+Os processos modelados são chamados ``de Markov'' (ou \textit{Markovianos}) porque
+porque obedecem à \textit{Propriedade de Markov}: o efeito de uma ação em um
+estado depende apenas da ação tomada e do estado atual; e são chamados de
+processos ``de decisão''  porque modelam a possibilidade de um agente de
+interferir no sistema através da execução de ações [\textbf{citation}].
 
-O problema de aprendizado por reforço pode ser formalmente definido através
-de um Processo de Decisão de Markov (também refrido pela sigla MDP, do inglês
-\textit{Markov Decision Process}). Um MDP é uma ferramenta matemática usada
-para modelar um processo de tomada de decisão por parte de um agente que,
-inserido em um ambiente, executa ações que modificam o estado deste ambiente,
-e cujo resultado imediato de cada ação não é claro para o agente. Usando o
-conceito de \textit{recompensa}, que é um valor escalar que significa a
-qualidade de uma ação tomada em um determinado instante, um Processo de Decisão
-de Markov visa encontrar uma política $\pi$ que, em um determinado estado,
-encontre a ação que maximize a soma das recompensas retornadas por uma série de
-ações.
+%https://seer.ufrgs.br/rita/article/viewFile/rita_v14_n2_p133-179/3544
+
+Usando o conceito de \textit{recompensa}, que é um valor escalar que representa a
+qualidade de uma ação tomada quando o ambiente apresenta um determinado estado,
+um MDP busca encontrar uma \textit{política}, que nada mais é do que um
+conjunto de regras de decisão que diz ao agente qual ação deve ser tomada de
+acordo com as informações do estado do ambiente, visando maximizar o valor
+esperado pelasrecompensas retornadas pela série de ações tomadas pelo agente até
+que o problema seja resolvido.
+
+
 Um MDP pode ser formalmente definido pela tupla $ (S, A, T, R)$, onde:
 
 \begin{itemize}
   \item $S$ é o conjunto de possíveis estados do ambiente;
   \item $A$ é o conjunto de diferentes ações que podem ser executadas em um
   determinado estado;
-  \item $T: S \times A \times S \mapsto [0,1]$: é uma função que dá a
+  \item $T: S \times A \times S \mapsto [0,1]$: é chamado de modelo de transição,
+  é uma função que dá a
   probabilidade de o sistema passar para um estado $s' \in S$, dado que o
   processo estava em um estado $s \in S$ e o agente decidiu executar uma ação
   $a \in A$ (denotada $T(s'|s,a)$);
   \item $R: S \times A \mapsto \mathbb{R}$ é uma função que dá a recompensa
-  por uma ação $a \in A$ quando executada no estado $s \in S$.
+  por uma ação $a \in A$ quando executada no estado $s \in S$, denotada
+  $R(a,s)$.
 \end{itemize}
+
+\section{Política de um MDP}
+Em um MDP, um tomador de decisões realiza uma leitura do estado atual do
+ambiente ($S$) e executa uma ação ($A$) de acordo com uma política ($\pi$), que
+é, basicamente, um conjunto de regras de decisão que diz qual ação deve ser
+tomada a cada estado. Uma forma simples de definir uma regra de decisão é
+através de um mapeamento direto de todos os estados possíveis para suas
+respectivas ações (na forma de uma função $d: S \mapsto A$). O conjunto de todas
+as regras de decisão de um MDP é chamado de política. A ação tomada pode trazer
+mudanças ao estado atual do ambiente, então uma nova leitura deste é realizada
+e uma ação é tomada, e assim sucessivamente. A figura \ref{fig:fluxo_politica}
+mostra o funcionamento de uma sequência de tomadas de decisão em um sistema
+modelado por um MDP.
+
+\begin{figure}[h]
+    \caption{Funcionamento do processo de tomadas de decisão em um MDP.}
+    \begin{center}
+      \includegraphics[width=0.5\textwidth]{fluxo_politica.png}
+    \end{center}
+    \label{fig:fluxo_politica}
+\end{figure}
+
+O objetivo da resolução de um MDP é encontrar uma política $\pi(s) \rightarrow a$
+que solucione o problema, ou seja, que diga ao tomador de decisões quais ações
+devem ser tomadas em cada estado $s \in S$ de forma que o problema seja
+resolvido. Dentre todas as políticas que resolvem um determinado problema, é
+considerada uma política \textit{ótima} (denotada $\pi^*$) aquela que segue
+algum critério de otimalidade. Normalmente, o critério adotado é o valor
+esperado da soma das recompensas retornadas pela série de ações que o agente
+toma orientado por aquela política, ou seja, para uma política $\pi^*$ este
+valor é máximo. Sua definição pode ser dada por
+
+
+\begin{equation}
+  \pi^* = argmax_\pi\mathbb{E}[\sum_tR(S_t) | \pi]
+\end{equation}
+
+ que é a \textit{recompensa esperada total}, ou por
+
+\begin{equation}
+  \pi^* = argmax_\pi\mathbb{E}[\sum_t\gamma^tR(S_t) | \pi]
+\end{equation}
+
+que é a \textit{recompensa esperada descontada}, onde o \textit{fator de
+desconto} $\gamma \in  ]0,1[$ serve para garantir a convergência do valor da
+recompensa total esperada.
+
+Mesmo definindo matematicamente o problema de aprendizado por reforço em
+através de um MDP e definindo o que é uma política ótima, resta saber como
+buscar uma política que além de resolver o problema, seja uma política ótima.
+Há soluções exatas e aproximadas para o problema, e algumas delas serão
+discutidas a seguir.
+% Em
+% inteligência artificial, a noção de \textit{aprendizado} trata de uma correção
+% que o agente executa em si mesmo, levando em consideração seu erro e um
+% coeficiente de aprendizado, que determina o impacto que o último erro terá na
+% atualização do agente em um determinado momento. Há muitos algoritmos de
+% aprendizado por reforço que funcionam dessa maneira, e um dos mais estudados
+% deles é chamado Q-Learning.
+
+\section{Métodos de resolução de um MDP}
+\subsection{Métodos exatos}
+\subsubsection{Value Iteration}
+\blindtext
+\subsubsection{Policy Iteration}
+\blindtext
+\subsection{Programação Linear}
+\subsection{Métodos aproximados}
+\blindtext
+\subsection{Q-Learning}
+\blindtext
+\subsection{Deep Learning}
+\blindtext
+
+\section{Funcionamento de um algoritmo de AR}
+\blindtext
+\section{Simuladores de AR}
+\blindtext
+
+
+% O problema de aprendizado por reforço pode ser formalmente definido através
+% de um Processo de Decisão de Markov (também refrido pela sigla MDP, do inglês
+% \textit{Markov Decision Process}). Um MDP é uma ferramenta matemática usada
+% para modelar um processo de tomada de decisão por parte de um agente que,
+% inserido em um ambiente, executa ações que modificam o estado deste ambiente,
+% e cujo resultado imediato de cada ação não é claro para o agente. Usando o
+% conceito de \textit{recompensa}, que é um valor escalar que significa a
+% qualidade de uma ação tomada em um determinado instante, um Processo de Decisão
+% de Markov visa encontrar uma política $\pi$ que, em um determinado estado,
+% encontre a ação que maximize a soma das recompensas retornadas por uma série de
+% ações.
+% Um MDP pode ser formalmente definido pela tupla $ (S, A, T, R)$, onde:
+%
+% \begin{itemize}
+%   \item $S$ é o conjunto de possíveis estados do ambiente;
+%   \item $A$ é o conjunto de diferentes ações que podem ser executadas em um
+%   determinado estado;
+%   \item $T: S \times A \times S \mapsto [0,1]$: é uma função que dá a
+%   probabilidade de o sistema passar para um estado $s' \in S$, dado que o
+%   processo estava em um estado $s \in S$ e o agente decidiu executar uma ação
+%   $a \in A$ (denotada $T(s'|s,a)$);
+%   \item $R: S \times A \mapsto \mathbb{R}$ é uma função que dá a recompensa
+%   por uma ação $a \in A$ quando executada no estado $s \in S$.
+% \end{itemize}
 
 
 \subsection{Estado}
