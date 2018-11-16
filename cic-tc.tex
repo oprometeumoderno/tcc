@@ -820,9 +820,29 @@ Um MDP pode ser formalmente definido pela tupla $ (S, A, T, R)$, onde:
   $R(a,s)$.
 \end{itemize}
 
+\section{Horizonte}
+\label{horizonte}
+Em um MDP, o agente toma, a cada instante de tempo, uma decisão que resulta em
+uma transição entre estados e no recebimento de uma recompensa, com o objetivo
+de maximizar a soma das recompensas recebidas por uma série de ações tomadas.
+Sabendo que uma série de ações resulta em uma série de transições entre estados
+e no recebimento de uma série de recompensas, qual a influência que recompensas
+futuras devem ter, então, na tomada de decisão do agente, se comparadas com as
+recompensas que ele receberá imediatamente? Para isto existe, em processos de
+Markov, a noção de \textit{horizonte}, que diz até que ponto no futuro, em uma
+série de ações a ser tomada pelo agente, as recompensas a serem recebidas
+exercerão influência em suas escolhas: para horizontes de tamanho 1, por
+exemplo, apenas a recompensa referente à sua próxima ação importa para o agente,
+independentemente de esta ação levá-lo a estados que no futuro resultarão em
+recompensas mais baixas. Para horizontes de tamanho infinito, por outro lado, o
+agente tentará encontrar o valor máximo para a soma de todas as suas ações
+tomadas, ou seja, todas as recompensas que serão recebidas no futuro influenciam
+na decisão tomada pelo agente no presente.
+
+
 \section{Política de um MDP}
 Em um MDP, um tomador de decisões realiza uma leitura do estado atual do
-ambiente ($S$) e executa uma ação ($A$) de acordo com uma política ($\pi$), que
+ambiente ($s$) e executa uma ação ($a$) de acordo com uma política ($\pi$), que
 é, basicamente, um conjunto de regras de decisão que diz qual ação deve ser
 tomada a cada estado. Uma forma simples de definir uma regra de decisão é
 através de um mapeamento direto de todos os estados possíveis para suas
@@ -853,18 +873,25 @@ valor é máximo. Sua definição pode ser dada por
 
 
 \begin{equation}
-  \pi^* = argmax_\pi\mathbb{E}[\sum_tR(S_t) | \pi]
+  \pi^* = argmax_\pi\mathbb{E}[\sum_t^TR(S_t) | \pi]
 \end{equation}
 
  que é a \textit{recompensa esperada total}, ou por
 
-\begin{equation}
-  \pi^* = argmax_\pi\mathbb{E}[\sum_t\gamma^tR(S_t) | \pi]
+\begin{equation} \label{discounted_expected_reward}
+  \pi^* = argmax_\pi\mathbb{E}[\sum_t^T\gamma^tR(S_t) | \pi]
 \end{equation}
 
-que é a \textit{recompensa esperada descontada}, onde o \textit{fator de
-desconto} $\gamma \in  ]0,1[$ serve para garantir a convergência do valor da
-recompensa total esperada.
+que é a \textit{recompensa esperada descontada}, onde $T$ é o horizonte
+(conforme descrito na seção \ref{horizonte}) e $R(S_t)$ é a recompensa pela ação
+recomendada ao agente pela política $\pi$ quando este encontra-se no estado
+$S_t$. Há ainda, na fórmula \ref{discounted_expected_reward}, um coeficiente
+$\gamma \in ]0,1[$ chamado de \textit{fator de desconto} que serve tanto para
+garantir a convergência do valor da recompensa total esperada (em caso de horizonte
+infinito, com $T = \infty$), como para regular o impacto que recompensas mais
+imediatas exercem na política em relação a recompensas que serão recebidas mais
+futuramente.
+
 
 Mesmo definindo matematicamente o problema de aprendizado por reforço em
 através de um MDP e definindo o que é uma política ótima, resta saber como
