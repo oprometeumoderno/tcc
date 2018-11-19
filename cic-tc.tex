@@ -45,6 +45,40 @@
 \usepackage{blindtext}
 \usepackage{pythonhighlight}
 \usepackage{minted}
+\usepackage{algpseudocode,algorithm}
+\usepackage{amsmath}
+% \usepackage{algorithmic}
+
+\algnewcommand\algorithmicforeach{\textbf{for each}}
+\algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ \algorithmicdo}
+% \algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ \algorithmicdo}
+
+% Declaracoes em Português do pacote de pseudocodigo
+\algrenewcommand\algorithmicend{\textbf{fim}}
+\algrenewcommand\algorithmicdo{\textbf{faça}}
+\algrenewcommand\algorithmicwhile{\textbf{enquanto}}
+\algrenewcommand\algorithmicfor{\textbf{para}}
+\algrenewcommand\algorithmicrepeat{\textbf{repita}}
+\algrenewcommand\algorithmicuntil{\textbf{até que}}
+\algrenewcommand\algorithmicif{\textbf{se}}
+\algrenewcommand\algorithmicthen{\textbf{então}}
+\algrenewcommand\algorithmicelse{\textbf{senão}}
+\algrenewcommand\algorithmicreturn{\textbf{devolve}}
+\algrenewcommand\algorithmicfunction{\textbf{função}}
+\algrenewcommand\algorithmicforeach{\textbf{para cada}}
+
+% Rearranja os finais de cada estrutura
+\algrenewtext{EndWhile}{\algorithmicend\ \algorithmicwhile}
+\algrenewtext{EndFor}{\algorithmicend\ \algorithmicfor}
+\algrenewtext{EndIf}{\algorithmicend\ \algorithmicif}
+\algrenewtext{EndFunction}{\algorithmicend\ \algorithmicfunction}
+
+% O comando For, a seguir, retorna 'para #1 -- #2 até #3 faça'
+\algnewcommand\algorithmicto{\textbf{até}}
+\algrenewtext{For}[3]%
+{\algorithmicfor\ #1 $\gets$ #2 \algorithmicto\ #3 \algorithmicdo}
+
+
 
 \newcommand\bruno[1]{\textcolor{magenta}{#1}}
 \newcommand\henrique[1]{\textcolor{blue}{#1}}
@@ -89,6 +123,7 @@
 % \renewcommand{\nominataChefeINAname}{Chefe do \deptINA}
 % \renewcommand{\nominataChefeINT}{Prof.~Leila Ribeiro}
 % \renewcommand{\nominataChefeINTname}{Chefe do \deptINT}
+
 
 % A seguir são apresentados comandos específicos para alguns
 % tipos de documentos.
@@ -841,6 +876,7 @@ na decisão tomada pelo agente no presente.
 
 
 \section{Política de um MDP}
+\label{policy}
 Em um MDP, um tomador de decisões realiza uma leitura do estado atual do
 ambiente ($s$) e executa uma ação ($a$) de acordo com uma política ($\pi$), que
 é, basicamente, um conjunto de regras de decisão que diz qual ação deve ser
@@ -898,32 +934,382 @@ através de um MDP e definindo o que é uma política ótima, resta saber como
 buscar uma política que além de resolver o problema, seja uma política ótima.
 Há soluções exatas e aproximadas para o problema, e algumas delas serão
 discutidas a seguir.
-% Em
-% inteligência artificial, a noção de \textit{aprendizado} trata de uma correção
-% que o agente executa em si mesmo, levando em consideração seu erro e um
-% coeficiente de aprendizado, que determina o impacto que o último erro terá na
-% atualização do agente em um determinado momento. Há muitos algoritmos de
-% aprendizado por reforço que funcionam dessa maneira, e um dos mais estudados
-% deles é chamado Q-Learning.
 
 \section{Métodos de resolução de um MDP}
-\subsection{Métodos exatos}
-\subsubsection{Value Iteration}
-\blindtext
-\subsubsection{Policy Iteration}
-\blindtext
-\subsection{Programação Linear}
-\subsection{Métodos aproximados}
-\blindtext
+Resolver um Processo de Decisão de Markov siginifica, conforme descrito em
+\ref{policy}, encontrar uma política $\pi^*$ que resolva o problema e que
+maximize a soma de recompensas recebidas. Há diversos métodos que buscam
+encontrar uma solução para um problema modelado por um MDP, e os mais
+conhecidos (\textit{Iteração de Valores} e \textit{Iteração de
+Políticas}) e estudados no momento (\textit{Q-Learning} e \textit{Deep
+Learning}) são descritos a seguir:
+
+\subsection{Iteração de Valores}
+
+% http://www.iumj.indiana.edu/IUMJ/FULLTEXT/1957/6/56038
+
+Este algoritmo baseia-se no conceito de \textit{função valor} de uma política,
+que é uma função $V_\pi: S \mapsto \mathbb{R}$ que dá o valor
+esperado da recompensa total para esta política, partindo de um estado $s \in S$.
+Sua definição formal é:
+
+\begin{equation} \label{value_function}
+  V^\pi(s) = R(s, \pi(s)) + \gamma\sum_{s' \in S}T(s'|s, \pi(s))V^\pi(s')
+\end{equation}
+
+% https://seer.ufrgs.br/rita/article/viewFile/rita_v14_n2_p133-179/3544
+Para cada estado $s \in S$, o algoritmo usa programação dinâmica para determinar
+o valor $V^*(s)$, que é a função valor para uma política ótima. O algoritmo é
+mostrado abaixo em pseudocódigo:
+
+
+
+\begin{algorithm}
+\label{value_iteration_alg}
+\caption{Algoritmo de Iteração de Valores}
+
+\textbf{Entrada:}  Um MDP $(S, A, T, R)$
+
+
+\textbf{Saída:} Uma função V para o MDP dado como entrada
+
+
+\begin{algorithmic}[1]
+\Function{Value Iteration}{MDP}
+  \ForEach{$s \in S $}
+    \State $V_0(s) \gets \max_{a \in A}R(s, a)$
+  \EndFor
+  \State $i \gets 1$
+
+  \Repeat
+    \State $\Delta \gets 0$
+    \ForEach{$s \in S $}
+      \State $v \gets V_i(s)$
+      \State $V_i(s) \gets \max_{a \in A}[R(s, a) + \gamma\sum_{s' \in S}
+       T(s' | s, a)V_{i-1}(s')]$
+       \State $\Delta \gets \max(\Delta, |v - V_i(s)|)$
+    \EndFor
+    \State $i \gets i + 1$
+  \Until {$ \Delta < \epsilon $}
+  \State \Return V
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+O algoritmo baseia-se em um mapeamento $h: S \times A \times V \mapsto
+\mathbb{R}$, tal que $h(s, a, V)$ fornece o valor de executar a ação $a$ no
+estado $s$ seguindo uma política derivada de uma função valor $V$ após esta
+ação:
+
+\begin{equation}
+\label{mapping_h}
+h(s, a, V) = R(s, a) + \gamma\sum_{s' \in S}T(s' | s, a)V(s')
+\end{equation}
+
+O mapeamento descrito em \ref{mapping_h} pode ser usado para definir um operador
+ $H: V \mapsto V$ de melhoria de política, que determina a melhor ação em um
+ estado baseado nos valores V dos estados em uma época de decisão anterior:
+
+\begin{equation}\label{melhoria_politica}
+  HV_k(s) = \max_{a \in A}h(s, a, V_{k+1})
+\end{equation}
+
+O mapeamento definido em \ref{melhoria_politica} pode ser usado para determinar
+a função valor de uma época de decisão a partir da função valor da época de
+decisão anterior:
+
+\begin{equation} \label{value_iteration_equation}
+  \begin{split}
+  V_k(s) & = HV_{k+1}(s) \\
+  & = \max_{a \in A}h(s, a, V_{k+1}) \\
+  & = \max_{a \in A}[R(s, a) + \gamma\sum_{s' \in S}T(s' |s,a)V_{k+1}(s')]
+  \end{split}
+\end{equation}
+
+A equação \ref{value_iteration_equation}, por sua vez, é a base do algoritmo de
+iteração de valores.
+
+\subsection{Iteração de Políticas}
+
+% Howard, Ronald A. (1960). Dynamic Programming and Markov Processes (PDF).
+% The M.I.T. Press.
+% http://web.mit.edu/dimitrib/www/dpchapter.pdf
+Diferentemente do algoritmo de iteração de valores, que busca uma política
+ótima através da exploração do espaço de funções V até que seja encontrada uma
+função valor da qual pode ser obtida uma política ótima, o algoritmo de iteração
+de políticas busca uma política ótima diretamente no espaço de políticas. Além
+da função $V^\pi(s)$, este algoritmo também usa a função $Q^\pi(s,a)$, que
+fornece o valor esperado da recompensa total partindo de uma ação imediata $a$
+em um estado $s$ e seguindo, em estados subsequentes, uma política $\pi$. Sua
+definição é dada por:
+
+\begin{equation}
+  Q_\pi(s,a) = R(s,a) + \gamma\sum_{s \in S}T(s'|s, a)V(s')
+\end{equation}
+
+O algoritmo começa definindo uma política aleatória $\pi'$, determinando o
+valor $V^{\pi'}(s)$. Após, de maneira gulosa, o algoritmo tenta melhorar a
+política encontrada através da busca pela melhor ação para cada um dos estados
+do processo.
+
+
+\begin{algorithm}
+\label{policy_iteration_alg}
+\caption{Algoritmo de Iteração de Políticas}
+
+\textbf{Entrada:}  Um MDP $(S, A, T, R)$
+
+
+\textbf{Saída:} Uma política $\pi'$, otimal para o MDP dado como entrada
+
+
+\begin{algorithmic}[1]
+\Function{Policy Iteration}{MDP}
+  \State Inicialize $\pi$ aleatoriamente
+
+  \Repeat
+    \State $\pi' \gets \pi$
+    \State Avalie a política atual resolvendo o sistema linear:
+    \State $\forall s \in S, V(s) = R(s, \pi'(s)) + \gamma\sum_{s' \in S}
+    T(s'|s, \pi(s))V(s')$
+    \ForEach{$s \in S$}
+      \State $\forall a \in A, Q^{\pi'}(s, a) \gets R(s, a) + \gamma
+      \sum_{s' \in S}T(s' |s, a)V(s')$
+    \EndFor
+    \ForEach{$s \in S$}
+      \State Melhore a política:
+      \State {$\pi(s) \gets argmax_{a \in A}Q^{\pi'}(s, a)$}
+    \EndFor
+  \Until {$ \pi = \pi' $}
+  \State \Return $\pi'$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+O algoritmo baseia-se no teorema da otimalidade da política, que postula que,
+em uma política $\pi$ com um valor associado $V^\pi$ para um MDP $M$, se a
+política não pode ser melhorada, ou seja, se
+
+$$
+\forall a \in A, V^\pi(s) = \max_{a \in A}Q^\pi(s, a)
+$$
+
+então $\pi$ é otimal para $M$.
+
+Para cada estado $s$, portanto, o algoritmo de iteração de políticas determina
+qual a melhor ação a ser tomada, definindo assim uma nova política $\pi$, dado
+que as ações seguintes serão tomadas de acordo com $\pi'$, a política definida
+no passo anterior, desta forma:
+
+\begin{equation}
+  \forall s \in S, \pi(s) = \arg \max_{a \in A}Q^{\pi'}(s, a)
+\end{equation}
+
+
 \subsection{Q-Learning}
-\blindtext
-\subsection{Deep Learning}
-\blindtext
+Há situações onde é praticamente impossível (ou ao menos excessivamente custoso)
+buscar uma política otimal para um MDP através dos algoritmos de iteração de
+valores ou de políticas, em parte porque o espaço de ações e estados é
+muito grande, contribuindo para o custo computacional da busca por uma solução,
+e em parte porque algoritmos como Iteração de Valores e Iteração de Políticas
+assumem que o agente possui conhecimento sobre o domínio no qual está atuando,
+ou seja, é presumido que o agente sabe de antemão as transições entre estados.
+
+% https://arxiv.org/pdf/1301.6718.pdf
+% http://idm-lab.org/bib/abstracts/papers/aaai93.pdf
+Para resolver este problema, há um algoritmo alternativo chamado Q-Learning que,
+% https://link.springer.com/content/pdf/10.1007%2FBF00992698.pdf
+ao invés de buscar uma política ótima calculando diretamente valores para a
+função $Q(s, a)$ para todos os estados e ações de um MDP, busca aproximar, de
+maneira iterativa, os valores para a função $Q(s, a)$ para os estados e ações do
+sistema através de uma busca baseada em tentativa e erro, uma vez que o algoritmo
+não supõe que o agente possui quaisquer informações acerca das transições entre
+estados e das recompensas associadas a elas.
+
+
+A ideia fundamental do algoritmo Q-Learning é, portanto, a aproximação dos
+valores para a função $Q$ através dos valores $Q(s, a)$ que são observados na
+medida em que o agente interage com o ambiente. Tais valores (chamados de
+\textit{Q-values}) são salvos em uma matriz de tamanho $|S| \times |A|$ (
+normalmente discretiza-se representações contínuas, como quando um estado é
+representado por um número real) chamada de \textit{Q-table} e são
+sucessivamente atualizados para valores cada vez mais próximos dos valores
+verdadeiros da função $Q(s, a)$. Os valores da \textit{Q-table} são atualizados
+com base na seguinte fórmula:
+
+\begin{equation}
+  \label{q_learning_update}
+  Q_{t+1}(s, a) = (1 - \alpha)Q_t(s, a) + \alpha(R(s, a) + \gamma\max_{a \in A}Q'(s', a))
+\end{equation}
+
+Onde $\alpha$ é chamado de \textit{coeficiente de aprendizado}, que diz qual o
+peso do novo valor observado ante o \textit{Q-value} guardado na tabela, oriundo
+de observações anteriores.
+
+O algoritmo de Q-learning é definido pelo pseudocódigo presente no algoritmo
+\ref{q_learning_alg}.
+
+
+\begin{algorithm}
+  \label{q_learning_alg}
+\caption{Algoritmo de Q-learning}
+
+\textbf{Entrada:}  Um MDP $(S, A, T, R)$ e um coeficiente de aprendizado $\alpha$
+
+
+\textbf{Saída:} Uma função $Q$, aproximação de $Q*$
+
+
+\begin{algorithmic}[1]
+\Function{Qlearning}{MDP}
+  \State Inicialize $Q: S \times A\mapsto \mathbb{R} $ aleatoriamente
+
+  \Repeat
+    \State Inicialize o agente em um estado inicial $s \in S$
+    \While {\textit{$s$ não é um estado terminal}}
+      \State Calcular $a$ de acordo com a política atual de exploração (e.g. $\arg \max_a Q(s,a)$)
+      \State $s' \gets T(s, a)$
+      \State $Q(s', a) \gets (1 - \alpha)\cdot Q(s,a) + \alpha \cdot (r + \gamma\max_{a' \in A}Q(s', a'))$
+      \State $s \gets s'$
+    \EndWhile
+  \Until {\textit{critério de convergência de Q seja atingido}}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Política de exploração em Q-Learning}
+Na linha 6 do algoritmo \ref{q_learning_alg}, uma ação, dentre todas as
+possíveis ações para o estado no qual o agente se encontra, deve ser escolhida.
+Mas, em um estado inicial, apenas com valores gerados aleatoriamente para a
+\textit{Q-table}, como o agente deve decidir qual a melhor ação a ser tomada? E
+mais: após algumas iterações, quando já se sabe que algumas sequências de ações
+geram as melhores recompensas (por trazerem na \textit{Q-table} os melhores
+valores para as aproximações da função $Q$), como saber se outras sequências,
+ainda não exploradas, não resultam em recompensas totais maiores? A cada
+momento, portanto, o agente deve decidir se busca melhorar as sequências de
+ações já encontradas até o momento através do seu refinamento (o que é chamado de
+\textit{exploitation}) ou se busca sequências de ações completamente novas, na
+esperança de que elas resultem em recompensas totais maiores (o que é chamado de
+\textit{exploration}). O problema que trata dessa decisão a ser feita pelo
+agente é chamado de \textit{exploration/exploitation trade-off} ou de \textit{
+exploration/exploitation problem}. A solução para esse problema proposta em
+[citation] é simples: há um fator $\epsilon \in (0,1)$ que determina a
+probabilidade de, a cada época de decisão, o agente não seguir os valores da
+\textit{Q-table} e, ao invés disto, executar uma ação aleatória dentre todas as
+outras possíveis para aquele estado. No começo da interação do agente com o
+ambiente, quando a maioria das células da \textit{Q-table} ainda guardam os
+valores gerados aleatoriamente no primeiro passo do algoritmo, $\epsilon$ guarda
+um valor próximo de 1, fazendo com que o agente tome uma decisão aleatória (e,
+consequentemente, exploratória) na grande maioria das vezes. À medida que o
+agente atualiza os valores da \textit{Q-table}, entretanto --- reunindo, desta
+maneira, mais conhecimento sobre o sistema ---, o valor de $\epsilon$ decai,
+fazendo com que o agente passe, gradativamente, a tomar mais decisões baseadas
+nos valores da \textit{Q-table}.
+
+% "Learning from Delayed Rewards" - a tese do watkins
+
+
+\subsection{Deep Q-Learning}
+% https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf
+% https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf
+O algoritmo chamado de \textit{Deep Q-Learning} tem este nome porque combina
+\textit{Q-Learning} com redes neurais profundas (\textit{deep neural networks}).
+Seu funcionamento é parecido com \textit{Q-Learning}, com a diferença de que, ao
+invés serem guardados em uma tabela, os valores aproximados para a função
+$Q^*(s, a)$ são fornecidos a uma rede neural profunda, que usa os valores
+dados a ela para aproximar a função $Q^*$. Possui a vantagem da escalabilidade,
+uma vez que sistemas onde os estados possuem muitas dimensões (ou há muitas
+ações possíveis para cada estado) requerem tabelas que, na prática, acabam se
+tornando inviáveis, se tratando de consumo de memória. Uma das suas aplicações
+práticas são jogos de computador [citation] e o exemplo mais famoso de \textit{
+Deep Q-Learning} é o AlphaGo [citation], programa que venceu quatro de uma série
+de cinco partidas do jogo de tabuleiro Go contra Lee Sedol, campeão mundial do
+jogo, em 2016.
+
+
 
 \section{Funcionamento de um algoritmo de AR}
 \blindtext
 \section{Simuladores de AR}
-\blindtext
+\begin{figure}[h]
+    \caption{Um robô real e sua versão modelada em um simulador.}
+    \begin{center}
+      \frame{\includegraphics[width=0.9\textwidth]{mujocosimulator.png}}
+    \end{center}
+    \label{fig:mujocosimulator}
+\end{figure}
+
+Aprendizado por reforço lida com problemas onde um agente, inserido em um
+ambiente, tenta resolver um determinado problema através de uma série de ações.
+Em alguns problemas, é de interesse do responsável pelo desenvolvimento do
+agente que se possa modelar casos nos quais o agente está inserido em um
+ambiente estocástico (i.e. que apresenta fatores aleatórios que influenciam em
+seu comportamento).
+%que desempenhe o papel de um sistema
+No problema trabalhado na tese de Andrew Ng \bruno{add citation}, por exemplo,
+um agente é treinado para ser capaz de controlar um helicóptero, a fim de
+estabilizá-lo levando em consideração fatores imprevisíveis do sistema (e.g.
+vento, chuva e demais fatores que podem interferir na estabilidade do veículo).
+Nota-se que o problema, portanto, tem um objetivo prático: desenvolver um
+controle para um helicóptero que mantenha sua estabilidade, independentemente
+de fatores externos. O problema surge na necessidade de treinar o agente: como
+proceder com o treinamento em ambientes que possuam diferentes níveis de
+imprevisibilidade e cujos fatores como chuva e vento atuem em diferentes
+intensidades? Logicamente, o objetivo final do processo é ter um veículo
+autocontrolado capaz de manter sua estabilidade sob qualquer tipo de interpérie;
+para que isso seja possível, todavia, é necessário que o agente seja treinado
+em diferentes tipos de ambiente, o que pode se tornar inviável dadas restrições
+como o tempo disponível para o projeto e a necessidade dos desenvolvedores de se
+deslocar até locações onde há ambientes ideais para o treinamento. A solução
+que é amplamente usada nesses casos, portanto, é a modelagem de locações em um
+simulador que representa diferentes tipos de terreno e que permite ao
+pesquisador que este configure os diferentes fatores do ambiente de acordo com
+ sua necessidade.
+
+
+
+Além da economia de tempo e da liberdade para modelar de forma controlada
+diferentes tipos de ambiente com comportamento estocástico, simuladores também
+oferecem uma maneira de analisar o desempenho de diferentes algoritmos de
+aprendizado quando aplicados ao mesmo problema, ou o contrário, que ocorre
+quando um mesmo algoritmo de aprendizado é aplicado a problemas diferentes a fim
+de que possa ser avaliada a sua generalidade. Esse foi um dos objetivos do
+desenvolvimento da plataforma Gym, da OpenAI, uma organização sem fins
+lucrativos que desenvolve projetos com foco em inteligência artificial. Com um
+catálogo de diversos cenários de aprendizado por reforço (chamados de
+\textit{environments}) oriundos da literatura de IA e até mesmo de jogos feitos
+para antigas plataformas de 8 \textit{bits}, esta plataforma oferece uma API
+(Interface Pública de Aplicação, em tradução livre; espécie de ponto de acesso
+ao qual programas podem se conectar, se seguirem um determinado formato) que
+permite que qualquer pessoa desenvolva seu algoritmo de AR para um determinado
+cenário e submeta-o a uma espécie de \textit{ranking}, que elenca os
+responsáveis pelos algoritmos que resolveram o problema de maneira mais
+eficiente, levando em consideração a maior recompensa recebida e o tempo levado
+para resolver o problema. Sua desvantagem, entretanto, é que o catálogo de
+\textit{environments} oferecido pelo Gym é fixo, ao mesmo tempo em que não
+existe nenhum \textit{framework} capaz de oferecer ao desenvolvedor as
+ferramentas necessárias para produzir cenários que são compativeis com a API do
+Gym. Isso possibilitaria, por exemplo, uma busca rápida de algoritmos que
+comprovadamente funcionam em cenários conhecidos a fim de que estes sejam
+mudados para sua aplicação em ambientes novos. Este trabalho propõe um
+\textit{framework} que auxilia na criação de tais cenários, sem que o
+programador tenha que lidar com questões de programação de baixo nível
+como a troca de informações entre um motor de física, responsável pelas
+simulações, e uma biblioteca gráfica, que transforma o ambiente simulado em algo
+que pode ser representado na tela através de \textit{pixels}.
+%
+%
+% \bruno{o Gym nao é um simulador, né? É uma API. Tu pode implementar diferentes ambientes, usando diferentes tipos de simuladores/motores de física, de forma que eles sejam compatíveis com Gym. O que eu diria aqui é que o Gym foi feito pra padronizar a interface com que algoritmos de AR interagem com diferentes ambientes simulados, independente de como tais ambientes simulados foram implementados---se manualmente, pelo programador usando diretamente um motor de fisica, ou usando algum dos framework para geracao de simulacoes/ambientes, tais como os que vao ser discutidos na secao de Estado da Arte. Como o Gym padroniza essa interface entre ambientes e agentes, quaisquer ambientes e  agentes/algoritmo de AR que sigam a API podem ser conectados, de forma a avaliar a performance daquele algoritmo naquele ambiente. Por essa razao, o Gym é um importante padrao na área pra facilitar essa comparacao de metodos, reproducibility, etc, aquelas coisas todas faladas no Resumo. Aí diz que, como sera discutido na secao de Estado da Arte, existem varios frameworks para facilitar a geracao de simulacoes/ambientes para avaliacao de algoritmos de AR, mas uma das limitacoes principais é que eles tem curva de aprendizado alta, etc, e que os codigos gerados automaticamente por esses frameworks nao seguem nenhuma interface padronizada, o que significa que é dificil pegar esses ambientes gerados e testar algoritmos implementados por outras pessoas, e disponibilizados online, nesses ambientes} Com um catálogo de
+% diversos problemas ou ambientes de aprendizado (chamados \textit{environments}) oriundos da literatura de IA e até mesmo de jogos que originalmente foram feitos para máquinas
+% de 8 bits, este simulador \bruno{gym nao é um simulador} permite que qualquer pessoa desenvolva seu algoritmo de AR e submeta-o a uma espécie de \textit{ranking}, que elenca os
+% responsáveis pelos algoritmos que resolveram o problema em menos tempo (i.e. que o agente aprendeu a sequência de ações que resolve o problema mais
+% rapidamente). Sua desvantagem, entretanto, é que os \textit{enviroments} são fixos e não permitem que neles sejam feitas pequenas alterações ou até
+% mesmo que \textit{environments} completamente novos sejam construídos, e este trabalho visa apresentar um simulador capaz de disponibilizar ferramentas
+% para a construção de cenários novos e que produzam resultados compatíveis com a biblioteca do Gym. \bruno{o final da frase (objetivo) ta ok, mas o inicio nao conecta bem: o teu trabalho nao é motivado pelo fato de que os codigos de ambientes do Gym nao fixos, porque tu nao vai propor um framework pra mais facilmente alterar codigos de ambientes do Gym. Tambem tem que corrigir onde tu diz que teu objetivo é fazer um simulador. É um framework pra gerar simualdores/ambientes etc etc}\par
+
+%
+% \henrique{aqui eu ainda tenho que alterar, com base no que vou colocar no capítulo de estado da arte}No próximo capítulo, será feito um breve estudo dos simuladores Gym e MuJoCo secao de traçando suas principais vantagens e deficiências, através de uma
+% análise comparativa que relacionará seus pontos fortes e desvantagens com o que é oferecido pelo simulador descrito no capítulo 4 deste trabalho. \bruno{gym e mujoco sao comparaveis? gym é uma API, mujoco é um gerador de codigo. Tem que falar do Gym no inicio, clarificando que nao se trata de um simulador nem de um gerador de ambientes/simualdores, e sim um padrao/API que, se um deterinado ambiente/simulador seguir, ele pode ser usado para avaliar qualquer um dos N algoritmos de aprendizado que ja foram implementados e que seguem essa API. Aí precisa falar do mujoco e de outros geradores de codigo de ambientes/simuladores. Eu tinha mandado, num email, alguns links. Tem o framework dos italianos, e tinha um outro negocio que eu tinha mandado por facebook que era de um negocio meio em modo-texto. Nao lembro qual era. Mas tem mais coisa que só o mujoco; tem que achar os links que eu tinha mandado por email}.
 
 
 % O problema de aprendizado por reforço pode ser formalmente definido através
