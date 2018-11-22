@@ -315,7 +315,7 @@ custo associado à adoção de um \textit{framework} para construção de simula
 
   Neste trabalho, é descrito o processo de criação deste \textit{framework} e é
   comparada a complexidade de código necessário para criar ambientes
-  de aprendizado por reforço através dele e de outros \textit{framworks}
+  de aprendizado por reforço através dele e de outros \textit{frameworks}
   existentes, demonstrando não apenas que os simualdores automaticamente gerados
   pelo nosso \textit{framework} são compatíveis com APIs padrão na área, mas
   também que são de fácil especificação, permitindo que a construção de
@@ -1209,9 +1209,15 @@ nos valores da \textit{Q-table}.
 % "Learning from Delayed Rewards" - a tese do watkins
 
 
-\subsection{Deep Q-Learning}
+\subsection{Aprendizado por Reforço com Redes Neurais Profundas}
+% [1] https://arxiv.org/pdf/1312.5602.pdf
+% [2] http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks
+% [3] https://storage.googleapis.com/deepmind-media/alphago/AlphaGoNaturePaper.pdf
+% [4] https://ieeexplore.ieee.org/abstract/document/705737
+
 % https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf
 % https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf
+% https://arxiv.org/pdf/1612.00380.pdf
 O algoritmo chamado de \textit{Deep Q-Learning} tem este nome porque combina
 \textit{Q-Learning} com redes neurais profundas (\textit{deep neural networks}).
 Seu funcionamento é parecido com \textit{Q-Learning}, com a diferença de que, ao
@@ -1220,17 +1226,55 @@ $Q^*(s, a)$ são fornecidos a uma rede neural profunda, que usa os valores
 dados a ela para aproximar a função $Q^*$. Possui a vantagem da escalabilidade,
 uma vez que sistemas onde os estados possuem muitas dimensões (ou há muitas
 ações possíveis para cada estado) requerem tabelas que, na prática, acabam se
-tornando inviáveis, se tratando de consumo de memória. Uma das suas aplicações
-práticas são jogos de computador [citation] e o exemplo mais famoso de \textit{
-Deep Q-Learning} é o AlphaGo [citation], programa que venceu quatro de uma série
-de cinco partidas do jogo de tabuleiro Go contra Lee Sedol, campeão mundial do
-jogo, em 2016.
+tornando inviáveis, no que tange ao consumo de recursos computacionais (e.g.
+memória). Em [[1]], uma rede neural profunda foi treinada para jogar jogos da
+plataforma Atari: neste trabalho, o estado é representado pelos componentes
+visuais do jogo, ou seja, pela imagem formada na tela. Quatro quadros
+consecutivos do jogo são transmitidos a uma rede neural convolucional [[2]] (
+como registrado na figura \ref{fig:doom_neural_network}), que
+tenta aproximar, para cada ação possível, seu valor $Q$, sendo tomada a ação de
+maior valor. O algoritmo aproveita-se do fato de que, em um jogo, há um número
+muito limitado de ações possíveis para cada estado: mover-se ou disparar uma
+arma por exemplo. Os treinamentos resultaram em performances próximas da humana
+em todos os jogos para os quais redes foram treinadas.
+
+\begin{figure}[h]
+    \caption{Esquema de uma rede neural para o jogo \textit{Doom}.}
+    \begin{center}
+      \includegraphics[width=0.9\textwidth]{cnn_doom.png}
+    \end{center}
+    \label{fig:doom_neural_network}
+\end{figure}
+
+Talvez o exemplo mais famoso de aplicação que combinou algoritmos clássicos de
+aprendizado por reforço com redes neurais profundas tenha sido o AlphaGo [[3]].
+Desenvolvido pela empresa DeepMind, o AlphaGo é um \textit{software} que joga o
+jogo de tabuleiro Go, original da China e talvez um dos jogos de tabuleiro mais
+antigos do mundo. Ensinar programas de computador a jogar Go nunca foi uma
+tarefa tão simples como jogar xadrez, por exemplo, uma vez que o número de
+jogadas possíveis em uma rodada é muito maior, tornando buscas que usam árvores
+para representar jogadas futuras praticamente inviáveis [[4]]. Este problema,
+entretanto, foi contornado pelos pesquisadores da DeepMind através de um
+algoritmo que combina buscas guiadas por políticas com redes neurais profundas,
+e o resultado foi uma série de vitórias contra campeões continentais e mundiais
+da modalidade. Tais feitos não seriam possíveis, entretanto, se não houvesse
+alguma maneira de representar o jogo em um ambiente virtual, seja o jogo feito
+para a plataforma Atari ou o jogo de tabuleiro, e trabalhos como os citados aqui
+só são possíveis com o uso de simuladores.
+% Uma das suas aplicações práticas são jogos de computador [citation] e o exemplo mais famoso de \textit{
+% Deep Q-Learning} é o AlphaGo [citation], programa que venceu quatro de uma série
+% de cinco partidas do jogo de tabuleiro Go contra Lee Sedol, campeão mundial do
+% jogo, em 2016.
 
 
 
-\section{Funcionamento de um algoritmo de AR}
-\blindtext
 \section{Simuladores de AR}
+
+% [1] http://rll.berkeley.edu/deeprlcourse/docs/ng-thesis.pdf
+% [2] tese do andrew ng, link em algum lugar no texto
+% [3] artigo do mujoco
+% [4] https://github.com/deepmind/dm_control
+
 \begin{figure}[h]
     \caption{Um robô real e sua versão modelada em um simulador.}
     \begin{center}
@@ -1239,64 +1283,98 @@ jogo, em 2016.
     \label{fig:mujocosimulator}
 \end{figure}
 
-Aprendizado por reforço lida com problemas onde um agente, inserido em um
-ambiente, tenta resolver um determinado problema através de uma série de ações.
-Em alguns problemas, é de interesse do responsável pelo desenvolvimento do
-agente que se possa modelar casos nos quais o agente está inserido em um
-ambiente estocástico (i.e. que apresenta fatores aleatórios que influenciam em
-seu comportamento).
+Conforme desenvolvido anteriormente, algoritmos de aprendizado por reforço
+possuem uma miríade de aplicações; seja em jogos de tabuleiro ou de
+\textit{video games} ou sistema de controle de veículos autônomos [[1]],
+algoritmos de aprendizado por reforço são recomendados em quaisquer situações
+onde ações devem ser tomadas em sequência, dentro de um ambiente. Um problema
+surge, entretanto, quando torna-se necessário modelar um ambiente sob a forma de
+um Modelo de Markov ou sob qualquer outra forma que possa ser compreendida por
+um programa de computador. No caso do AlphaGo, o tabuleiro e as peças precisaram
+ser representados em um \textit{software} para que o agente em treinamento
+pudesse lê-los e compreendê-los; no caso trabalhado por [[2]], uma representação
+do mundo real precisa ser modelada, para que o comportamento diverso que o mundo
+real pode apresentar esteja sob o controle daqueles que treinam o agente.
+
+
+No caso da robótica, o uso de simuladores possui ainda outra vantagem prática:
+modelar robôs em um ambiente simulado que segue as leis da física do mundo real
+permite, por exemplo, que um modelo de um robô passe por um treinamento virtual
+antes de ser construído de verdade (a figura \ref{fig:mujocosimulator} ilustra
+este tipo de situação), acelerando, desta maneira, o processo de treinamento. Há
+diversas ferramentas que são usadas especialmente para construir simuladores que
+apresentem características físicas semelhantes às do mundo real: o MuJoCo [[3]],
+por exemplo, fornece a base para o \textit{software} da DeepMind [[4]]. No
+capítulo a seguir, algumas das ferramentas mais comumente usadas para a
+construção de simuladores serão analisadas.
+%
+% Além da economia de tempo e da liberdade para modelar de forma controlada
+% diferentes tipos de ambiente com comportamento estocástico, simuladores também
+% oferecem uma maneira de analisar o desempenho de diferentes algoritmos de
+% aprendizado quando aplicados ao mesmo problema, ou o contrário, que ocorre
+% quando um mesmo algoritmo de aprendizado é aplicado a problemas diferentes a fim
+% de que possa ser avaliada a sua generalidade.
+
+
+
+% Aprendizado por reforço lida com problemas onde um agente, inserido em um
+% ambiente, tenta resolver um determinado problema através de uma série de ações.
+% Em alguns problemas, é de interesse do responsável pelo desenvolvimento do
+% agente que se possa modelar casos nos quais o agente está inserido em um
+% ambiente estocástico (i.e. que apresenta fatores aleatórios que influenciam em
+% seu comportamento).
 %que desempenhe o papel de um sistema
-No problema trabalhado na tese de Andrew Ng \bruno{add citation}, por exemplo,
-um agente é treinado para ser capaz de controlar um helicóptero, a fim de
-estabilizá-lo levando em consideração fatores imprevisíveis do sistema (e.g.
-vento, chuva e demais fatores que podem interferir na estabilidade do veículo).
-Nota-se que o problema, portanto, tem um objetivo prático: desenvolver um
-controle para um helicóptero que mantenha sua estabilidade, independentemente
-de fatores externos. O problema surge na necessidade de treinar o agente: como
-proceder com o treinamento em ambientes que possuam diferentes níveis de
-imprevisibilidade e cujos fatores como chuva e vento atuem em diferentes
-intensidades? Logicamente, o objetivo final do processo é ter um veículo
-autocontrolado capaz de manter sua estabilidade sob qualquer tipo de interpérie;
-para que isso seja possível, todavia, é necessário que o agente seja treinado
-em diferentes tipos de ambiente, o que pode se tornar inviável dadas restrições
-como o tempo disponível para o projeto e a necessidade dos desenvolvedores de se
-deslocar até locações onde há ambientes ideais para o treinamento. A solução
-que é amplamente usada nesses casos, portanto, é a modelagem de locações em um
-simulador que representa diferentes tipos de terreno e que permite ao
-pesquisador que este configure os diferentes fatores do ambiente de acordo com
- sua necessidade.
+% No problema trabalhado por Andrew Ng \bruno{add citation}, por exemplo,
+% um agente é treinado para ser capaz de controlar um helicóptero, a fim de
+% estabilizá-lo levando em consideração fatores imprevisíveis do sistema (e.g.
+% vento, chuva e demais fatores que podem interferir na estabilidade do veículo).
+% Nota-se que o problema, portanto, tem um objetivo prático: desenvolver um
+% controle para um helicóptero que mantenha sua estabilidade, independentemente
+% de fatores externos. O problema surge na necessidade de treinar o agente: como
+% proceder com o treinamento em ambientes que possuam diferentes níveis de
+% imprevisibilidade e cujos fatores como chuva e vento atuem em diferentes
+% intensidades? Logicamente, o objetivo final do processo é ter um veículo
+% autocontrolado capaz de manter sua estabilidade sob qualquer tipo de interpérie;
+% para que isso seja possível, todavia, é necessário que o agente seja treinado
+% em diferentes tipos de ambiente, o que pode se tornar inviável dadas restrições
+% como o tempo disponível para o projeto e a necessidade dos desenvolvedores de se
+% deslocar até locações onde há ambientes ideais para o treinamento. A solução
+% que é amplamente usada nesses casos, portanto, é a modelagem de locações em um
+% simulador que representa diferentes tipos de terreno e que permite ao
+% pesquisador que este configure os diferentes fatores do ambiente de acordo com
+%  sua necessidade.
 
-
-
-Além da economia de tempo e da liberdade para modelar de forma controlada
-diferentes tipos de ambiente com comportamento estocástico, simuladores também
-oferecem uma maneira de analisar o desempenho de diferentes algoritmos de
-aprendizado quando aplicados ao mesmo problema, ou o contrário, que ocorre
-quando um mesmo algoritmo de aprendizado é aplicado a problemas diferentes a fim
-de que possa ser avaliada a sua generalidade. Esse foi um dos objetivos do
-desenvolvimento da plataforma Gym, da OpenAI, uma organização sem fins
-lucrativos que desenvolve projetos com foco em inteligência artificial. Com um
-catálogo de diversos cenários de aprendizado por reforço (chamados de
-\textit{environments}) oriundos da literatura de IA e até mesmo de jogos feitos
-para antigas plataformas de 8 \textit{bits}, esta plataforma oferece uma API
-(Interface Pública de Aplicação, em tradução livre; espécie de ponto de acesso
-ao qual programas podem se conectar, se seguirem um determinado formato) que
-permite que qualquer pessoa desenvolva seu algoritmo de AR para um determinado
-cenário e submeta-o a uma espécie de \textit{ranking}, que elenca os
-responsáveis pelos algoritmos que resolveram o problema de maneira mais
-eficiente, levando em consideração a maior recompensa recebida e o tempo levado
-para resolver o problema. Sua desvantagem, entretanto, é que o catálogo de
-\textit{environments} oferecido pelo Gym é fixo, ao mesmo tempo em que não
-existe nenhum \textit{framework} capaz de oferecer ao desenvolvedor as
-ferramentas necessárias para produzir cenários que são compativeis com a API do
-Gym. Isso possibilitaria, por exemplo, uma busca rápida de algoritmos que
-comprovadamente funcionam em cenários conhecidos a fim de que estes sejam
-mudados para sua aplicação em ambientes novos. Este trabalho propõe um
-\textit{framework} que auxilia na criação de tais cenários, sem que o
-programador tenha que lidar com questões de programação de baixo nível
-como a troca de informações entre um motor de física, responsável pelas
-simulações, e uma biblioteca gráfica, que transforma o ambiente simulado em algo
-que pode ser representado na tela através de \textit{pixels}.
+%
+%
+% Além da economia de tempo e da liberdade para modelar de forma controlada
+% diferentes tipos de ambiente com comportamento estocástico, simuladores também
+% oferecem uma maneira de analisar o desempenho de diferentes algoritmos de
+% aprendizado quando aplicados ao mesmo problema, ou o contrário, que ocorre
+% quando um mesmo algoritmo de aprendizado é aplicado a problemas diferentes a fim
+% de que possa ser avaliada a sua generalidade. Esse foi um dos objetivos do
+% desenvolvimento da plataforma Gym, da OpenAI, uma organização sem fins
+% lucrativos que desenvolve projetos com foco em inteligência artificial. Com um
+% catálogo de diversos cenários de aprendizado por reforço (chamados de
+% \textit{environments}) oriundos da literatura de IA e até mesmo de jogos feitos
+% para antigas plataformas de 8 \textit{bits}, esta plataforma oferece uma API
+% (Interface Pública de Aplicação, em tradução livre; espécie de ponto de acesso
+% ao qual programas podem se conectar, se seguirem um determinado formato) que
+% permite que qualquer pessoa desenvolva seu algoritmo de AR para um determinado
+% cenário e submeta-o a uma espécie de \textit{ranking}, que elenca os
+% responsáveis pelos algoritmos que resolveram o problema de maneira mais
+% eficiente, levando em consideração a maior recompensa recebida e o tempo levado
+% para resolver o problema. Sua desvantagem, entretanto, é que o catálogo de
+% \textit{environments} oferecido pelo Gym é fixo, ao mesmo tempo em que não
+% existe nenhum \textit{framework} capaz de oferecer ao desenvolvedor as
+% ferramentas necessárias para produzir cenários que são compativeis com a API do
+% Gym. Isso possibilitaria, por exemplo, uma busca rápida de algoritmos que
+% comprovadamente funcionam em cenários conhecidos a fim de que estes sejam
+% mudados para sua aplicação em ambientes novos. Este trabalho propõe um
+% \textit{framework} que auxilia na criação de tais cenários, sem que o
+% programador tenha que lidar com questões de programação de baixo nível
+% como a troca de informações entre um motor de física, responsável pelas
+% simulações, e uma biblioteca gráfica, que transforma o ambiente simulado em algo
+% que pode ser representado na tela através de \textit{pixels}.
 %
 %
 % \bruno{o Gym nao é um simulador, né? É uma API. Tu pode implementar diferentes ambientes, usando diferentes tipos de simuladores/motores de física, de forma que eles sejam compatíveis com Gym. O que eu diria aqui é que o Gym foi feito pra padronizar a interface com que algoritmos de AR interagem com diferentes ambientes simulados, independente de como tais ambientes simulados foram implementados---se manualmente, pelo programador usando diretamente um motor de fisica, ou usando algum dos framework para geracao de simulacoes/ambientes, tais como os que vao ser discutidos na secao de Estado da Arte. Como o Gym padroniza essa interface entre ambientes e agentes, quaisquer ambientes e  agentes/algoritmo de AR que sigam a API podem ser conectados, de forma a avaliar a performance daquele algoritmo naquele ambiente. Por essa razao, o Gym é um importante padrao na área pra facilitar essa comparacao de metodos, reproducibility, etc, aquelas coisas todas faladas no Resumo. Aí diz que, como sera discutido na secao de Estado da Arte, existem varios frameworks para facilitar a geracao de simulacoes/ambientes para avaliacao de algoritmos de AR, mas uma das limitacoes principais é que eles tem curva de aprendizado alta, etc, e que os codigos gerados automaticamente por esses frameworks nao seguem nenhuma interface padronizada, o que significa que é dificil pegar esses ambientes gerados e testar algoritmos implementados por outras pessoas, e disponibilizados online, nesses ambientes} Com um catálogo de
@@ -1337,358 +1415,361 @@ que pode ser representado na tela através de \textit{pixels}.
 %   por uma ação $a \in A$ quando executada no estado $s \in S$.
 % \end{itemize}
 
-
-\subsection{Estado}
-Estado, dentro de um contexto de AR, é o conjunto de informações referentes ao agente e ao ambiente em um determinado momento no tempo, e que é utilizado para calcular
-qual será a próxima ação a ser tomada pelo agente. Considerando que a tomada de ação do agente é regulada por uma função $\pi$ que mapeia um estado
-$s$ a uma ação $a$, o estado, nesse caso, é o subconjunto de todas as informações do agente e do ambiente que serão usadas em $s$.
-
-
-% \bruno{se depois tu vai falar de Q-Learning ou algo assim, é bom aqui começar a usar já a terminologia matemática padrão. A função que determina uma ação $a$ baseada no estado atual $s$ se chama uma política, e é normalmnete denotada por $\pi$. Ou seja, o agente escolhe ações usando uma função $\pi(s) \rightarrow a$. Depois de executar a ação escolhida, $a$, o agente observa o novo estado do ambiente,  $s'$, e recebe uma recompensa, $r$, e com base nisso atualiza a sua política $\pi$ de acordo com algum algoritmo de aprendizado. Não fala que ação é $t$, porque $t$ sugere tempo, nào ação. Muda no resto pra usar a notacao acima, que é a padrao, e que vai facilitar na hora de falar sobre q-learning. O que é importante dizer na secao atual é que pra que o agente consiga aprender de maneira efetiva, as informacoes que vao ser incluidas no estado $s$ precisam ser suficientes pra que contenham toda informacao necessaria para que o agente possa determinar a acao apropriada. E.g., num problema onde o agente precisa mover a mao para um determinado local, se o agente nao tiver dentro do seu estado a informacao sobre a posicao $x,y$ da sua mao no momento atual, ele nao tem uma parte essencial da informacao necessaria pra escolher a acao---e.g. se deve mover a mao para a direita ou para a esquerda}\par
-
-A definição desse subconjunto, ou seja, a determinação de quais informações das entidades envolvidas na tarefa de aprendizado irão compor o estado e serão
-levadas em conta para a próxima tomada de ação do agente, é de responsabilidade do desenvolvedor ou pesquisador que está construindo
-o agente. Em tarefas simples, como a do exemplo ilustrado pela figura \ref{robotichand}, é trivial a determinação de quais informações farão
-parte do estado: no exemplo, é óbvio que a posição da área em azul e das partes do braço mecânico serão levadas em conta. Em outros
-problemas, entretanto, onde há agentes mais complexos lidando com múltiplos objetos no ambiente, é menos óbvia a tarefa de determinar
-o conjunto $s$ que será fornecido como entrada à função $\pi$. Isto pode influenciar no tempo necessário para a conclusão de um projeto
-que envolva aprendizado por reforço, uma vez que vários conjuntos diferentes de informações devem ser testados de maneira iterativa
-até que seja encontrado um estado que minimize o tempo até a conclusão da tarefa e torne o agente mais capaz de resolver o problema.
-
-
-Estado, dentro de um contexto de aprendizado por reforço, portanto, é um subconjunto contido no conjunto de todas as possíveis informações oriundas
-de todos os elementos envolvidos dentro de uma tarefa de aprendizado  --- incluindo informações sobre o ambiente e sobre o próprio agente) --- e que é usado
-como entrada na função do agente que mapeia um estado $s$ a uma
-ação $a$. As informações que compõem o estado, entretanto, são fruto de uma decisão humana, por parte de quem está desenvolvendo o projeto, e,
-considerando que decisões diferentes podem trazer resultados diferentes (dependendo da complexidade do projeto), pode ser necessário
-que diferentes formas de compor o estado sejam testadas a fim de que se encontre qual delas é a mais satisfatória para o problema a ser resolvido.
-
 %
-% Um MDP é, basicamente, uma descrição matemática de um ambiente, onde um agente
-% está inserido e no qual toma ações que modificam este ambiente.
-
-\section{Aprendizado por Reforço}
-
-Aprendizado por reforço compreende uma subárea da inteligência artificial que trabalha com a noção de um agente que explora um ambiente
-a fim de buscar uma solução (comportamento) para determinado problema. Sem nenhum instrução prévia, é tarefa do agente buscar, dentro do espaço
-de soluções possíveis, uma maneira satisfatória de resolver o problema através da sua interação com o ambiente.
-Para determinar se uma solução encontrada é satisfatória, usa-se, em aprendizado por reforço, a noção de recompensa. A recompensa é um sinal númerico e pode ser calculada após cada ação tomada pelo agente, ou ao final de cada episódio (\textit{delayed reward}), é um número que encapsula a
-qualidade daquela ação ou do conjunto de várias ações tomadas ao longo do tempo. Com base única e exclusivamente, então, nas recompensas recebidas pelo agente,
-o agente deve buscar uma solução (comportamento) que a maximize (de forma a resolvar o problema). Esta busca  é normalmente feita através
-de uma combinação entre ajustes nas ações que o agente tomou e que levaram à maior recompensa até o momento (\textit{exploitation}) e a avaliação do resultado de ações completamente
-novas ou desconhecidas pelo agente (\textit{exploration}).
-
-
-Diferentemente de outras áreas da IA, como o aprendizado supervisionado, no aprendizado por reforço a qualidade da ação tomada pelo agente não
-é verificada usando-se como base uma ação ideal ou ótima,  conhecida de antemão, e tampouco o agente passa por qualquer tipo de treinamento onde este é exposto a
-exemplos de ação ótima em cada situação. Tal método de aprendizado é normalmente usado, portanto, em tarefas onde o ambiente é desconhecido
-pelo agente, e é um modo de aprendizado bastante próximo das maneiras com que
-animais e humanos buscam formas de exercer tarefas com as quais nunca houve contato prévio.
-
-
-Um exemplo que pode servir para a compreensão do aprendizado por reforço é o experimento do psicólogo Edward Thorndike.
-No seu experimento, gatos eram colocados em gaiolas fechadas e precisavam encontrar uma maneira de sair para que pudessem
-consumir uma porção de peixe posicionada próxima à gaiola. Para abri-la, era necessário apenas que uma alavanca presente em
-seu interior fosse puxada; entretanto, não houve qualquer tipo de instrução prévia: a partir do momento em que os felinos
-eram trancados nas gaiolas, eles deveriam explorar e, principalmente, interagir de forma autônoma com o interior da gaiola até que, por si mesmos,
-encontrassem o dispositivo de abertura de seus cárceres. No momento que um gato encontrava a saída, o tempo levado até a sua fuga era anotado
- e o experimento era repetido.
-Thorndike percebeu que, uma vez que os gatos aprendiam que era a alavanca o dispositivo responsável pela sua
-soltura – e que, consequentemente, os permitia que consumissem a porção de peixe –, o tempo transcorrido entre o momento
-que o animal era recolocado na gaiola e o instante em que ele abria a mesma diminuia consideravelmente. Isso se dá porque,
-dentre todos os comportamentos adotados dentro da gaiola, o único que era observado pelos gatos como o comportamento que
-levava à recompensa era o ato de puxar a alavanca. O pesquisador, então, formulou o que ele chamou de "Lei do efeito",
-que estabelece que comportamentos e ações que, em uma determinada situação, levam a efeitos gratificantes tendem a se
-repetir e, por sua vez, comportamentos e ações que levem a efeitos indesejáveis ou insatisfatórios tendem a ser abandonados.
-
-% Thorndike, E. L. (1898). Animal intelligence: An experimental study of the associative processes in animals.
-% Psychological Monographs: General and Applied, 2(4), i-109.
-
-Princípios bastante próximos dos postulados pela Lei proposta por Thorndike foram a base para os primeiros experimentos
-envolvendo aprendizado por reforço, na metade do século passado. Em 1952, um dos grandes expoentes da inteligência artificial,
-Marvin Minsky, fez um experimento que utilizava uma forma bem simples de AR para simular a maneira com que um rato
+% \section{Funcionamento de um algoritmo de AR}
+% \blindtext
 %
-%Minsky, M.: Theory of Neural-Analog Reinforcement System and its
-%Applications to the Brain-Model Problem (Ph. D. Thesis). University of
-%Princeton, Princeton, NJ, 1954
-%
-navegava por um labirinto \bruno{add citation}. No experimento, agentes que simulavam o comportamento de ratos recebiam recompensas mais altas quando desenvolviam um
-método de busca que achasse a saída do labirinto, e recompensas baixas em caso contrário.
-Deste então, diversos experimentos foram formulados visando-se a resolução de problemas através de um agente que busca uma solução
-de maneira praticamente autônoma, sendo guiado apenas pela noção de recompensa, que encapsula o sucesso ou fracasso da solução encontrada.
-% Desde então, diversos experimentos foram formulados visando-se a execução de tarefas onde o modo
-% de executá-las não possui nenhuma espécie de tradução direta para código \bruno{como assim? tu quer dizer, onde nao é facil escrever manualmente
-% codigo que resolva elas? clarificar}. Nestes casos, usa-se aprendizado por reforço
-% para fazer com que máquinas aprendam de maneira automática a executar tarefas que envolvem desde jogos de tabuleiro a locomoção
-% automática de robôs humanóides e sua interação com objetos. \par
-Aprendizado por reforço é, portanto, um método de aprendizado de máquina pelo qual um agente, ao interagir com um ambiente,
-executa uma ação e recebe uma recompensa sobre a sua ação tomada, corrigindo seu comportamento de acordo com a recompensa recebida,
-sempre de forma a maximizá-la.
-A figura \ref{fig:fluxo_ar} ilustra o fluxo que geralmente ocorre em tarefas de aprendizado por reforço.
-% A seguir, será explicado mais detalhadamente o que são e que papéis desempenham cada um dos elementos envolvidos em um problema
-% de AR, juntamente com uma breve explicação sobre o uso de simuladores para treinamento de agentes de aprendizado por reforço.
- Antes de formalizarmos matematicamente o
-problema e apresentarmos um algoritmo clássico na seção [ver secao nova que eu sugeri criar, aonde tu vai falar de processos de
-markov e do Q-Learning], iremos discutir nas subseções seguintes, de forma intuitiva, os conceitos mais importantes relacionados a problemas de aprendizado
-por reforço: o conceito de agente, ambiente, estado, ação, recompensas e episódios. Posteriomente, esses conceitos serão formalizados matematicamente, e então
-iremos discutir, na seção [Simuladores de AR], como simuladores podem ser usados para acelerar o processo de treinamento de agentes via
-diferentes algoritmos de aprendizado.
-
-
-\begin{figure}
-    \caption{Ciclo de aprendizado do agente via interação com o ambiente}
-    \begin{center}
-      \includegraphics[width=0.65\textwidth]{fluxo_ar.png}
-    \end{center}
-    \label{fig:fluxo_ar}
-\end{figure}
-
-
-\subsection{Agente}
-Agente é a entidade dotada de capacidade de aprendizado que tenta extrair do ambiente a melhor maneira --- de acordo com uma
-métrica de performance, pré-estabelecida implicitamente via uma função de recompensa --- de executar uma determinada tarefa.
-No exemplo do gato de Thorndike, o agente é o próprio gato e
-as ações que ele executa são as possíveis interações com o interior da gaiola, a fim de abri-la. É o agente, portanto, a entidade responsável
-por decidir, através de uma observação do estado do ambiente, qual ação será tomada, visando sempre obter uma
-recompensa mais alta do que a maior recompensa recebida até o presente momento.
-
-
-Em alguns problemas, pode ser interessante que o estado do próprio agente seja lido antes que a próxima ação a ser tomada seja escolhida.
-Ou seja, pode ser relevante, a fim de determinar a melhor ação do agente, não apenas observar características do estado externo ao agente,
- tais como a posição de diferentes obstáculos, mas também a observação de características do estado interno do agente, tal como seu nível atual de bateria
- e o posicionamento físico das suas diferentes partes.
-Nesse caso, informações são coletas sobre todas as partes que formam o agente, tal como, por exemplo, a posição espacial de uma de
-suas pernas. No exemplo descrito na seção \ref{ambiente}, é imprescindível que o agente leve em consideração a posição do braço mecânico
-para decidir qual movimento será executado em seguida. Isso implica que a especificação do agente corresponde não apenas à descrição de seus
-componentes físicos, como no caso de um robô, mas também na definição de quais informações irão compor o estado com base no qual tal agente irá escolher ações;
-em particular, parte do estado pode envolver a observação de sensores internos ao próprio agente. Mais detalhes sobre isso serão discutidos
- na Secao [secao onde fala de Estado].
-
-
-\subsection{Ambiente}
-\label{ambiente}
-O ambiente é o espaço onde o agente está inserido e de onde ele extrai as informações necessárias para decidir que ação será tomada.
-No ambiente podem se encontrar, por exemplo, objetos com os quais o agente deverá interagir para que o problema seja resolvido.
-Em um famoso problema de AR dentro do campo da robótica, um agente que simula um braço mecânico deve mover-se de tal maneira que
-sua extremidade esteja dentro de uma área demarcada no ambiente, área esta que é colocada em posições aleatórias ao início de cada episódio
-de treinamento (figura \ref{fig:roboticarm}). \par
-
-\begin{figure}[h]
-    \caption{Problema de aprendizado por reforço conhecido como \textit{Robotic Arm}.}
-    \begin{center}
-      \frame{\includegraphics[width=0.65\textwidth]{roboticarm.png}}
-    \end{center}
-    \label{fig:roboticarm}
-\end{figure}
-
-Através de uma leitura da posição da área demarcada em azul, o agente deve decidir como irá ser executado o movimento do braço mecânico, composto
-de duas peças unidas, uma delas afixada no ponto de cor preta, no centro da tela, de modo a tocar a área azul com a extremidade do braço, fazendo
-sempre o mínimo possível de esforço, de forma a maximizar a recompensa (neste exemplo, a recompensa também toma como base a energia desprendida pelo
-braço mecânico para tocar a área demarcada). O ambiente compreende, por conseguinte, não só o espaço físico (real ou simulado) onde o agente está inserido e onde ele
-executa as suas ações; o ambiente é, além disso, a fonte de onde ele extrai as informações necessárias para decidir o que fazer,
-\bruno{e também contém a especificação da tarefa específica que o agente irá ter que resolver---e.g., mover o braço para uma posição específica, ou então empurrar um determinado objeto, etc}.
-\henrique{certeza que, filosoficamente falando, não é o agente que carrega a especificação do problema? na real, a especificação do problema é tratada no meu tcc como algo
-alheio ao agente e ao ambiente, ou seja, não pertencente a nenhum dos dois. acho que só serviria pra confundir ao invés de explicar que o ambiente de alguma maneira "carrega" consigo a definição do problema.
- (tanto é que no meu trabalho a função que lê o estado e define se o problema já foi resolvido é separada dos dois)}
-
-\subsection{Estado}
-Estado, dentro de um contexto de AR, é o conjunto de informações referentes ao agente e ao ambiente em um determinado momento no tempo, e que é utilizado para calcular
-qual será a próxima ação a ser tomada pelo agente. Considerando que a tomada de ação do agente é regulada por uma função $\pi$ que mapeia um estado
-$s$ a uma ação $a$, o estado, nesse caso, é o subconjunto de todas as informações do agente e do ambiente que serão usadas em $s$.
-
-
-% \bruno{se depois tu vai falar de Q-Learning ou algo assim, é bom aqui começar a usar já a terminologia matemática padrão. A função que determina uma ação $a$ baseada no estado atual $s$ se chama uma política, e é normalmnete denotada por $\pi$. Ou seja, o agente escolhe ações usando uma função $\pi(s) \rightarrow a$. Depois de executar a ação escolhida, $a$, o agente observa o novo estado do ambiente,  $s'$, e recebe uma recompensa, $r$, e com base nisso atualiza a sua política $\pi$ de acordo com algum algoritmo de aprendizado. Não fala que ação é $t$, porque $t$ sugere tempo, nào ação. Muda no resto pra usar a notacao acima, que é a padrao, e que vai facilitar na hora de falar sobre q-learning. O que é importante dizer na secao atual é que pra que o agente consiga aprender de maneira efetiva, as informacoes que vao ser incluidas no estado $s$ precisam ser suficientes pra que contenham toda informacao necessaria para que o agente possa determinar a acao apropriada. E.g., num problema onde o agente precisa mover a mao para um determinado local, se o agente nao tiver dentro do seu estado a informacao sobre a posicao $x,y$ da sua mao no momento atual, ele nao tem uma parte essencial da informacao necessaria pra escolher a acao---e.g. se deve mover a mao para a direita ou para a esquerda}\par
-
-A definição desse subconjunto, ou seja, a determinação de quais informações das entidades envolvidas na tarefa de aprendizado irão compor o estado e serão
-levadas em conta para a próxima tomada de ação do agente, é de responsabilidade do desenvolvedor ou pesquisador que está construindo
-o agente. Em tarefas simples, como a do exemplo ilustrado pela figura \ref{robotichand}, é trivial a determinação de quais informações farão
-parte do estado: no exemplo, é óbvio que a posição da área em azul e das partes do braço mecânico serão levadas em conta. Em outros
-problemas, entretanto, onde há agentes mais complexos lidando com múltiplos objetos no ambiente, é menos óbvia a tarefa de determinar
-o conjunto $s$ que será fornecido como entrada à função $\pi$. Isto pode influenciar no tempo necessário para a conclusão de um projeto
-que envolva aprendizado por reforço, uma vez que vários conjuntos diferentes de informações devem ser testados de maneira iterativa
-até que seja encontrado um estado que minimize o tempo até a conclusão da tarefa e torne o agente mais capaz de resolver o problema.
-
-
-Estado, dentro de um contexto de aprendizado por reforço, portanto, é um subconjunto contido no conjunto de todas as possíveis informações oriundas
-de todos os elementos envolvidos dentro de uma tarefa de aprendizado  --- incluindo informações sobre o ambiente e sobre o próprio agente) --- e que é usado
-como entrada na função do agente que mapeia um estado $s$ a uma
-ação $a$. As informações que compõem o estado, entretanto, são fruto de uma decisão humana, por parte de quem está desenvolvendo o projeto, e,
-considerando que decisões diferentes podem trazer resultados diferentes (dependendo da complexidade do projeto), pode ser necessário
-que diferentes formas de compor o estado sejam testadas a fim de que se encontre qual delas é a mais satisfatória para o problema a ser resolvido.
-
-\subsection{Ação}
-Um agente de aprendizado por reforço deve, a cada momento tomar uma ação. Através da sua ação, o agente interage com o ambiente (e consigo mesmo)
-para provocar uma mudança no estado do sistema (e, conforme mencionado anteriormente, por estado do sistema compreende-se o estado tanto do agente quanto do ambiente
- a fim de resolver
-o problema. Esta concepção de ação como uma interação com o ambiente que resulta em uma mudança no estado do sistema é inerente ao aprendizado por reforço:
-a grande diferença entre os diferentes algoritmos de AR, entretanto, reside em como a próxima ação é escolhida e em como o agente atualiza o seu comportamento,
- baseado na observações sobre os resultados (e.g. recompensa recebida) após a execução da ação escolhida, para atualizar seu comportamento.
-%
-% FALAR SOBRE Q-LEARNING, POLICY LEARNING E MARKOV DECISION PROCESSES \bruno{mas nao falar de QL e essas outras coisas aqui, na secao que explica o que é Ação. Eu colocaria essas explicacoes em uma secao logo antes da 2.2, chamada algo como 'Formalizacao do Problema de Aprendizado e Algoritmos de AR'. Minha sugestao é começar falando que normalmente um problema de aprendizado por reforço é modelado como um MDP, o qual especifica o conjunto de estados possiveis, acoes possiveis, uma funcao de recompensa R que mapeia uma parte de estado atual e acao escolhida para um valor numerico de recompensa, uma funcao de transicao que determina, com no estado atual e acao escolhida, qual a probabilidade do sistema transicionar pra cada possivel estado seguinte, e um fator de desconto gamma. Ver no livro de IA (Russel and Norvig) a definicao direitinho. Diz que um MDP é a formalizacao matematica de como o ambiente funciona (via a funcao de transicao, cujo efeito é normalmente é implementado computacionalmente atraves de simuladores) e especficacao da tarefa a ser resolvida (via a função de recompensa). Aí diz que o objetivo é aprender uma política $\pi$ que, se usada pelo agente, maximize a soma de recompensas que ele recebe ao longo do episódio. Ver a definicao no livro. Diz que existem diferentes algoritmos para, com base nas interacoes do agente com seu ambiente, atualizar seu comportamnto/politica $\pi$. Um dos mais famosos é o Q-Learning. Aí explica o Q-L. Dá uma olhada nos slides de RL da aula de redes neurais que eu dei nesse semestre. Sao 3 pdfs, e se nao me engano tem definicoes la. A chave pra acessar/se cadsatrar o moodle da disciplina é 'rnsf\_20172'}
-
-\subsection{Episódio}
-  Um episódio é, basicamente, uma fase de treinamento de um agente de aprendizado por reforço. A fase inicia com a criação do ambiente e a inserção
-  do agente nele (inicialização) e, após isso, o agente interage com o ambiente até que o estado do sistema seja um estado final. Em um problema que,
-  por sua complexidade, vem sendo usado como exemplo no uso de redes neurais profundas em treinamentos por aprendizado por reforço, um agente humanóide
-  precisa aprender a caminhar: um episódio termina, portanto, quando o agente cai no chão, quando não consegue superar algum obstáculo (figura \ref{fig:walkingrobot})
-  ou quando um determinado número de iterações é atingido.
-  \begin{figure}
-      \caption{Fim de um episódio: o agente não foi capaz de superar um obstáculo.}
-      \begin{center}
-        \frame{\includegraphics[width=0.65\textwidth]{walkingrobot.png}}
-      \end{center}
-      \label{fig:walkingrobot}
-  \end{figure}
-
-\subsection{Recompensa}
-
-Recompensa é um número atribuído a uma ação do agente que encapsula o sucesso desta quando o agente se encontra em um determinado estado. Para ações que
- sejam avaliadas como melhores, a recompensa é mais alta;
-para ações que devem ser tratadas como indesejáveis pelo agente, a recompensa atribuída é mais baixa e, portanto, o agente deve corrigir-se a fim de que
-a ação que levou à baixa recompensa seja refinada ou abandonada de vez. É importante notar que nem sempre uma ação é diretamente ligada a uma recompensa:
-no caso de \textit{delayed reward}, a recompensa não é entregue ao agente no exato momento em que ele toma a decisão, sendo apenas revelada ao agente ao fim
-de uma sequência de ações. No caso de um
-agente que aprende a jogar damas, por exemplo, a recompensa é somente atribuída ao final da partida.
-
-\henrique{Isto leva a um problema bastante estudado no ramo
-do aprendizado por reforço chamado "atribuição de crédito": em uma série de ações que levaram a uma recompensa baixa, como encontrar, dentre todas as ações tomadas, apenas aquelas que
-foram responsáveis pelo baixo desempenho?  - eu nao sei onde tava querendo chegar quando escrevi isso e vou remover. azar}
-
-A recompensa é, portanto, um número que encapsula o quão adequada foi uma ação ou série de ações tomadas pelo agente para a resolução do problema. Para
-ações que tornam o agente mais próximo de resolvê-lo, é ideal que sejam recebidas recompensas mais altas. Para ações tidas como indesejáveis ou que não
-mudem o estado do sistema para um mais próximo do estado final, por outro lado, devem resultar em recompensas mais baixas para que o agente corrija seu
-comportamento.
-
-\section{Definição formal de um problema de aprendizado por reforço}
-O problema do aprendizado por reforço pode ser formalizado como um Processo de Decisão de Markov. Um Processo de Decisão de Markov representa um problema
-de aprendizado por reforço como uma constante troca de estados, onde cada troca representa uma ação e é seguida de uma recompensa. Cada estado, nesse caso,
-é uma observação do agente, e a transição é uma ação tomada por ele, que modifica o ambiente e leva a uma observação (ou seja, a outro estado) diferente.
-Um PDM modela uma função que procura maximizar o total de recompensas recebidas ao longo do tempo. A função é representada da seguinte maneira:
-\begin{equation}
-  \label{mdp}
- \max{\sum_{t=0}^{t=\infty} \gamma^{t}r(s(t),a(t))}
-\end{equation}
- Na fórmula, $r(s(t), a(t))$ é uma função que associa, em um instante de tempo $t$ uma recompensa $r$ a uma ação $a$ tomada quando o estado observado é
- $s$. O objetivo da equação, portanto, é maximizar as recompensas recebidas ao longo do tempo tomando em cada momento a ação que leva à melhor recompensa.
- O coeficiente $\gamma$, neste caso, é um número real no intervalo $(0,1]$ que determina a diferença de importância entre recompensas recebidas no presente
- e no futuro.
-
-A fórmula \ref{mdp} capta de um modo geral o objetivo de um algoritmo de aprendizado por reforço: escolher, em um determinado instante de tempo, a ação que levará
-à maior recompensa. Porém, ainda falta definir como será escolhida a melhor ação $a$. Para isto, é necessário definir uma \textit{política}. Uma política
-pode ser representada como uma função $\pi(s) \rightarrow a$ que, recebendo um estado $s$, define que uma ação $a$ deve ser tomada. A fim de que, conforme
-definido na fórmula \ref{mdp}, sempre seja escolhida a melhor ação (i.e. a ação que leva a melhor recompensa), usa-se uma \textit{política ótima} $\pi*: S \rightarrow A$, que
-recebe um estado $s \in S$ e retorna uma ação ótima $a \in A$.
-
-
-Mesmo definindo matematicamente o problema de aprendizado por reforço em \ref{mdp} e definindo o que é uma política ótima, resta saber como encontrar uma
-política ótima. Em inteligência artificial, a noção de \textit{aprendizado} trata de uma correção que o agente executa em si mesmo, levando em consideração
-seu erro e um coeficiente de aprendizado, que determina o impacto que o último erro terá na atualização do agente em um determinado momento. Há muitos
-algoritmos de aprendizado por reforço que funcionam dessa maneira, e um dos mais estudados deles é chamado Q-learning.
-
-\section{Q-learning}
-\henrique{Coloco depois.}
-\blindtext
-
-
-\section{Simuladores de aprendizado por reforço}
-\begin{figure}[h]
-    \caption{Um robô real e sua versão modelada em um simulador.}
-    \begin{center}
-      \frame{\includegraphics[width=0.9\textwidth]{mujocosimulator.png}}
-    \end{center}
-    \label{fig:mujocosimulator}
-\end{figure}
-
-Aprendizado por reforço lida com problemas onde um agente, inserido em um ambiente, tenta resolver um determinado problema através de uma série de ações.
-Em alguns problemas, é de interesse do responsável pelo desenvolvimento do agente que se possa modelar casos nos quais o agente está inserido em um ambiente
-%que desempenhe o papel de um sistema
-estocástico (i.e. que apresenta fatores aleatórios que influenciam em seu comportamento).
-No problema trabalhado na tese de Andrew Ng \bruno{add citation}, por exemplo, um agente é treinado para ser capaz de controlar um helicóptero, a fim de estabilizá-lo
-levando em consideração fatores imprevisíveis do sistema (e.g. vento, chuva e demais fatores que podem interferir na estabilidade do veículo).
-Nota-se que o problema, portanto, tem um objetivo prático: desenvolver um controle para um helicóptero que mantenha sua estabilidade, independentemente
-de fatores externos. O problema surge na necessidade de treinar o agente: como proceder com o treinamento em ambientes que possuam diferentes níveis
-de imprevisibilidade e cujos fatores como chuva e vento atuem em diferentes intensidades? Logicamente, o objetivo final do processo é ter um veículo
-autocontrolado capaz de manter sua estabilidade sob qualquer tipo de interpérie; para que isso seja possível, todavia, é necessário que o agente seja
-treinado em diferentes tipos de ambiente, o que pode se tornar inviável dadas restrições como o tempo disponível para o projeto e a necessidade dos
-desenvolvedores de se deslocar até locações onde há ambientes ideais para o treinamento. A solução que é amplamente usada nesses casos, portanto,
-é a modelagem de locações em um simulador que representa diferentes tipos de terreno e que permite ao pesquisador que este configure os diferentes
-fatores do ambiente de acordo com sua necessidade.
-
-
-
-Além da economia de tempo e da liberdade para modelar de forma controlada diferentes tipos de ambiente com comportamento estocástico, simuladores também oferecem uma maneira
-de analisar o desempenho de diferentes algoritmos de aprendizado quando aplicados ao mesmo problema, ou o contrário, que ocorre quando um mesmo algoritmo
-de aprendizado é aplicado a problemas diferentes a fim de que possa ser avaliada a sua generalidade. Esse foi um dos objetivos do desenvolvimento
-da plataforma Gym, da OpenAI, uma organização sem fins lucrativos que desenvolve projetos com foco em inteligência artificial.
-Com um catálogo de diversos cenários de aprendizado por reforço (chamados de \textit{environments}) oriundos da literatura de IA e até mesmo
-de jogos feitos para antigas plataformas de 8 \textit{bits}, esta plataforma oferece uma API (Interface Pública de Aplicação, em tradução livre; espécie
-de ponto de acesso ao qual programas podem se conectar, se seguirem um determinado formato) que permite que qualquer pessoa desenvolva seu algoritmo
-de AR para um determinado cenário e submeta-o a uma espécie de \textit{ranking}, que elenca os responsáveis pelos algoritmos que resolveram o problema de maneira mais eficiente,
-levando em consideração a maior recompensa recebida e o tempo levado para resolver o problema. Sua desvantagem, entretanto, é que o catálogo de \textit{environments}
-oferecido pelo Gym é fixo, ao mesmo tempo em que não existe nenhum \textit{framework} capaz de oferecer ao desenvolvedor as ferramentas necessárias
-para produzir cenários que são compativeis com a API do Gym. Isso possibilitaria, por exemplo, uma busca rápida de algoritmos que comprovadamente
-funcionam em cenários conhecidos a fim de que estes sejam mudados para sua aplicação em ambientes novos. Este trabalho propõe um \textit{framework}
-que auxilia na criação de tais cenários, sem que o programador tenha que lidar com questões de programação de baixo nível como a troca de informações
-entre um motor de física, responsável pelas simulações, e uma biblioteca gráfica, que transforma o ambiente simulado em algo que pode ser representado na
-tela através de \textit{pixels}.
+% \subsection{Estado}
+% Estado, dentro de um contexto de AR, é o conjunto de informações referentes ao agente e ao ambiente em um determinado momento no tempo, e que é utilizado para calcular
+% qual será a próxima ação a ser tomada pelo agente. Considerando que a tomada de ação do agente é regulada por uma função $\pi$ que mapeia um estado
+% $s$ a uma ação $a$, o estado, nesse caso, é o subconjunto de todas as informações do agente e do ambiente que serão usadas em $s$.
 %
 %
-% \bruno{o Gym nao é um simulador, né? É uma API. Tu pode implementar diferentes ambientes, usando diferentes tipos de simuladores/motores de física, de forma que eles sejam compatíveis com Gym. O que eu diria aqui é que o Gym foi feito pra padronizar a interface com que algoritmos de AR interagem com diferentes ambientes simulados, independente de como tais ambientes simulados foram implementados---se manualmente, pelo programador usando diretamente um motor de fisica, ou usando algum dos framework para geracao de simulacoes/ambientes, tais como os que vao ser discutidos na secao de Estado da Arte. Como o Gym padroniza essa interface entre ambientes e agentes, quaisquer ambientes e  agentes/algoritmo de AR que sigam a API podem ser conectados, de forma a avaliar a performance daquele algoritmo naquele ambiente. Por essa razao, o Gym é um importante padrao na área pra facilitar essa comparacao de metodos, reproducibility, etc, aquelas coisas todas faladas no Resumo. Aí diz que, como sera discutido na secao de Estado da Arte, existem varios frameworks para facilitar a geracao de simulacoes/ambientes para avaliacao de algoritmos de AR, mas uma das limitacoes principais é que eles tem curva de aprendizado alta, etc, e que os codigos gerados automaticamente por esses frameworks nao seguem nenhuma interface padronizada, o que significa que é dificil pegar esses ambientes gerados e testar algoritmos implementados por outras pessoas, e disponibilizados online, nesses ambientes} Com um catálogo de
-% diversos problemas ou ambientes de aprendizado (chamados \textit{environments}) oriundos da literatura de IA e até mesmo de jogos que originalmente foram feitos para máquinas
-% de 8 bits, este simulador \bruno{gym nao é um simulador} permite que qualquer pessoa desenvolva seu algoritmo de AR e submeta-o a uma espécie de \textit{ranking}, que elenca os
-% responsáveis pelos algoritmos que resolveram o problema em menos tempo (i.e. que o agente aprendeu a sequência de ações que resolve o problema mais
-% rapidamente). Sua desvantagem, entretanto, é que os \textit{enviroments} são fixos e não permitem que neles sejam feitas pequenas alterações ou até
-% mesmo que \textit{environments} completamente novos sejam construídos, e este trabalho visa apresentar um simulador capaz de disponibilizar ferramentas
-% para a construção de cenários novos e que produzam resultados compatíveis com a biblioteca do Gym. \bruno{o final da frase (objetivo) ta ok, mas o inicio nao conecta bem: o teu trabalho nao é motivado pelo fato de que os codigos de ambientes do Gym nao fixos, porque tu nao vai propor um framework pra mais facilmente alterar codigos de ambientes do Gym. Tambem tem que corrigir onde tu diz que teu objetivo é fazer um simulador. É um framework pra gerar simualdores/ambientes etc etc}\par
-
-
-\henrique{aqui eu ainda tenho que alterar, com base no que vou colocar no capítulo de estado da arte}No próximo capítulo, será feito um breve estudo dos simuladores Gym e MuJoCo secao de traçando suas principais vantagens e deficiências, através de uma
-análise comparativa que relacionará seus pontos fortes e desvantagens com o que é oferecido pelo simulador descrito no capítulo 4 deste trabalho. \bruno{gym e mujoco sao comparaveis? gym é uma API, mujoco é um gerador de codigo. Tem que falar do Gym no inicio, clarificando que nao se trata de um simulador nem de um gerador de ambientes/simualdores, e sim um padrao/API que, se um deterinado ambiente/simulador seguir, ele pode ser usado para avaliar qualquer um dos N algoritmos de aprendizado que ja foram implementados e que seguem essa API. Aí precisa falar do mujoco e de outros geradores de codigo de ambientes/simuladores. Eu tinha mandado, num email, alguns links. Tem o framework dos italianos, e tinha um outro negocio que eu tinha mandado por facebook que era de um negocio meio em modo-texto. Nao lembro qual era. Mas tem mais coisa que só o mujoco; tem que achar os links que eu tinha mandado por email}.
-
-\section{A linguagem YAML}
-\label{alinguagemyaml}
-\henrique{Coloquei essa parte aqui porque faço referência a ela várias vezes durante o desenvolvimento.}
-YAML é uma linguagem de marcação utilizada para serialização de dados. Ela é usada normalmente para arquivos de configurações de sistemas (como é o caso do \textit{framework})
-Ruby on Rails, que permite a criação de servidores \textit{web} cujo acesso a seu banco de dados, por exemplo, é determinado por configurações salvas em um arquivo neste formato.
-Apesar de ter sido concebida como uma linguagem de marcação, pelo fato de sua sigla originalmente significar \textit{Yet Another Markup Language} ("mais uma linguagem de marcação", em tradução livre),
-mais tarde sua sigla se tornou recursiva e seu significado mudou para \textit{YAML: YAML Ain't Markup Language} ("YAML não é linguagem de marcação"),
-como forma de reposicionamento por parte seus desenvolvedores, que buscavam redirecionar o uso da linguagem para representações de dados, uso este que é
-bem diverso de marcação de texto. \par
-Sua sintaxe permite a declaração de vetores associativos (também conhecidos como "dicionários"), onde valores são associados a chaves, sendo estas normalmente
- de caracteres.
-A possibilidade de definir dicionários, juntamente com a capacidade da linguagem de estruturar dados sob a forma de listas, permite que o programador defina
-estruturas bastante complexas, mas que são sintaticamente mais simples do que se os mesmos dados fossem definidos usando-se de outras linguagens de marcação, como XML e JSON.
-
-% http://ieeexplore.ieee.org/abstract/document/6215346/
-
-% (retirado de docs.ansible.com/ansible/latest/YAMLSyntax.html)
-
-Um exemplo do uso da linguagem YAML é dado abaixo. Nele, define-se uma lista composta de dois
-funcionários que possuem informações como nome, posição e uma lista de habilidades.
-
-\begin{minted}{yaml}
-  # Employee records
--  martin:
-    name: Martin D'vloper
-    job: Developer
-    skills:
-      - python
-      - perl
-      - pascal
--  tabitha:
-    name: Tabitha Bitumen
-    job: Developer
-    skills:
-      - lisp
-      - fortran
-      - erlang
-\end{minted}
-
-
-A ferramenta de modelagem de cenários de aprendizado por reforço descrita neste trabalho oferece duas maneiras de modelagem de entidades de AR e uma delas
-funciona através da leitura de um \textit{script} YAML que descreve, de maneira hierárquica, as entidades e suas propriedades. Uma descrição detalhada de como
-descrever um problema de AR através de um arquivo YAML é dada no capítulo 5 deste documento.
-er um problema de AR através de um arquivo YAML é dada no capítulo 5 deste documento.
+% % \bruno{se depois tu vai falar de Q-Learning ou algo assim, é bom aqui começar a usar já a terminologia matemática padrão. A função que determina uma ação $a$ baseada no estado atual $s$ se chama uma política, e é normalmnete denotada por $\pi$. Ou seja, o agente escolhe ações usando uma função $\pi(s) \rightarrow a$. Depois de executar a ação escolhida, $a$, o agente observa o novo estado do ambiente,  $s'$, e recebe uma recompensa, $r$, e com base nisso atualiza a sua política $\pi$ de acordo com algum algoritmo de aprendizado. Não fala que ação é $t$, porque $t$ sugere tempo, nào ação. Muda no resto pra usar a notacao acima, que é a padrao, e que vai facilitar na hora de falar sobre q-learning. O que é importante dizer na secao atual é que pra que o agente consiga aprender de maneira efetiva, as informacoes que vao ser incluidas no estado $s$ precisam ser suficientes pra que contenham toda informacao necessaria para que o agente possa determinar a acao apropriada. E.g., num problema onde o agente precisa mover a mao para um determinado local, se o agente nao tiver dentro do seu estado a informacao sobre a posicao $x,y$ da sua mao no momento atual, ele nao tem uma parte essencial da informacao necessaria pra escolher a acao---e.g. se deve mover a mao para a direita ou para a esquerda}\par
+%
+% A definição desse subconjunto, ou seja, a determinação de quais informações das entidades envolvidas na tarefa de aprendizado irão compor o estado e serão
+% levadas em conta para a próxima tomada de ação do agente, é de responsabilidade do desenvolvedor ou pesquisador que está construindo
+% o agente. Em tarefas simples, como a do exemplo ilustrado pela figura \ref{robotichand}, é trivial a determinação de quais informações farão
+% parte do estado: no exemplo, é óbvio que a posição da área em azul e das partes do braço mecânico serão levadas em conta. Em outros
+% problemas, entretanto, onde há agentes mais complexos lidando com múltiplos objetos no ambiente, é menos óbvia a tarefa de determinar
+% o conjunto $s$ que será fornecido como entrada à função $\pi$. Isto pode influenciar no tempo necessário para a conclusão de um projeto
+% que envolva aprendizado por reforço, uma vez que vários conjuntos diferentes de informações devem ser testados de maneira iterativa
+% até que seja encontrado um estado que minimize o tempo até a conclusão da tarefa e torne o agente mais capaz de resolver o problema.
+%
+%
+% Estado, dentro de um contexto de aprendizado por reforço, portanto, é um subconjunto contido no conjunto de todas as possíveis informações oriundas
+% de todos os elementos envolvidos dentro de uma tarefa de aprendizado  --- incluindo informações sobre o ambiente e sobre o próprio agente) --- e que é usado
+% como entrada na função do agente que mapeia um estado $s$ a uma
+% ação $a$. As informações que compõem o estado, entretanto, são fruto de uma decisão humana, por parte de quem está desenvolvendo o projeto, e,
+% considerando que decisões diferentes podem trazer resultados diferentes (dependendo da complexidade do projeto), pode ser necessário
+% que diferentes formas de compor o estado sejam testadas a fim de que se encontre qual delas é a mais satisfatória para o problema a ser resolvido.
+%
+% %
+% % Um MDP é, basicamente, uma descrição matemática de um ambiente, onde um agente
+% % está inserido e no qual toma ações que modificam este ambiente.
+%
+% \section{Aprendizado por Reforço}
+%
+% Aprendizado por reforço compreende uma subárea da inteligência artificial que trabalha com a noção de um agente que explora um ambiente
+% a fim de buscar uma solução (comportamento) para determinado problema. Sem nenhum instrução prévia, é tarefa do agente buscar, dentro do espaço
+% de soluções possíveis, uma maneira satisfatória de resolver o problema através da sua interação com o ambiente.
+% Para determinar se uma solução encontrada é satisfatória, usa-se, em aprendizado por reforço, a noção de recompensa. A recompensa é um sinal númerico e pode ser calculada após cada ação tomada pelo agente, ou ao final de cada episódio (\textit{delayed reward}), é um número que encapsula a
+% qualidade daquela ação ou do conjunto de várias ações tomadas ao longo do tempo. Com base única e exclusivamente, então, nas recompensas recebidas pelo agente,
+% o agente deve buscar uma solução (comportamento) que a maximize (de forma a resolvar o problema). Esta busca  é normalmente feita através
+% de uma combinação entre ajustes nas ações que o agente tomou e que levaram à maior recompensa até o momento (\textit{exploitation}) e a avaliação do resultado de ações completamente
+% novas ou desconhecidas pelo agente (\textit{exploration}).
+%
+%
+% Diferentemente de outras áreas da IA, como o aprendizado supervisionado, no aprendizado por reforço a qualidade da ação tomada pelo agente não
+% é verificada usando-se como base uma ação ideal ou ótima,  conhecida de antemão, e tampouco o agente passa por qualquer tipo de treinamento onde este é exposto a
+% exemplos de ação ótima em cada situação. Tal método de aprendizado é normalmente usado, portanto, em tarefas onde o ambiente é desconhecido
+% pelo agente, e é um modo de aprendizado bastante próximo das maneiras com que
+% animais e humanos buscam formas de exercer tarefas com as quais nunca houve contato prévio.
+%
+%
+% Um exemplo que pode servir para a compreensão do aprendizado por reforço é o experimento do psicólogo Edward Thorndike.
+% No seu experimento, gatos eram colocados em gaiolas fechadas e precisavam encontrar uma maneira de sair para que pudessem
+% consumir uma porção de peixe posicionada próxima à gaiola. Para abri-la, era necessário apenas que uma alavanca presente em
+% seu interior fosse puxada; entretanto, não houve qualquer tipo de instrução prévia: a partir do momento em que os felinos
+% eram trancados nas gaiolas, eles deveriam explorar e, principalmente, interagir de forma autônoma com o interior da gaiola até que, por si mesmos,
+% encontrassem o dispositivo de abertura de seus cárceres. No momento que um gato encontrava a saída, o tempo levado até a sua fuga era anotado
+%  e o experimento era repetido.
+% Thorndike percebeu que, uma vez que os gatos aprendiam que era a alavanca o dispositivo responsável pela sua
+% soltura – e que, consequentemente, os permitia que consumissem a porção de peixe –, o tempo transcorrido entre o momento
+% que o animal era recolocado na gaiola e o instante em que ele abria a mesma diminuia consideravelmente. Isso se dá porque,
+% dentre todos os comportamentos adotados dentro da gaiola, o único que era observado pelos gatos como o comportamento que
+% levava à recompensa era o ato de puxar a alavanca. O pesquisador, então, formulou o que ele chamou de "Lei do efeito",
+% que estabelece que comportamentos e ações que, em uma determinada situação, levam a efeitos gratificantes tendem a se
+% repetir e, por sua vez, comportamentos e ações que levem a efeitos indesejáveis ou insatisfatórios tendem a ser abandonados.
+%
+% % Thorndike, E. L. (1898). Animal intelligence: An experimental study of the associative processes in animals.
+% % Psychological Monographs: General and Applied, 2(4), i-109.
+%
+% Princípios bastante próximos dos postulados pela Lei proposta por Thorndike foram a base para os primeiros experimentos
+% envolvendo aprendizado por reforço, na metade do século passado. Em 1952, um dos grandes expoentes da inteligência artificial,
+% Marvin Minsky, fez um experimento que utilizava uma forma bem simples de AR para simular a maneira com que um rato
+% %
+% %Minsky, M.: Theory of Neural-Analog Reinforcement System and its
+% %Applications to the Brain-Model Problem (Ph. D. Thesis). University of
+% %Princeton, Princeton, NJ, 1954
+% %
+% navegava por um labirinto \bruno{add citation}. No experimento, agentes que simulavam o comportamento de ratos recebiam recompensas mais altas quando desenvolviam um
+% método de busca que achasse a saída do labirinto, e recompensas baixas em caso contrário.
+% Deste então, diversos experimentos foram formulados visando-se a resolução de problemas através de um agente que busca uma solução
+% de maneira praticamente autônoma, sendo guiado apenas pela noção de recompensa, que encapsula o sucesso ou fracasso da solução encontrada.
+% % Desde então, diversos experimentos foram formulados visando-se a execução de tarefas onde o modo
+% % de executá-las não possui nenhuma espécie de tradução direta para código \bruno{como assim? tu quer dizer, onde nao é facil escrever manualmente
+% % codigo que resolva elas? clarificar}. Nestes casos, usa-se aprendizado por reforço
+% % para fazer com que máquinas aprendam de maneira automática a executar tarefas que envolvem desde jogos de tabuleiro a locomoção
+% % automática de robôs humanóides e sua interação com objetos. \par
+% Aprendizado por reforço é, portanto, um método de aprendizado de máquina pelo qual um agente, ao interagir com um ambiente,
+% executa uma ação e recebe uma recompensa sobre a sua ação tomada, corrigindo seu comportamento de acordo com a recompensa recebida,
+% sempre de forma a maximizá-la.
+% A figura \ref{fig:fluxo_ar} ilustra o fluxo que geralmente ocorre em tarefas de aprendizado por reforço.
+% % A seguir, será explicado mais detalhadamente o que são e que papéis desempenham cada um dos elementos envolvidos em um problema
+% % de AR, juntamente com uma breve explicação sobre o uso de simuladores para treinamento de agentes de aprendizado por reforço.
+%  Antes de formalizarmos matematicamente o
+% problema e apresentarmos um algoritmo clássico na seção [ver secao nova que eu sugeri criar, aonde tu vai falar de processos de
+% markov e do Q-Learning], iremos discutir nas subseções seguintes, de forma intuitiva, os conceitos mais importantes relacionados a problemas de aprendizado
+% por reforço: o conceito de agente, ambiente, estado, ação, recompensas e episódios. Posteriomente, esses conceitos serão formalizados matematicamente, e então
+% iremos discutir, na seção [Simuladores de AR], como simuladores podem ser usados para acelerar o processo de treinamento de agentes via
+% diferentes algoritmos de aprendizado.
+%
+%
+% \begin{figure}
+%     \caption{Ciclo de aprendizado do agente via interação com o ambiente}
+%     \begin{center}
+%       \includegraphics[width=0.65\textwidth]{fluxo_ar.png}
+%     \end{center}
+%     \label{fig:fluxo_ar}
+% \end{figure}
+%
+%
+% \subsection{Agente}
+% Agente é a entidade dotada de capacidade de aprendizado que tenta extrair do ambiente a melhor maneira --- de acordo com uma
+% métrica de performance, pré-estabelecida implicitamente via uma função de recompensa --- de executar uma determinada tarefa.
+% No exemplo do gato de Thorndike, o agente é o próprio gato e
+% as ações que ele executa são as possíveis interações com o interior da gaiola, a fim de abri-la. É o agente, portanto, a entidade responsável
+% por decidir, através de uma observação do estado do ambiente, qual ação será tomada, visando sempre obter uma
+% recompensa mais alta do que a maior recompensa recebida até o presente momento.
+%
+%
+% Em alguns problemas, pode ser interessante que o estado do próprio agente seja lido antes que a próxima ação a ser tomada seja escolhida.
+% Ou seja, pode ser relevante, a fim de determinar a melhor ação do agente, não apenas observar características do estado externo ao agente,
+%  tais como a posição de diferentes obstáculos, mas também a observação de características do estado interno do agente, tal como seu nível atual de bateria
+%  e o posicionamento físico das suas diferentes partes.
+% Nesse caso, informações são coletas sobre todas as partes que formam o agente, tal como, por exemplo, a posição espacial de uma de
+% suas pernas. No exemplo descrito na seção \ref{ambiente}, é imprescindível que o agente leve em consideração a posição do braço mecânico
+% para decidir qual movimento será executado em seguida. Isso implica que a especificação do agente corresponde não apenas à descrição de seus
+% componentes físicos, como no caso de um robô, mas também na definição de quais informações irão compor o estado com base no qual tal agente irá escolher ações;
+% em particular, parte do estado pode envolver a observação de sensores internos ao próprio agente. Mais detalhes sobre isso serão discutidos
+%  na Secao [secao onde fala de Estado].
+%
+%
+% \subsection{Ambiente}
+% \label{ambiente}
+% O ambiente é o espaço onde o agente está inserido e de onde ele extrai as informações necessárias para decidir que ação será tomada.
+% No ambiente podem se encontrar, por exemplo, objetos com os quais o agente deverá interagir para que o problema seja resolvido.
+% Em um famoso problema de AR dentro do campo da robótica, um agente que simula um braço mecânico deve mover-se de tal maneira que
+% sua extremidade esteja dentro de uma área demarcada no ambiente, área esta que é colocada em posições aleatórias ao início de cada episódio
+% de treinamento (figura \ref{fig:roboticarm}). \par
+%
+% \begin{figure}[h]
+%     \caption{Problema de aprendizado por reforço conhecido como \textit{Robotic Arm}.}
+%     \begin{center}
+%       \frame{\includegraphics[width=0.65\textwidth]{roboticarm.png}}
+%     \end{center}
+%     \label{fig:roboticarm}
+% \end{figure}
+%
+% Através de uma leitura da posição da área demarcada em azul, o agente deve decidir como irá ser executado o movimento do braço mecânico, composto
+% de duas peças unidas, uma delas afixada no ponto de cor preta, no centro da tela, de modo a tocar a área azul com a extremidade do braço, fazendo
+% sempre o mínimo possível de esforço, de forma a maximizar a recompensa (neste exemplo, a recompensa também toma como base a energia desprendida pelo
+% braço mecânico para tocar a área demarcada). O ambiente compreende, por conseguinte, não só o espaço físico (real ou simulado) onde o agente está inserido e onde ele
+% executa as suas ações; o ambiente é, além disso, a fonte de onde ele extrai as informações necessárias para decidir o que fazer,
+% \bruno{e também contém a especificação da tarefa específica que o agente irá ter que resolver---e.g., mover o braço para uma posição específica, ou então empurrar um determinado objeto, etc}.
+% \henrique{certeza que, filosoficamente falando, não é o agente que carrega a especificação do problema? na real, a especificação do problema é tratada no meu tcc como algo
+% alheio ao agente e ao ambiente, ou seja, não pertencente a nenhum dos dois. acho que só serviria pra confundir ao invés de explicar que o ambiente de alguma maneira "carrega" consigo a definição do problema.
+%  (tanto é que no meu trabalho a função que lê o estado e define se o problema já foi resolvido é separada dos dois)}
+%
+% \subsection{Estado}
+% Estado, dentro de um contexto de AR, é o conjunto de informações referentes ao agente e ao ambiente em um determinado momento no tempo, e que é utilizado para calcular
+% qual será a próxima ação a ser tomada pelo agente. Considerando que a tomada de ação do agente é regulada por uma função $\pi$ que mapeia um estado
+% $s$ a uma ação $a$, o estado, nesse caso, é o subconjunto de todas as informações do agente e do ambiente que serão usadas em $s$.
+%
+%
+% % \bruno{se depois tu vai falar de Q-Learning ou algo assim, é bom aqui começar a usar já a terminologia matemática padrão. A função que determina uma ação $a$ baseada no estado atual $s$ se chama uma política, e é normalmnete denotada por $\pi$. Ou seja, o agente escolhe ações usando uma função $\pi(s) \rightarrow a$. Depois de executar a ação escolhida, $a$, o agente observa o novo estado do ambiente,  $s'$, e recebe uma recompensa, $r$, e com base nisso atualiza a sua política $\pi$ de acordo com algum algoritmo de aprendizado. Não fala que ação é $t$, porque $t$ sugere tempo, nào ação. Muda no resto pra usar a notacao acima, que é a padrao, e que vai facilitar na hora de falar sobre q-learning. O que é importante dizer na secao atual é que pra que o agente consiga aprender de maneira efetiva, as informacoes que vao ser incluidas no estado $s$ precisam ser suficientes pra que contenham toda informacao necessaria para que o agente possa determinar a acao apropriada. E.g., num problema onde o agente precisa mover a mao para um determinado local, se o agente nao tiver dentro do seu estado a informacao sobre a posicao $x,y$ da sua mao no momento atual, ele nao tem uma parte essencial da informacao necessaria pra escolher a acao---e.g. se deve mover a mao para a direita ou para a esquerda}\par
+%
+% A definição desse subconjunto, ou seja, a determinação de quais informações das entidades envolvidas na tarefa de aprendizado irão compor o estado e serão
+% levadas em conta para a próxima tomada de ação do agente, é de responsabilidade do desenvolvedor ou pesquisador que está construindo
+% o agente. Em tarefas simples, como a do exemplo ilustrado pela figura \ref{robotichand}, é trivial a determinação de quais informações farão
+% parte do estado: no exemplo, é óbvio que a posição da área em azul e das partes do braço mecânico serão levadas em conta. Em outros
+% problemas, entretanto, onde há agentes mais complexos lidando com múltiplos objetos no ambiente, é menos óbvia a tarefa de determinar
+% o conjunto $s$ que será fornecido como entrada à função $\pi$. Isto pode influenciar no tempo necessário para a conclusão de um projeto
+% que envolva aprendizado por reforço, uma vez que vários conjuntos diferentes de informações devem ser testados de maneira iterativa
+% até que seja encontrado um estado que minimize o tempo até a conclusão da tarefa e torne o agente mais capaz de resolver o problema.
+%
+%
+% Estado, dentro de um contexto de aprendizado por reforço, portanto, é um subconjunto contido no conjunto de todas as possíveis informações oriundas
+% de todos os elementos envolvidos dentro de uma tarefa de aprendizado  --- incluindo informações sobre o ambiente e sobre o próprio agente) --- e que é usado
+% como entrada na função do agente que mapeia um estado $s$ a uma
+% ação $a$. As informações que compõem o estado, entretanto, são fruto de uma decisão humana, por parte de quem está desenvolvendo o projeto, e,
+% considerando que decisões diferentes podem trazer resultados diferentes (dependendo da complexidade do projeto), pode ser necessário
+% que diferentes formas de compor o estado sejam testadas a fim de que se encontre qual delas é a mais satisfatória para o problema a ser resolvido.
+%
+% \subsection{Ação}
+% Um agente de aprendizado por reforço deve, a cada momento tomar uma ação. Através da sua ação, o agente interage com o ambiente (e consigo mesmo)
+% para provocar uma mudança no estado do sistema (e, conforme mencionado anteriormente, por estado do sistema compreende-se o estado tanto do agente quanto do ambiente
+%  a fim de resolver
+% o problema. Esta concepção de ação como uma interação com o ambiente que resulta em uma mudança no estado do sistema é inerente ao aprendizado por reforço:
+% a grande diferença entre os diferentes algoritmos de AR, entretanto, reside em como a próxima ação é escolhida e em como o agente atualiza o seu comportamento,
+%  baseado na observações sobre os resultados (e.g. recompensa recebida) após a execução da ação escolhida, para atualizar seu comportamento.
+% %
+% % FALAR SOBRE Q-LEARNING, POLICY LEARNING E MARKOV DECISION PROCESSES \bruno{mas nao falar de QL e essas outras coisas aqui, na secao que explica o que é Ação. Eu colocaria essas explicacoes em uma secao logo antes da 2.2, chamada algo como 'Formalizacao do Problema de Aprendizado e Algoritmos de AR'. Minha sugestao é começar falando que normalmente um problema de aprendizado por reforço é modelado como um MDP, o qual especifica o conjunto de estados possiveis, acoes possiveis, uma funcao de recompensa R que mapeia uma parte de estado atual e acao escolhida para um valor numerico de recompensa, uma funcao de transicao que determina, com no estado atual e acao escolhida, qual a probabilidade do sistema transicionar pra cada possivel estado seguinte, e um fator de desconto gamma. Ver no livro de IA (Russel and Norvig) a definicao direitinho. Diz que um MDP é a formalizacao matematica de como o ambiente funciona (via a funcao de transicao, cujo efeito é normalmente é implementado computacionalmente atraves de simuladores) e especficacao da tarefa a ser resolvida (via a função de recompensa). Aí diz que o objetivo é aprender uma política $\pi$ que, se usada pelo agente, maximize a soma de recompensas que ele recebe ao longo do episódio. Ver a definicao no livro. Diz que existem diferentes algoritmos para, com base nas interacoes do agente com seu ambiente, atualizar seu comportamnto/politica $\pi$. Um dos mais famosos é o Q-Learning. Aí explica o Q-L. Dá uma olhada nos slides de RL da aula de redes neurais que eu dei nesse semestre. Sao 3 pdfs, e se nao me engano tem definicoes la. A chave pra acessar/se cadsatrar o moodle da disciplina é 'rnsf\_20172'}
+%
+% \subsection{Episódio}
+%   Um episódio é, basicamente, uma fase de treinamento de um agente de aprendizado por reforço. A fase inicia com a criação do ambiente e a inserção
+%   do agente nele (inicialização) e, após isso, o agente interage com o ambiente até que o estado do sistema seja um estado final. Em um problema que,
+%   por sua complexidade, vem sendo usado como exemplo no uso de redes neurais profundas em treinamentos por aprendizado por reforço, um agente humanóide
+%   precisa aprender a caminhar: um episódio termina, portanto, quando o agente cai no chão, quando não consegue superar algum obstáculo (figura \ref{fig:walkingrobot})
+%   ou quando um determinado número de iterações é atingido.
+%   \begin{figure}
+%       \caption{Fim de um episódio: o agente não foi capaz de superar um obstáculo.}
+%       \begin{center}
+%         \frame{\includegraphics[width=0.65\textwidth]{walkingrobot.png}}
+%       \end{center}
+%       \label{fig:walkingrobot}
+%   \end{figure}
+%
+% \subsection{Recompensa}
+%
+% Recompensa é um número atribuído a uma ação do agente que encapsula o sucesso desta quando o agente se encontra em um determinado estado. Para ações que
+%  sejam avaliadas como melhores, a recompensa é mais alta;
+% para ações que devem ser tratadas como indesejáveis pelo agente, a recompensa atribuída é mais baixa e, portanto, o agente deve corrigir-se a fim de que
+% a ação que levou à baixa recompensa seja refinada ou abandonada de vez. É importante notar que nem sempre uma ação é diretamente ligada a uma recompensa:
+% no caso de \textit{delayed reward}, a recompensa não é entregue ao agente no exato momento em que ele toma a decisão, sendo apenas revelada ao agente ao fim
+% de uma sequência de ações. No caso de um
+% agente que aprende a jogar damas, por exemplo, a recompensa é somente atribuída ao final da partida.
+%
+% \henrique{Isto leva a um problema bastante estudado no ramo
+% do aprendizado por reforço chamado "atribuição de crédito": em uma série de ações que levaram a uma recompensa baixa, como encontrar, dentre todas as ações tomadas, apenas aquelas que
+% foram responsáveis pelo baixo desempenho?  - eu nao sei onde tava querendo chegar quando escrevi isso e vou remover. azar}
+%
+% A recompensa é, portanto, um número que encapsula o quão adequada foi uma ação ou série de ações tomadas pelo agente para a resolução do problema. Para
+% ações que tornam o agente mais próximo de resolvê-lo, é ideal que sejam recebidas recompensas mais altas. Para ações tidas como indesejáveis ou que não
+% mudem o estado do sistema para um mais próximo do estado final, por outro lado, devem resultar em recompensas mais baixas para que o agente corrija seu
+% comportamento.
+%
+% \section{Definição formal de um problema de aprendizado por reforço}
+% O problema do aprendizado por reforço pode ser formalizado como um Processo de Decisão de Markov. Um Processo de Decisão de Markov representa um problema
+% de aprendizado por reforço como uma constante troca de estados, onde cada troca representa uma ação e é seguida de uma recompensa. Cada estado, nesse caso,
+% é uma observação do agente, e a transição é uma ação tomada por ele, que modifica o ambiente e leva a uma observação (ou seja, a outro estado) diferente.
+% Um PDM modela uma função que procura maximizar o total de recompensas recebidas ao longo do tempo. A função é representada da seguinte maneira:
+% \begin{equation}
+%   \label{mdp}
+%  \max{\sum_{t=0}^{t=\infty} \gamma^{t}r(s(t),a(t))}
+% \end{equation}
+%  Na fórmula, $r(s(t), a(t))$ é uma função que associa, em um instante de tempo $t$ uma recompensa $r$ a uma ação $a$ tomada quando o estado observado é
+%  $s$. O objetivo da equação, portanto, é maximizar as recompensas recebidas ao longo do tempo tomando em cada momento a ação que leva à melhor recompensa.
+%  O coeficiente $\gamma$, neste caso, é um número real no intervalo $(0,1]$ que determina a diferença de importância entre recompensas recebidas no presente
+%  e no futuro.
+%
+% A fórmula \ref{mdp} capta de um modo geral o objetivo de um algoritmo de aprendizado por reforço: escolher, em um determinado instante de tempo, a ação que levará
+% à maior recompensa. Porém, ainda falta definir como será escolhida a melhor ação $a$. Para isto, é necessário definir uma \textit{política}. Uma política
+% pode ser representada como uma função $\pi(s) \rightarrow a$ que, recebendo um estado $s$, define que uma ação $a$ deve ser tomada. A fim de que, conforme
+% definido na fórmula \ref{mdp}, sempre seja escolhida a melhor ação (i.e. a ação que leva a melhor recompensa), usa-se uma \textit{política ótima} $\pi*: S \rightarrow A$, que
+% recebe um estado $s \in S$ e retorna uma ação ótima $a \in A$.
+%
+%
+% Mesmo definindo matematicamente o problema de aprendizado por reforço em \ref{mdp} e definindo o que é uma política ótima, resta saber como encontrar uma
+% política ótima. Em inteligência artificial, a noção de \textit{aprendizado} trata de uma correção que o agente executa em si mesmo, levando em consideração
+% seu erro e um coeficiente de aprendizado, que determina o impacto que o último erro terá na atualização do agente em um determinado momento. Há muitos
+% algoritmos de aprendizado por reforço que funcionam dessa maneira, e um dos mais estudados deles é chamado Q-learning.
+%
+% \section{Q-learning}
+% \henrique{Coloco depois.}
+% \blindtext
+%
+%
+% \section{Simuladores de aprendizado por reforço}
+% \begin{figure}[h]
+%     \caption{Um robô real e sua versão modelada em um simulador.}
+%     \begin{center}
+%       \frame{\includegraphics[width=0.9\textwidth]{mujocosimulator.png}}
+%     \end{center}
+%     \label{fig:mujocosimulator}
+% \end{figure}
+%
+% Aprendizado por reforço lida com problemas onde um agente, inserido em um ambiente, tenta resolver um determinado problema através de uma série de ações.
+% Em alguns problemas, é de interesse do responsável pelo desenvolvimento do agente que se possa modelar casos nos quais o agente está inserido em um ambiente
+% %que desempenhe o papel de um sistema
+% estocástico (i.e. que apresenta fatores aleatórios que influenciam em seu comportamento).
+% No problema trabalhado na tese de Andrew Ng \bruno{add citation}, por exemplo, um agente é treinado para ser capaz de controlar um helicóptero, a fim de estabilizá-lo
+% levando em consideração fatores imprevisíveis do sistema (e.g. vento, chuva e demais fatores que podem interferir na estabilidade do veículo).
+% Nota-se que o problema, portanto, tem um objetivo prático: desenvolver um controle para um helicóptero que mantenha sua estabilidade, independentemente
+% de fatores externos. O problema surge na necessidade de treinar o agente: como proceder com o treinamento em ambientes que possuam diferentes níveis
+% de imprevisibilidade e cujos fatores como chuva e vento atuem em diferentes intensidades? Logicamente, o objetivo final do processo é ter um veículo
+% autocontrolado capaz de manter sua estabilidade sob qualquer tipo de interpérie; para que isso seja possível, todavia, é necessário que o agente seja
+% treinado em diferentes tipos de ambiente, o que pode se tornar inviável dadas restrições como o tempo disponível para o projeto e a necessidade dos
+% desenvolvedores de se deslocar até locações onde há ambientes ideais para o treinamento. A solução que é amplamente usada nesses casos, portanto,
+% é a modelagem de locações em um simulador que representa diferentes tipos de terreno e que permite ao pesquisador que este configure os diferentes
+% fatores do ambiente de acordo com sua necessidade.
+%
+%
+%
+% Além da economia de tempo e da liberdade para modelar de forma controlada diferentes tipos de ambiente com comportamento estocástico, simuladores também oferecem uma maneira
+% de analisar o desempenho de diferentes algoritmos de aprendizado quando aplicados ao mesmo problema, ou o contrário, que ocorre quando um mesmo algoritmo
+% de aprendizado é aplicado a problemas diferentes a fim de que possa ser avaliada a sua generalidade. Esse foi um dos objetivos do desenvolvimento
+% da plataforma Gym, da OpenAI, uma organização sem fins lucrativos que desenvolve projetos com foco em inteligência artificial.
+% Com um catálogo de diversos cenários de aprendizado por reforço (chamados de \textit{environments}) oriundos da literatura de IA e até mesmo
+% de jogos feitos para antigas plataformas de 8 \textit{bits}, esta plataforma oferece uma API (Interface Pública de Aplicação, em tradução livre; espécie
+% de ponto de acesso ao qual programas podem se conectar, se seguirem um determinado formato) que permite que qualquer pessoa desenvolva seu algoritmo
+% de AR para um determinado cenário e submeta-o a uma espécie de \textit{ranking}, que elenca os responsáveis pelos algoritmos que resolveram o problema de maneira mais eficiente,
+% levando em consideração a maior recompensa recebida e o tempo levado para resolver o problema. Sua desvantagem, entretanto, é que o catálogo de \textit{environments}
+% oferecido pelo Gym é fixo, ao mesmo tempo em que não existe nenhum \textit{framework} capaz de oferecer ao desenvolvedor as ferramentas necessárias
+% para produzir cenários que são compativeis com a API do Gym. Isso possibilitaria, por exemplo, uma busca rápida de algoritmos que comprovadamente
+% funcionam em cenários conhecidos a fim de que estes sejam mudados para sua aplicação em ambientes novos. Este trabalho propõe um \textit{framework}
+% que auxilia na criação de tais cenários, sem que o programador tenha que lidar com questões de programação de baixo nível como a troca de informações
+% entre um motor de física, responsável pelas simulações, e uma biblioteca gráfica, que transforma o ambiente simulado em algo que pode ser representado na
+% tela através de \textit{pixels}.
+% %
+% %
+% % \bruno{o Gym nao é um simulador, né? É uma API. Tu pode implementar diferentes ambientes, usando diferentes tipos de simuladores/motores de física, de forma que eles sejam compatíveis com Gym. O que eu diria aqui é que o Gym foi feito pra padronizar a interface com que algoritmos de AR interagem com diferentes ambientes simulados, independente de como tais ambientes simulados foram implementados---se manualmente, pelo programador usando diretamente um motor de fisica, ou usando algum dos framework para geracao de simulacoes/ambientes, tais como os que vao ser discutidos na secao de Estado da Arte. Como o Gym padroniza essa interface entre ambientes e agentes, quaisquer ambientes e  agentes/algoritmo de AR que sigam a API podem ser conectados, de forma a avaliar a performance daquele algoritmo naquele ambiente. Por essa razao, o Gym é um importante padrao na área pra facilitar essa comparacao de metodos, reproducibility, etc, aquelas coisas todas faladas no Resumo. Aí diz que, como sera discutido na secao de Estado da Arte, existem varios frameworks para facilitar a geracao de simulacoes/ambientes para avaliacao de algoritmos de AR, mas uma das limitacoes principais é que eles tem curva de aprendizado alta, etc, e que os codigos gerados automaticamente por esses frameworks nao seguem nenhuma interface padronizada, o que significa que é dificil pegar esses ambientes gerados e testar algoritmos implementados por outras pessoas, e disponibilizados online, nesses ambientes} Com um catálogo de
+% % diversos problemas ou ambientes de aprendizado (chamados \textit{environments}) oriundos da literatura de IA e até mesmo de jogos que originalmente foram feitos para máquinas
+% % de 8 bits, este simulador \bruno{gym nao é um simulador} permite que qualquer pessoa desenvolva seu algoritmo de AR e submeta-o a uma espécie de \textit{ranking}, que elenca os
+% % responsáveis pelos algoritmos que resolveram o problema em menos tempo (i.e. que o agente aprendeu a sequência de ações que resolve o problema mais
+% % rapidamente). Sua desvantagem, entretanto, é que os \textit{enviroments} são fixos e não permitem que neles sejam feitas pequenas alterações ou até
+% % mesmo que \textit{environments} completamente novos sejam construídos, e este trabalho visa apresentar um simulador capaz de disponibilizar ferramentas
+% % para a construção de cenários novos e que produzam resultados compatíveis com a biblioteca do Gym. \bruno{o final da frase (objetivo) ta ok, mas o inicio nao conecta bem: o teu trabalho nao é motivado pelo fato de que os codigos de ambientes do Gym nao fixos, porque tu nao vai propor um framework pra mais facilmente alterar codigos de ambientes do Gym. Tambem tem que corrigir onde tu diz que teu objetivo é fazer um simulador. É um framework pra gerar simualdores/ambientes etc etc}\par
+%
+%
+% \henrique{aqui eu ainda tenho que alterar, com base no que vou colocar no capítulo de estado da arte}No próximo capítulo, será feito um breve estudo dos simuladores Gym e MuJoCo secao de traçando suas principais vantagens e deficiências, através de uma
+% análise comparativa que relacionará seus pontos fortes e desvantagens com o que é oferecido pelo simulador descrito no capítulo 4 deste trabalho. \bruno{gym e mujoco sao comparaveis? gym é uma API, mujoco é um gerador de codigo. Tem que falar do Gym no inicio, clarificando que nao se trata de um simulador nem de um gerador de ambientes/simualdores, e sim um padrao/API que, se um deterinado ambiente/simulador seguir, ele pode ser usado para avaliar qualquer um dos N algoritmos de aprendizado que ja foram implementados e que seguem essa API. Aí precisa falar do mujoco e de outros geradores de codigo de ambientes/simuladores. Eu tinha mandado, num email, alguns links. Tem o framework dos italianos, e tinha um outro negocio que eu tinha mandado por facebook que era de um negocio meio em modo-texto. Nao lembro qual era. Mas tem mais coisa que só o mujoco; tem que achar os links que eu tinha mandado por email}.
+%
+% \section{A linguagem YAML}
+% \label{alinguagemyaml}
+% \henrique{Coloquei essa parte aqui porque faço referência a ela várias vezes durante o desenvolvimento.}
+% YAML é uma linguagem de marcação utilizada para serialização de dados. Ela é usada normalmente para arquivos de configurações de sistemas (como é o caso do \textit{framework})
+% Ruby on Rails, que permite a criação de servidores \textit{web} cujo acesso a seu banco de dados, por exemplo, é determinado por configurações salvas em um arquivo neste formato.
+% Apesar de ter sido concebida como uma linguagem de marcação, pelo fato de sua sigla originalmente significar \textit{Yet Another Markup Language} ("mais uma linguagem de marcação", em tradução livre),
+% mais tarde sua sigla se tornou recursiva e seu significado mudou para \textit{YAML: YAML Ain't Markup Language} ("YAML não é linguagem de marcação"),
+% como forma de reposicionamento por parte seus desenvolvedores, que buscavam redirecionar o uso da linguagem para representações de dados, uso este que é
+% bem diverso de marcação de texto. \par
+% Sua sintaxe permite a declaração de vetores associativos (também conhecidos como "dicionários"), onde valores são associados a chaves, sendo estas normalmente
+%  de caracteres.
+% A possibilidade de definir dicionários, juntamente com a capacidade da linguagem de estruturar dados sob a forma de listas, permite que o programador defina
+% estruturas bastante complexas, mas que são sintaticamente mais simples do que se os mesmos dados fossem definidos usando-se de outras linguagens de marcação, como XML e JSON.
+%
+% % http://ieeexplore.ieee.org/abstract/document/6215346/
+%
+% % (retirado de docs.ansible.com/ansible/latest/YAMLSyntax.html)
+%
+% Um exemplo do uso da linguagem YAML é dado abaixo. Nele, define-se uma lista composta de dois
+% funcionários que possuem informações como nome, posição e uma lista de habilidades.
+%
+% \begin{minted}{yaml}
+%   # Employee records
+% -  martin:
+%     name: Martin D'vloper
+%     job: Developer
+%     skills:
+%       - python
+%       - perl
+%       - pascal
+% -  tabitha:
+%     name: Tabitha Bitumen
+%     job: Developer
+%     skills:
+%       - lisp
+%       - fortran
+%       - erlang
+% \end{minted}
+%
+%
+% A ferramenta de modelagem de cenários de aprendizado por reforço descrita neste trabalho oferece duas maneiras de modelagem de entidades de AR e uma delas
+% funciona através da leitura de um \textit{script} YAML que descreve, de maneira hierárquica, as entidades e suas propriedades. Uma descrição detalhada de como
+% descrever um problema de AR através de um arquivo YAML é dada no capítulo 5 deste documento.
+% er um problema de AR através de um arquivo YAML é dada no capítulo 5 deste documento.
 
 \chapter{Estado da Arte}
 \label{estadodaarte}
