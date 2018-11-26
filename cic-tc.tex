@@ -816,6 +816,7 @@ conveniente. O capítulo também trata do uso de simuladores para a modelagem de
 cenários de aprendizado por reforço.
 
 \section{Definição formal do problema de aprendizado por reforço}
+\label{markov_process}
 Sendo o problema de aprendizado por reforço um exemplo de situação onde decisões
 devem ser tomadas em sequência, este pode ser formulado matematicamente como um
 Processo de Decisão de Markov (também referido pela sigla MDP, do inglês
@@ -1210,6 +1211,7 @@ nos valores da \textit{Q-table}.
 
 
 \subsection{Aprendizado por Reforço com Redes Neurais Profundas}
+\label{dqn}
 % [1] https://arxiv.org/pdf/1312.5602.pdf
 % [2] http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks
 % [3] https://storage.googleapis.com/deepmind-media/alphago/AlphaGoNaturePaper.pdf
@@ -1269,7 +1271,7 @@ só são possíveis com o uso de simuladores.
 
 
 \section{Simuladores de AR}
-
+\label{simuladores_ar}
 % [1] http://rll.berkeley.edu/deeprlcourse/docs/ng-thesis.pdf
 % [2] tese do andrew ng, link em algum lugar no texto
 % [3] artigo do mujoco
@@ -1772,56 +1774,273 @@ construção de simuladores serão analisadas.
 % er um problema de AR através de um arquivo YAML é dada no capítulo 5 deste documento.
 
 \chapter{Estado da Arte}
-\label{estadodaarte}
-\section{Gym}
-Gym é um simulador desenvolvido pela OpenAI \bruno{nao é um simulador. É uma API}, uma empresa sem fins lucrativos que desenvolve pesquisas em inteligência artificial com o intuito de
-"desenvolver IA amigável de tal forma que a humanidade como um todo beneficie-se dela". Seu trabalho com o Gym, portanto, não tem por objetivo
-somente prover a pesquisadores do mundo todo uma ferramenta com a qual seja possível desenvolver, \bruno{avaliar e comparar diferentes} algoritmos de aprendizado por reforço, mas também
-fornecer a todos que usam o simulador um canal por onde se possa compartilhar ideias e comparar métodos. O Gym nasceu, portanto, da necessidade de
-se ter uma ferramenta capaz de fazer o \textit{benchmark} de algoritmos de AR. Enquanto em outras áreas da IA, como aprendizado supervisionado,
-já existe grandes bases de dados como a ImageNet, com centenas de milhares de imagens já etiquetadas para uso principalmente em projetos de IA que
-envolvam reconhecimento de imagens, não existia, até o momento em que o Gym foi concebido, uma biblioteca de ambientes e resultados que fosse grande
-o suficiente e que, principalmente, fosse fácil de usar \bruno{tem que clarificar que é uma API que tu usa pra especificar tanto os ambientes de RL quanto os algoritmos de aprendizado, e que como toda a interface fica padronizada, é possivel fazer combinacoes e testar qualquer algoritmo em qualquer ambiente, e é possível reproduzir resultados de outros algoritmos, facilmente comparar novos algoritmos com aqueles existentes, etc. Aí precisa dizer concretamente o que o Gym faz: qual a interface de métodos principais que a pessoa precisa implementar pra especificar um ambiente, e quais precisa implementar pra especificar um agente de aprendizado. Diz aí tipo 'o metodo takeAction, p.ex., implementa a politica $\pi$ de escolha de acoes. O metodo runAction (to inventendo os nomes, nao lembro de cor) pega uma acao e o estado atual, e devolve o proximo estado do ambiente e a recompensa; ou seja, ele corresponde à implementacao computacional da funcao de transicao T do MDP e da funcao de recompensa R'. Acho que falta, nessa parte, falar de forma mais concreta o que que é o que o Gym faz/especifica, pra conseguir fazer essa padronizacao. Isso é importante porque todo o teu argumento, depois, é que o teu framework, ao gerar codigo compativel com o Gym, permite a geracao facilitada de novos ambientes para teste, avaliacao e comparacao de algoritmos de RL. Quando for explicar o Gym, tu poderia nao só colocar aquelas imagens, mas realmente descrever alguns deles, como exemplos. Tipo 'Alguns exemplos de ambientes clássicos usados como benchmark de algoritmos de aprendizado por reforco, tais como poll balancing e mountain car, por exemplo, estao disponiveis na plataforma Gym. O mountain car corresponde ao problema de (...). Para que um desenvolvedor com interesse em implementar e validar um novo algoritmo de RL pudesse testar sua criacao no mountain car, bastaria utilizar o seguinte codigo Python: (...). Caso quisesse testar esse metodo codigo no problema de poll balancing, bastaria alterar o codigo do seu agente de aprendizado da seguinte forma: (...). Como pode ser visto, uma vez que ambientes e agentes sao implementados seguindo a API do Gym, torna-se trivial instanciar comparacoes de qualquer método em qualquer tarefa de aprendizado'. Aí fala 'alem de ambientes classicos, cenarios mais recentesmente propostos como benchmark, tais como aqueles envolvendo jogos de atari, tambem estao disponiveis'. Aí fala um pouco deles. Depois de falar sobre a parte de cenarios/ambientes que tem no Gym, fala sobre como é sao disponibilizados os algoritmos de aprendizado que existem nele. As pessoas enviam codigo pra resolver um ambiente especifico, e o codigo é rodado la? Elas rodam localmente e loggam os resultados, e só os resultados sao enviados, com alguma maneira de eles verificarem que nao foram adulterados? Tem alguma maneira facil de baixar os top N best-ranked algorithms pra um detemrinado problema? Coisas desse tipo. Aí descreve como ter acesso aos melhores algoritmos submetidos pra um dado ambiente é util pra que depois tu possa pegar o algoritmo que tu inventou e comparar com o estado-da-arte, de acordo com as pessoas que submetem pro Gym; fala que esse ranking é interessante porque consiste em resultados que podem ser reproduzidos, e nao apenas em resultados que *apenas* foram publicados em artigos cientificos, mas para os quais frequenemtenete nao se tem acesso ao fonte, e/ou nao se conhece como os autores ajustaram os meta-parametros tipo taxa de aprendizado, etc. Ou seja, facilidade reproducibility e permite com que tu rapidamente avalie o teu algoritmo contra varios existentes, ou entao teste algoritmos existentes (publicados la) em um novo tipo de ambiente/tarefa de aprendizado, no qual tu possa ter interesse}.\par
+% [1] https://ieeexplore.ieee.org/abstract/document/7139807
+% [2] https://ieeexplore.ieee.org/abstract/document/6386109
+% [3] controller optimization => https://arxiv.org/abs/1509.01066
+% [4] https://arxiv.org/pdf/1506.08941.pdf
+% [5] VizDoom http://www.cs.put.poznan.pl/wjaskowski/pub/theses/ViZDoom_BScThesis.pdf
+% [6] http://proceedings.mlr.press/v48/mniha16.pdf
+% [7] https://arxiv.org/pdf/1707.02286.pdf
+% [8] http://people.reed.edu/~jimfix/math385/lec01.1/Animation/p15-sims-evolving.pdf
+% [9] http://ode.org/ode-latest-userguide.pdf
 
-Os cenários disponibilizados pelo Gym são bastante diversos e vão desde problemas em modo texto até jogos de plataformas bidimensionais (figura \ref{fig:gymenvironments}).
-Para cada um dos \textit{enviroments} disponíveis, há, na página do projeto, um \textit{ranking} dos algoritmos que resolveram o problema da maneira mais eficiente,
-levando dois fatores em consideração: maior recompensa recebida e quantidade de episódios necessários para que o agente finalmente resolvesse o problema proposto.
-Todavia, o Gym ainda carece de uma extensão que permita que pesquisadores compartilhem não só suas soluções, mas também ambientes totalmente novos ou adaptações
-de ambientes que já existem \bruno{o que tu quer dizer com isso é que o pacote, como tu baixa da pagina, vem só com um conjunto pre-aceito de ambientes, ne? Que as pessoas tem como submeter seus agentes de aprendizado, mas nao seus ambientes? Isso é uma limitacao importante? Nao poder compartilhar os ambientes, digo? Porque caso tu enfatize essa limitacao, a expectativa do leitor seria que tu iria resolver ela (uma plataforma pra poder submeter novos ambinetes). Acho que a tua contribuicao nao é essa, e sim resolver uma outra limitacao dele: que ele especifica só a API, mas aí se tu quer criar um ambiente novo do zero, que siga a API deles, tu precisa ir aprender uns motor de fisica do zero, e tambem precisa aprender a API da plataforma e tudo mais. O que tu vai fazer é propor um framework pra geracao automatica de codigo que pegue a especificacao de alto-nivel de um ambiente e compile ela pra codigo de mais baixo nivel que implementa essa descricao em um motor de fisica, e de forma que tudo seja compativel com Gym, ou seja, de forma que instantaneamnete dê pra disponbilizar pra toda comunidade esse novo ambiente, e que se instantanemanete tenha acesso/possibilidade de avaliar N algoritmos existentes no ambiente que tu acabou de inventar}.
+\henrique{Dúvida: como eu referencio um dicionário? Precisa?}
 
-O \textit{Barbell}, desenvolvido e descrito neste trabalho, é uma tentativa de resolver, mesmo que em partes, este problema: ao
-fornecer ao desenvolvedor uma maneira de criar seus próprios ambientes, cria-se a possibilidade de expandir a biblioteca do Gym; por outro lado, ao desenvolver
-cenários que de certa forma recordem outros que já existem, o \textit{Barbell} permite que o desenvolvedor parta de algoritmos que já foram desenvolvidos ao
-invés de se encontrar obrigado a construir sua solução do zero. O método de construção de cenários e a maneira como os resultados são apresentados, em comparação
-com os resultados fornecidos pelos cenários padrão do Gym, será descrito no próximo capítulo. \par
+Em sua definição de dicionário, um simulador é "uma máquina com um conjunto de
+controles designada para proporcionar uma imitação realística da operação de um
+veículo, aeronave ou outro sistema complexo, usado para fins de treinamento", ou
+"Aparelho capaz de reproduzir o comportamento de outro aparelho cujo
+funcionamento se deseja estudar, ou de um corpo cuja evolução se quer seguir".
+Na seção \ref{simuladores_ar}, as as aplicações práticas de simuladores de
+aprendizado por reforço, que encaixam-se nas definições dadas acima, são
+brevemente discutidas. Este capítulo tratará de exemplos de conjuntos de
+ferramentas (ou \textit{frameworks}) frequentemente usados para a construção de
+simulações de cenários de aprendizado por reforço.
 
+\section{Estrutura de um simulador de aprendizado por reforço}
+\label{ar_structure}
 
-
-\begin{figure}[h]
-    \caption{Alguns dos cenários disponíveis na base do Gym.}
+\begin{figure}
+    \caption{Ciclo de aprendizado do agente via interação com o ambiente}
     \begin{center}
-      \includegraphics[width=0.9\textwidth]{environments.png}
+      \includegraphics[width=0.65\textwidth]{fluxo_ar.png}
     \end{center}
-    \label{fig:gymenvironments}
+    \label{fig:fluxo_ar}
 \end{figure}
+
+é natural que, ao pensarmos na palavra "simulador", nos venha à mente algum tipo
+de ferramenta essencialmente visual, como simuladores de voo utilizados para
+treinar pilotos, por exemplo. Entretanto, quando se trata de aprendizado por
+reforço, nem sempre há utilidade em construir visualmente o ambiente e o agente
+nele inserido; muito pelo contrário: por vezes, a representação gráfica deste é
+propositalmente desligada durante a fase de treinamento, visando o emprego dos
+recursos computacionais disponíveis apenas para o que é importante: neste caso,
+o treinamento em si (ou seja, a resolução do Processo de Markov, como descrito
+na seção \ref{markov_process}).
+
+
+Tratando-se de aprendizado por reforço, o componente visual, portanto, não é
+seu componente essencial: por vezes, é útil que este seja ignorado para
+transferir os recursos computacionais que seriam consumidos por ele para as
+tarefas intrínsecas ao processo de treinamento, e, em alguns casos, é até
+impossível representar o problema de uma forma essencialmente visual [[4]].
+Sendo assim, resta definir qual é o elemento fundamental de um simulador, quando
+dentro de um contexto de aprendizado por reforço.
+
+
+E qual a peça principal de um sistema modelado por um Processo de Decisão de
+Markov? Bom, é natural que seja, exatamente, o MDP e seus \textit{subprocessos}:
+a leitura do ambiente realizada pelo agente, a decisão tomada por ele com base
+nas informações oriundas desta leitura e a transformação do ambiente pelo
+resultado de suas ações, conforme o ciclo explicitado na figura
+\ref{fig:fluxo_politica}. O componente fundamental de uma simulação de
+aprendizado por reforço é, pois, a representação dos elementos envolvidos em um
+processo de decisão markoviano (i.e. o agente, o ambiente, as ações e a noção de
+recompensa) e da maneira como estes interagem entre si. A figura
+\ref{fig:fluxo_ar} ilustra o que seria o esqueleto de um processo de treinamento
+de um agente em um problema de aprendizado por reforço: o ciclo descrito na
+imagem é fundamental em qualquer cenário que envolva aprendizado por reforço.
+
+
+Um simulador de aprendizado por reforço é, portanto, uma ferramenta que combina
+o ciclo de aprendizado descrito na figura \ref{fig:fluxo_ar} com alguma outra
+ferramenta que permite que sejam representados os componentes de um MDP: o
+ambiente, o agente nele inserido, as ações possíveis em cada época de decisão e
+a noção de recompensa; sem que, necessariamente, haja uma representação visual
+destes. A ferramenta \textit{ViZDoom} [[5]], por exemplo, permite que algoritmos
+de aprendizado sejam aplicados ao jogo de tiro Doom. Há, evidentemente, uma
+construção visual de objetos (i.e. o jogador, o mapa e os inimigos), mas há,
+também, estruturas de dados internas das quais o agente extrai informações em
+suas tomadas de decisão. As seções seguintes deste capítulo tratarão de
+ferramentas comumente utilizadas para a construção de simuladores de aprendizado
+por reforço, explicitando seus destaques positivos e deficiências, a fim de que
+seja apresentado ao leitor, ao final do capítulo, um panorama dos
+\textit{softwares} mais utilizados por pesquisadores da área.
 
 
 \section{MuJoCo}
+\label{mujoco}
 
-\bruno{\textbf{IMPORTANTE}: que outros artigos discutem frameworks com esse mesmo objetivo? DISCUTIR ISSO NOS TRABALHOS RELACIONADOS:
-\begin{itemize}
-    \item rllab, moveit \url{https://stackoverflow.com/questions/48490828/should-i-using-mujoco-or-moveit-for-modeling};
-    \item quais outros motores de fisica as pessoas usam? gazebosim.org, vrep;
-    \item como as pessoas implementam os dominios compativeis com o RLGlue?
-    \item que outros simuladores de robotica sao utilizados? p.ex. \url{https://en.wikipedia.org/wiki/Robotics_simulator};
-    \item andersonrochatavares@gmail.com, perguntar se ele conhece artigos e/ou frameworks que se costuma usar para gerar jogos/dominios;
-\end{itemize}
-}
+\begin{figure}[h]
+    \caption{Modelagem de robôs humanoides no ambiente do MuJoCo}
+    \begin{center}
+      \includegraphics[width=0.9\textwidth]{mujoco_humanoids.png}
+    \end{center}
+    \label{fig:humanoids_mujoco}
+\end{figure}
+
+MuJoCo [[2]] é um \textit{framework} surgido do rápido crescimento do ramo da
+robótica e da necessidade dos simuladores utilizados nesta área de acompanhar
+o acentuado desenvolvimento --- não apenas em termos de capacidade, como também
+tratando-se de complexidade --- deste domínio. Voltado para o desenvolvimento de
+sistemas de controle para robôs, o \textit{software} não apresenta, nativamente,
+o ciclo de aprendizado examinado na seção \ref{ar_structure}, mas este pode ser
+facilmente implementado a partir da biblioteca oferecida pelos desenvolvedores
+do sistema (como é o caso de alguns cenários disponibilizados pelo \textit{Gym},
+a serem apresentados no próximo capítulo). Sistemas de controle são uma área
+fundamental da robótica, e seu desenvolvimento é parte de um processo que não
+necessariamente envolve algoritmos de aprendizado por reforço, como é o caso do
+trabalho desenvolvido em [[3]], que apresenta um algoritmo de refinamento de
+sistemas de controle de quadricópteros baseado em otimização Bayesiana.
 
 
-\bruno{ver comentario no inicio do capto. Acho que o gym e o mujoco nao sao comparaveis, porque Gym=API, e mujoco=framework pra geracao de ambientes/simulacoes. ALgo comparavel com mujoco seriam aqueles outros trabalhos que eu mencionei em algum dos emails anteriores}
+O MuJoCo é voltado para otimização de sistemas de controle, que consiste,
+basicamente, em construir diversas variações de um sistema e avaliá-las de
+acordo com um processo que pode ser baseado em inteligência artificial, com o
+uso de algoritmos genéticos ou de aprendizado por reforço, por exemplo. Apesar,
+entretanto, de ter por objetivo apresentar uma solução para sistemas de
+robótica, onde é interessante representar virtualmente sistemas compostos de
+diversas partes conectadas de uma maneira bastante complexa (como é o caso de
+braços robóticos) e de performar significativamente melhor que outros
+simuladores da área [[1]], o MuJoCo foi rapidamente adotado por pesquisadores da
+área do aprendizado por reforço profundo [[6]], desenvolvida brevemente na seção
+\ref{dqn}, onde algoritmos de AR são combinados com redes neurais profundas.
+Dada a facilidade com que modelos podem ser construídos no ambiente virtual do
+MuJoCo --- através de uma descrição de alto nível com base em um arquivo no
+formato XML ou através de chamadas diretas à uma API que fornece ao
+desenvolvedor as ferramentas necessárias para a construção de modelos ---, é
+natural que este \textit{framework} tenha se tornado uma peça importante nos
+no estudo de algoritmos de aprendizado por reforço quando aplicados em
+simuladores. Em especial, pode ser citado o caso da DeepMind [[7]], que
+desenvolveu uma extensa pesquisa envolvendo a maneira como robôs humanoides
+aprendem a locomover-se de acordo com a maneira com que a recompensa é
+calculada.
+
+
+Devido, entretanto, ao seu alto grau de especificidade (o MuJoCo foi feito
+especialmente para atender às demandas do ramo da robótica, onde motores de
+simulações físicas voltados para jogos não são acurados o suficiente --- há
+casos, por exemplo, onde a simulação aprende a explorar falhas do motor de
+física, que não condizem com a realidade [[8]]), há casos
+onde o \textit{framework} pode ser considerado complexo demais, não só pela sua
+extensa documentação sobre as funções da sua API para criação de corpos e
+conectores, como também pelo seu conjunto de algoritmos de cálculos físicos, que
+fornecem uma lista bastante abrangente de informações sobre os corpos
+representados na simulação. Além do mais, há a questão do custo: o MuJoCo não
+é um \textit{software} livre, sendo oferecido de graça apenas para integrantes
+da comunidade científica. Para os demais, sua licença é oferecida a preços que
+variam de quinhentos a dois mil dólares.
+
+\section{ODE}
+\label{ode}
+%
+
+A \textit{Open Dynamics Engine} (ou, como é comumente chamada, ODE) é uma
+ferramenta de simulações físicas de propósitos mais gerais do que a MuJoCo.
+Feita para simular propriedades físicas de corpos rígidos articulados, este
+motor de física é ideal para simulações que possam envolver veículos ou
+criaturas bípedes, por exemplo. Com uma extensa biblioteca capaz de gerar
+representações para os mais variados tipos de corpos físicos, a ODE vem sendo
+desenvolvida há mais de dez anos, contando com uma comunidade bastante ativa de
+desenvolvedores.
+
+
+
+\begin{figure}
+    \caption{Captura de tela do jogo \textit{Call of Juarez}}
+    \begin{center}
+      \includegraphics[width=0.65\textwidth]{call_of_juarez.png}
+    \end{center}
+    \label{fig:call_of_juarez}
+\end{figure}
+
+Sendo um motor de física que é relativamente mais simples que o MuJoCo, a
+\textit{Open Dynamics Engine} é usada onde um alto grau de acurácia não é
+requerido, e onde não é necessário que modelos muito complexos (onde um único
+corpo é feito de diversos pequenos corpos interligados por um elevado número de
+juntas), como os modelos recorrentes na robótica, sejam representados. Por isso,
+uma das aplicações deste motor de física é o desenvolvimento de jogos, tendo
+sido bastante usada para este fim, como ilustrado pela figura
+\ref{fig:call_of_juarez}. No trabalho desenvolvido em [[1]], uma comparação
+entre diversas \textit{engines} de física é feito, e a ODE se destaca no quesito
+que lida com cenários onde diversos corpos são representados sem que haja
+muitas interações entre eles, como é normalmente o caso quando se trata de
+jogos. Ainda assim, entretanto, a ODE, em termos gerais, não possui a mesma
+performance de outros \textit{frameworks} como o MuJoCo, ficando aquém deste na
+grande maioria dos testes realizados em [[1]]. Parte dessa discrepância entre os
+dois motores de física pode ser explicada pelo fato de que o MuJoCo,
+desenvolvido mais recentemente, aproveita-se muito mais de processamento
+paralelo, que utiliza completamente todos os núcleos disponíveis, e também pelo
+fato de que o MuJoCo possui uma acurácia muito maior, permitindo que o intervalo
+de tempo (\textit{timestep}) representado entre um processamento e outro pode
+ser muito maior no MuJoCo do que no ODE, fazendo com que o primeiro tenha uma
+vantagem sobre o segundo. Além disso, ainda há, novamente, a questão da
+complexidade: a documentação da ODE é tão extensa quanto a do MuJoCo [[9]],
+exigindo que o desenvolvedor que pretende usá-la para desenvolver um cenário de
+aprendizado por reforço disponha de bastante tempo para estudar todas as
+ferramentas disponibilizadas por sua biblioteca.
+
+\henrique{são 3am e eu tô no meu segundo copo de gim tônica. caso tu não tenha
+entendido os últimos dois parágrafos, pensa que eu já tava meio alterado quando
+escrevi eles}
+
+\section{Aquele dos italianos??}
+\blindtext
+
+
+(conclusão) \blindtext
+
+%
+% Devido, entretanto, ao seu alto grau de especialidade (o MuJoCo foi feito
+% especialmente para atender à demanda do ramo da robótica, onde motores de [
+% simulações físicas voltados para jogos não são suficientes)
+
+
+
+% MuJoCo (nome que deriva )
+
+
+% \label{estadodaarte}
+% \section{Gym}
+% Gym é um simulador desenvolvido pela OpenAI \bruno{nao é um simulador. É uma API}, uma empresa sem fins lucrativos que desenvolve pesquisas em inteligência artificial com o intuito de
+% "desenvolver IA amigável de tal forma que a humanidade como um todo beneficie-se dela". Seu trabalho com o Gym, portanto, não tem por objetivo
+% somente prover a pesquisadores do mundo todo uma ferramenta com a qual seja possível desenvolver, \bruno{avaliar e comparar diferentes} algoritmos de aprendizado por reforço, mas também
+% fornecer a todos que usam o simulador um canal por onde se possa compartilhar ideias e comparar métodos. O Gym nasceu, portanto, da necessidade de
+% se ter uma ferramenta capaz de fazer o \textit{benchmark} de algoritmos de AR. Enquanto em outras áreas da IA, como aprendizado supervisionado,
+% já existe grandes bases de dados como a ImageNet, com centenas de milhares de imagens já etiquetadas para uso principalmente em projetos de IA que
+% envolvam reconhecimento de imagens, não existia, até o momento em que o Gym foi concebido, uma biblioteca de ambientes e resultados que fosse grande
+% o suficiente e que, principalmente, fosse fácil de usar \bruno{tem que clarificar que é uma API que tu usa pra especificar tanto os ambientes de RL quanto os algoritmos de aprendizado, e que como toda a interface fica padronizada, é possivel fazer combinacoes e testar qualquer algoritmo em qualquer ambiente, e é possível reproduzir resultados de outros algoritmos, facilmente comparar novos algoritmos com aqueles existentes, etc. Aí precisa dizer concretamente o que o Gym faz: qual a interface de métodos principais que a pessoa precisa implementar pra especificar um ambiente, e quais precisa implementar pra especificar um agente de aprendizado. Diz aí tipo 'o metodo takeAction, p.ex., implementa a politica $\pi$ de escolha de acoes. O metodo runAction (to inventendo os nomes, nao lembro de cor) pega uma acao e o estado atual, e devolve o proximo estado do ambiente e a recompensa; ou seja, ele corresponde à implementacao computacional da funcao de transicao T do MDP e da funcao de recompensa R'. Acho que falta, nessa parte, falar de forma mais concreta o que que é o que o Gym faz/especifica, pra conseguir fazer essa padronizacao. Isso é importante porque todo o teu argumento, depois, é que o teu framework, ao gerar codigo compativel com o Gym, permite a geracao facilitada de novos ambientes para teste, avaliacao e comparacao de algoritmos de RL. Quando for explicar o Gym, tu poderia nao só colocar aquelas imagens, mas realmente descrever alguns deles, como exemplos. Tipo 'Alguns exemplos de ambientes clássicos usados como benchmark de algoritmos de aprendizado por reforco, tais como poll balancing e mountain car, por exemplo, estao disponiveis na plataforma Gym. O mountain car corresponde ao problema de (...). Para que um desenvolvedor com interesse em implementar e validar um novo algoritmo de RL pudesse testar sua criacao no mountain car, bastaria utilizar o seguinte codigo Python: (...). Caso quisesse testar esse metodo codigo no problema de poll balancing, bastaria alterar o codigo do seu agente de aprendizado da seguinte forma: (...). Como pode ser visto, uma vez que ambientes e agentes sao implementados seguindo a API do Gym, torna-se trivial instanciar comparacoes de qualquer método em qualquer tarefa de aprendizado'. Aí fala 'alem de ambientes classicos, cenarios mais recentesmente propostos como benchmark, tais como aqueles envolvendo jogos de atari, tambem estao disponiveis'. Aí fala um pouco deles. Depois de falar sobre a parte de cenarios/ambientes que tem no Gym, fala sobre como é sao disponibilizados os algoritmos de aprendizado que existem nele. As pessoas enviam codigo pra resolver um ambiente especifico, e o codigo é rodado la? Elas rodam localmente e loggam os resultados, e só os resultados sao enviados, com alguma maneira de eles verificarem que nao foram adulterados? Tem alguma maneira facil de baixar os top N best-ranked algorithms pra um detemrinado problema? Coisas desse tipo. Aí descreve como ter acesso aos melhores algoritmos submetidos pra um dado ambiente é util pra que depois tu possa pegar o algoritmo que tu inventou e comparar com o estado-da-arte, de acordo com as pessoas que submetem pro Gym; fala que esse ranking é interessante porque consiste em resultados que podem ser reproduzidos, e nao apenas em resultados que *apenas* foram publicados em artigos cientificos, mas para os quais frequenemtenete nao se tem acesso ao fonte, e/ou nao se conhece como os autores ajustaram os meta-parametros tipo taxa de aprendizado, etc. Ou seja, facilidade reproducibility e permite com que tu rapidamente avalie o teu algoritmo contra varios existentes, ou entao teste algoritmos existentes (publicados la) em um novo tipo de ambiente/tarefa de aprendizado, no qual tu possa ter interesse}.\par
+%
+% Os cenários disponibilizados pelo Gym são bastante diversos e vão desde problemas em modo texto até jogos de plataformas bidimensionais (figura \ref{fig:gymenvironments}).
+% Para cada um dos \textit{enviroments} disponíveis, há, na página do projeto, um \textit{ranking} dos algoritmos que resolveram o problema da maneira mais eficiente,
+% levando dois fatores em consideração: maior recompensa recebida e quantidade de episódios necessários para que o agente finalmente resolvesse o problema proposto.
+% Todavia, o Gym ainda carece de uma extensão que permita que pesquisadores compartilhem não só suas soluções, mas também ambientes totalmente novos ou adaptações
+% de ambientes que já existem \bruno{o que tu quer dizer com isso é que o pacote, como tu baixa da pagina, vem só com um conjunto pre-aceito de ambientes, ne? Que as pessoas tem como submeter seus agentes de aprendizado, mas nao seus ambientes? Isso é uma limitacao importante? Nao poder compartilhar os ambientes, digo? Porque caso tu enfatize essa limitacao, a expectativa do leitor seria que tu iria resolver ela (uma plataforma pra poder submeter novos ambinetes). Acho que a tua contribuicao nao é essa, e sim resolver uma outra limitacao dele: que ele especifica só a API, mas aí se tu quer criar um ambiente novo do zero, que siga a API deles, tu precisa ir aprender uns motor de fisica do zero, e tambem precisa aprender a API da plataforma e tudo mais. O que tu vai fazer é propor um framework pra geracao automatica de codigo que pegue a especificacao de alto-nivel de um ambiente e compile ela pra codigo de mais baixo nivel que implementa essa descricao em um motor de fisica, e de forma que tudo seja compativel com Gym, ou seja, de forma que instantaneamnete dê pra disponbilizar pra toda comunidade esse novo ambiente, e que se instantanemanete tenha acesso/possibilidade de avaliar N algoritmos existentes no ambiente que tu acabou de inventar}.
+%
+% O \textit{Barbell}, desenvolvido e descrito neste trabalho, é uma tentativa de resolver, mesmo que em partes, este problema: ao
+% fornecer ao desenvolvedor uma maneira de criar seus próprios ambientes, cria-se a possibilidade de expandir a biblioteca do Gym; por outro lado, ao desenvolver
+% cenários que de certa forma recordem outros que já existem, o \textit{Barbell} permite que o desenvolvedor parta de algoritmos que já foram desenvolvidos ao
+% invés de se encontrar obrigado a construir sua solução do zero. O método de construção de cenários e a maneira como os resultados são apresentados, em comparação
+% com os resultados fornecidos pelos cenários padrão do Gym, será descrito no próximo capítulo. \par
+%
+%
+%
+% \begin{figure}[h]
+%     \caption{Alguns dos cenários disponíveis na base do Gym.}
+%     \begin{center}
+%       \includegraphics[width=0.9\textwidth]{environments.png}
+%     \end{center}
+%     \label{fig:gymenvironments}
+% \end{figure}
+%
+%
+% \section{MuJoCo}
+%
+% \bruno{\textbf{IMPORTANTE}: que outros artigos discutem frameworks com esse mesmo objetivo? DISCUTIR ISSO NOS TRABALHOS RELACIONADOS:
+% \begin{itemize}
+%     \item rllab, moveit \url{https://stackoverflow.com/questions/48490828/should-i-using-mujoco-or-moveit-for-modeling};
+%     \item quais outros motores de fisica as pessoas usam? gazebosim.org, vrep;
+%     \item como as pessoas implementam os dominios compativeis com o RLGlue?
+%     \item que outros simuladores de robotica sao utilizados? p.ex. \url{https://en.wikipedia.org/wiki/Robotics_simulator};
+%     \item andersonrochatavares@gmail.com, perguntar se ele conhece artigos e/ou frameworks que se costuma usar para gerar jogos/dominios;
+% \end{itemize}
+% }
+
+%
+% \bruno{ver comentario no inicio do capto. Acho que o gym e o mujoco nao sao comparaveis, porque Gym=API, e mujoco=framework pra geracao de ambientes/simulacoes. ALgo comparavel com mujoco seriam aqueles outros trabalhos que eu mencionei em algum dos emails anteriores}
 
 \chapter{Desenvolvimento???}
+\label{desenvolvimento}
 Realmente não sei o que colocar aqui. Acho que tenho que convencer nessa parte de que meu trabalho é muito mais foda e muito
 mais intuitivo do que todos os outros trabalhos que já foram desenvolvidos até hoje, certo?
 Bruno, por favor, me ajuda.
