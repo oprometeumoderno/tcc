@@ -1980,15 +1980,6 @@ escrevi eles}
 
 (conclusão) \blindtext
 
-%
-% Devido, entretanto, ao seu alto grau de especialidade (o MuJoCo foi feito
-% especialmente para atender à demanda do ramo da robótica, onde motores de [
-% simulações físicas voltados para jogos não são suficientes)
-
-
-
-% MuJoCo (nome que deriva )
-
 
 % \label{estadodaarte}
 % \section{Gym}
@@ -2039,8 +2030,122 @@ escrevi eles}
 %
 % \bruno{ver comentario no inicio do capto. Acho que o gym e o mujoco nao sao comparaveis, porque Gym=API, e mujoco=framework pra geracao de ambientes/simulacoes. ALgo comparavel com mujoco seriam aqueles outros trabalhos que eu mencionei em algum dos emails anteriores}
 
-\chapter{Desenvolvimento???}
+\chapter{Desenvolvimento}
 \label{desenvolvimento}
+
+% [1] gym => https://arxiv.org/pdf/1606.01540.pdf
+% [2] ALE => https://www.jair.org/index.php/jair/article/view/10819
+% [3] ViZDoom, já mencionado antes
+
+Neste capítulo, serão indicadas as razões por trás do desenvolvimento do
+Barbell, a fim de justificar sua criação. A seção \ref{sec:gym} traz um breve
+panorama sobre a plataforma \textit{Gym}, explicitando suas maiores qualidades e
+suas deficiências mais evidentes. A seção seguinte trará, por sua vez, uma breve
+exposição dos pontos do Barbell no qual ele supre as principais carências do
+Gym e também discursará a respeito das principais decisões de \textit{design}
+tomadas durante o desenvolvimento do \textit{software}.
+
+\section{Gym}
+\label{sec:gym}
+
+\begin{figure}[h]
+    \caption{Modelagem de robôs humanoides no ambiente do MuJoCo}
+    \begin{center}
+      \includegraphics[width=0.5\textwidth]{frozen_lake.png}
+    \end{center}
+    \label{fig:frozen_lake}
+\end{figure}
+
+Desenvolvido pela OpenAI, uma organização sem fins lucrativos voltada para o
+estudo na área de inteligência artificial e para as formas através das quais a
+sociedade pode beneficiar-se deste conhecimento, o \textit{Gym} [[1]] é, em sua
+essência, um conjunto de simuladores de aprendizado por reforço que fornece ao
+pesquisador da área uma série de cenários (chamados de \textit{environments}, ou
+ambientes) nos quais seus algoritmos de aprendizado podem ser desenvolvidos e
+testados. Já havia, antes da concepção do Gym, algumas outras ferramentas de
+\textit{benchmarking} de AR, como o Arcade Learning Environment [[2]] ou o
+ViZDoom [[3]], mas, além de reunir vários simuladores sob um único pacote, o Gym
+vai além e proporciona aos desenvolvedores que usam sua plataforma uma maneira
+de publicarem seus resultados, criando, desta forma, um ambiente
+colaborativo onde algoritmos e soluções são compartilhados. O objetivo dos
+idealizadores do Gym é criar, desta maneira, um ambiente onde desenvolvedores,
+estudantes e pesquisadores colaborem entre si, ao invés de competirem,
+encorajando que, junto com as soluções para cada problema, seja também fornecida
+uma breve explicação de como o problema foi abordado, quais técnicas foram
+usadas e como as informações fornecidas pelo ambiente foram interpretadas. Há
+ainda a possibilidade de ser submetido, juntamente do código e do pequeno texto
+explicativo, um vídeo ou imagem animada no formato \textit{gif} do problema
+sendo resolvido, para ilustrar a evolução do treinamento e o resultado final
+atingido.
+
+
+A coleção de cenários ofecerida pelo Gym é bastante abrangente, contendo
+problemas simples que podem ser descritos através de texto na tela do
+\textit{console}, como  o problema chamado \textit{Frozen Lake}, retradado na
+figura \ref{fig:frozen_lake}, até problemas que utilizam motores de física (como
+o próprio MuJoCo, abordado na seção \ref{mujoco}) para representar intrincados
+conjuntos de corpos e conexões. Por isso, não há apenas uma única maneira de
+representar, por exemplo, um estado: cenários mais simples podem conter menos
+informações a seu respeito ao mesmo tempo em que cenários que lidam com
+problemas de robótica possuem muito mais dados os quais podem ser lidos durante
+a fase de treinamento de um agente. Entretanto, todos os cenários do Gym foram
+construídos com base em algumas diretrizes simples, que tentam uniformizar, no
+que é possível, o processo de treinamento de um agente em um cenário
+disponibilizado pelo Gym.
+
+
+\subsection{Representação de um cenário}
+Toda a modelagem de um cenário disponibilizado pelo Gym gira em torno do
+cenário. O agente, outro conceito fundamental de um problema de aprendizado por
+reforço, não possui uma abstração explícita no Gym, permitindo, desta maneira,
+que o agente seja modelado da maneira que for mais conveniente para os usuários
+da plataforma. As informações referentes ao estado do ambiente, fornecidas a
+cada episódio de aprendizado, seguem o formato $(observation, reward, done)$,
+onde:
+
+\begin{itemize}
+  \item $observation$ é um vetor de números que representa o estado do ambiente
+  naquele momento;
+  \item $reward$ é a recompensa atribuída à ação tomada no episódio anterior;
+  \item $done$ é uma variável binária que diz se o estado atual do ambiente é
+  um estado terminal, utilizada para reiniciar as simulações quando assim for
+  conveniente.
+\end{itemize}
+
+Este formato através do qual as informações do cenário são representadas,
+juntamente com a ausência de uma abstração da entidade tomadora de decisões,
+permite vários estilos diferentes de aprendizado. As informações retornadas a
+cada $n$ episódios, por exemplo, podem ser agrupadas em um lote de dados que só
+mais tarde, após finalizada a época de treinamento (ou seja, após o sistema
+entrar em um estado terminal), é repassado a uma entidade de aprendizado por
+reforço que processa as informações e atualiza seu agente de acordo. Um outro
+estilo de aprendizado, por exemplo, pode consistir em utilizar as informações de
+cada episódio no momento em que elas são fornecidas, corrigindo o comportamento
+do agente de maneira incremental.
+
+\subsection{Representação dos resultados}
+É importante que seja explicitada a forma com que os resultados submetidos para
+algum cenário fornecido pelo Gym são representados e avaliados: na grande
+maioria dos casos, a performance de uma solução pode ser medida de acordo com
+dois critérios. O primeiro é a recompensa total recebida pelo agente, após o seu
+treinamento, ao mesmo tempo que o segundo critério é o tempo, medido em número
+de épocas de decisão, que o treinamento levou para fazer com que o agente tenha
+atingido sua performance máxima. A maneira com que é decidido se o treinamento
+já atingiu o comportamento esperado para um agente, entretanto, depende bastante
+do cenário que está sendo trabalhado, sendo esta decisão tomada de uma maneira
+bastante ligada ao problema abordado, não havendo um método generalizado para
+este tipo de decisão.
+
+
+Para que seja facilitada a comparação de resultados, cada cenário do Gym possui
+uma estrutura interna chamada de \textit{Monitor}, que mantém um controle
+interno de todas as vezes que o uma simulação é atualizada ou reiniciada. Esta
+estrutura, que também pode gravar videos periodicamente, torna possível a
+construção de curvas de aprendizado, quando combinada com os dados oriundos das
+recompensas recebidas.
+
+\section{Daqui pra baixo é lixo}
+
 Realmente não sei o que colocar aqui. Acho que tenho que convencer nessa parte de que meu trabalho é muito mais foda e muito
 mais intuitivo do que todos os outros trabalhos que já foram desenvolvidos até hoje, certo?
 Bruno, por favor, me ajuda.
