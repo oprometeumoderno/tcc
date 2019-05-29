@@ -1780,6 +1780,189 @@ construção de simuladores serão analisadas.
 % descrever um problema de AR através de um arquivo YAML é dada no capítulo 5 deste documento.
 % er um problema de AR através de um arquivo YAML é dada no capítulo 5 deste documento.
 
+\chapter{Estado da Arte II: A Missão}
+
+% [1] tese do Andrew Ng, link em algum lugar no texto kk
+
+Em sua definição de dicionário, um simulador é "uma máquina com um conjunto de
+controles designada para proporcionar uma imitação realística da operação de um
+veículo, aeronave ou outro sistema complexo, usado para fins de treinamento". Um
+simulador, portanto, é um sistema capaz de criar um ambiente virtual cujas
+características aproximem-se, com certo grau de fidelidade, das condições
+apresentadas por um ambiente real. Tomemos as autoescolas do Brasil como
+exemplo: nelas, depois das aulas teóricas e antes das aulas práticas, dadas em
+um veículo real, simuladores são utilizados por alunos para que os princípios
+básicos de direção sejam aprendidos sem que acidentes sejam causados
+(figura \ref{fig:simuladorautoescola}).
+Obviamente, os simuladores de direção não são uma representação completamente
+fiel de um automóvel de verdade, mas são uma aproximação fiel o suficiente para
+que aquele que almeja adquirir sua carteira de habilitação possa embarcar em um
+veículo automotor sabendo ao menos o básico de como guiá-lo. Aqui, há uma
+espécie de troca entre fidelidade e segurança: obviamente os simuladores de
+direção não apresentam ao seu usuário todas as nuances de um automóvel, afinal
+apenas parte do treinamento é dado em ambientes virtuais. Há a vantagem da
+segurança, entretanto: no momento em que o motorista em formação embarca em um
+veículo automotor verdadeiro, os conhecimentos básicos necessários para dirigir
+já foram adquiridos, o que reduz o risco de acidentes causados por falta de
+preparo. Além das questões relacionadas a segurança no trânsito, em um simulador
+de direção, situações corriqueiras do trânsito podem ser simuladas, sem que o
+aluno tenha que vivenciá-las na prática. Isto fornece aos preparadores um grau
+maior de controle sobre as diferentes situações do trânsito que são apresentadas
+àqueles que pretendem obter sua licença para dirigir: cenários que ocorrem com
+pouca frequência, por exemplo, podem ser apresentados em um simulador repetidas
+vezes para o aluno, até que este adquira o domínio necessário para enfrentar a
+mesma situação no mundo real.
+
+\begin{figure}[h]
+    \caption{Simulador usado em autoescolas brasileiras.}
+    \begin{center}
+      \includegraphics[width=0.9\textwidth]{simuladorautoescola.jpg}
+    \end{center}
+    \label{fig:simuladorautoescola}
+\end{figure}
+
+
+Da mesma maneira, no trabalho apresentado em [1], um simulador é construído para
+ensinar um veículo aéreo autocontrolado a deslocar-se no ar mantendo a
+estabilidade da nave. No simulador, um ambiente que possui condições próximas a
+vários cenários encontrados no mundo real é  apresentado ao \textit{software} de
+controle do veículo automotor, que, através de técnicas de inteligência
+artificial, aprende a guiá-lo sem perder o controle. Neste caso, fica muito mais
+evidente o grau de controle que o simulador fornece aos envolvidos no projeto de
+desenvolvimento do \textit{drone}: nele, situações que fogem do domínio humano,
+como vento e interpéries, podem ser aproximadas para que o \textit{software}
+possa aprender como manter o veículo estável em situações adversas, sem que seja
+necessário esperar para que elas ocorram no mundo real. Há também a questão do
+custo: quando a nave falha em deslocar-se corretamente e se envolve em algum
+tipo de choque destrutivo, uma nova nave precisa ser construída. Quando o evento
+ocorre em um ambiente simulado, entretanto, isto não é necessário.
+
+
+Com base nos exemplos dados acima, é fácil inferir que há um custo associado ao
+uso de simuladores: além, obviamente, dos recursos que devem ser empregados para
+que se tenha um simulador pronto para uso --- aqui, podem ser considerados
+recursos tanto o tempo necessário para desenvolver um simulador quanto o preço
+de um \textit{software} já pronto ---, há também o custo relativo ao tempo que é
+necessário para sejam dominadas todas as ferramentas de construção de cenários
+fornecidas pelo simulador. Tais custos, entretanto, trazem consigo vantagens: no
+caso da autoescola, o risco de acidentes é reduzido, uma vez que os condutores
+em formação já possuem conhecimentos básicos de direção ao conduzir um veículo
+pela primeira vez; no caso do \textit{drone}, descrito também no começo deste
+capítulo, o tempo de treinamento do veículo é reduzido drasticamente,
+acarretando em uma enorme economia de tempo.
+
+
+O uso de simuladores, assim sendo, traz consigo um custo normalmente associado
+a recursos financeiros ou tempo, que precisam ser empregados para que o
+\textit{software} seja adquirido ou para que as ferramentas fornecidas por ele
+sejam compreendidas e tenham seu uso dominado. Tais custos, entretanto, podem
+ser compensados pelas diferentes vantagens trazidas pelo uso da ferramenta.
+Cabe, neste caso, uma análise minuciosa dos ganhos trazidos pelo uso de um
+simulador em face do ônus também por ele apresentado.
+
+
+\section{Simuladores de Aprendizado por Reforço}
+
+Conforme desenvolvido anteriormente, algoritmos de aprendizado por reforço
+possuem uma vasta série de aplicações: seja jogos de tabuleiro,
+\textit{video games} ou sistemas de controle de veículos autônomos [[1]],
+algoritmos de aprendizado por reforço são recomendados em quaisquer situações
+onde ações devem ser tomadas em sequência dentro de um ambiente. Um problema
+surge, entretanto, quando torna-se necessário modelar um ambiente sob a forma
+de um Modelo de Markov ou sob qualquer outra forma que possa ser entendida por
+um programa de computador. No caso do AlphaGo, mencionado na seção [[x]], o
+tabuleiro e as peças nele dispostas precisaram ser representados em um
+\textit{software} para que o agente em treinamento pudesse lê-los e decidir a
+próxima jogada com base em sua composição; no caso utilizado como exemplo no
+início deste capítulo, uma representação do mundo real precisa ser modelada,
+para que o comportamento diverto que o mundo real pode apresentar esteja sob o
+controle daqueles que treinam o agente.
+
+
+É preciso notar, portanto, que as aplicações de simuladores em aprendizado por
+reforço vão muito além da imitação de ambientes encontrados no mundo real.
+Tomemos como exemplo um problema bastante simples, comumente utilizado para fins
+didáticos, chamado de \textit{Frozen Lake}: neste problema, o agente deve
+movimentar-se por sobre um lago congelado, representado por uma matriz de
+tamanho $m \times n$,
+
+%
+% É preciso notar, portanto, que as aplicações de simuladores em aprendizado por
+% reforço vão muito além da simples imitação de ambientes reais. Tomemos como
+% exemplo um problema bastante simples (comumente utilizado para fins didáticos)
+% conhecido como \textit{Frozen Lake}: nele, o agente deve movimentar-se por
+% sobre um lago congelado. No lago, há seções
+%
+%
+%
+% É preciso notar, portanto, que as aplicações de simuladores em aprendizado por
+% reforço vão muito além da simples imitação de ambientes reais: no caso do
+% AlphaGo, um tabuleiro e peças nele dispostas são tudo que é necessário simular;
+% no caso de um problema conhecido da literatura de inteligência artificial
+% referido como \textit{Frozen Lake}, por exemplo, um conjunto de caracteres é
+% suficiente para representar o problema.
+
+
+%
+% Conforme desenvolvido anteriormente, algoritmos de aprendizado por reforço
+% possuem uma miríade de aplicações; seja em jogos de tabu
+
+%
+% O uso de simuladores, assim sendo, traz consigo um custo associado. Este custo
+% entretanto, pode ser compensado pelas tantas vantagens que o emprego de tais
+% ferramentas de treinamento pode trazer. Cabe, neste caso, uma análise minuciosa
+% do ganho econômico ou de eficiência trazidos pela ferramenta, em face do ônus
+% também por ela apresentado.
+
+
+% Com base nos exemplos dados acima, é fácil inferir que há um custo associado ao
+% uso de simuladores: além, obviamente, dos recursos que devem ser empregados para
+% que tenha-se um simulador pronto para uso --- aqui, podem ser considerados
+% recursos tanto o tempo necessário para desenvolver um simulador quanto o preço
+% de um \textit{software} já pronto, há também o custo relativo ao tempo que é
+% necessário para que se domine todas as ferramentas fornecidas pelo simulador.
+% Tais custos, entretanto, vêm acompanhados de vantagens.
+%
+%
+% - vantagens;
+% - desvantagens;
+% - tradeoff;
+% - anatomia de um simulador;
+% - motores de física;
+% - simuladores de AR;
+% - anatomia;
+%
+%
+%
+% Com base nos exemplos dados acima, é fácil inferir que há um custo associado ao
+% uso de simuladores: além, obviamente, dos recursos que devem ser utilizados para
+% que tenha-se um simulador pronto para uso --- aqui, podem ser considerados
+% recursos o tempo necessário para desenvolver o simulador ou o preço de um
+% \textit{software} já pronto ---, há também o custo relativo à incapacidade do
+% simulador de apresentar
+
+
+%
+% É fácil inferir que há um custo associado ao uso de simuladores: além, é claro,
+% do tempo que precisa ser desprendido(?)
+%
+% é fácil inferir que as representações feitas por simuladores não são
+% completamente fidedignas e, ao menos nos exemplos dados nos parágrafos
+% anteriores, podem não ser capazes de cobrir todas as possibilidades de eventos
+% do mundo real.
+%
+%
+% É fácil inferir que as representações feitas por simuladores não são
+% completamente fidedignas e, ao menos nos exemplos propostos, podem não ser
+% capazes de cobrir todas as possibilidades do mundo real. Entretanto, é
+% igualmente fácil concluir que simuladores apresentam
+%
+% É fácil inferir que
+% Com base apenas nos exemplos apresentados nos parágrafos anteriores, é possível
+% concluir qu
+
+
+
 \chapter{Estado da Arte}
 % [1] https://ieeexplore.ieee.org/abstract/document/7139807
 % [2] https://ieeexplore.ieee.org/abstract/document/6386109
