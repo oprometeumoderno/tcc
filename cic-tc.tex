@@ -815,6 +815,7 @@ trocar informações com a extensa base de usuários do \textit{framework} Gym.
 
 
 \chapter{Conceitos Básicos}
+\label{basic_concepts}
 Neste capítulo serão apresentados os conceitos fundamentais para a compreensão
 do trabalho desenvolvido, iniciando-se pela formulação matemática do um problema
 de aprendizado por reforço através de Processos de Decisão de Markov, seguido
@@ -1783,35 +1784,37 @@ construção de simuladores serão analisadas.
 \chapter{Estado da Arte II: A Missão}
 
 % [1] tese do Andrew Ng, link em algum lugar no texto kk
-
-Em sua definição de dicionário, um simulador é "uma máquina com um conjunto de
+Em dua definição de dicionário, um simulador é "uma máquina com um conjunto de
 controles designada para proporcionar uma imitação realística da operação de um
 veículo, aeronave ou outro sistema complexo, usado para fins de treinamento". Um
 simulador, portanto, é um sistema capaz de criar um ambiente virtual cujas
 características aproximem-se, com certo grau de fidelidade, das condições
 apresentadas por um ambiente real. Tomemos as autoescolas do Brasil como
-exemplo: nelas, depois das aulas teóricas e antes das aulas práticas, dadas em
-um veículo real, simuladores são utilizados por alunos para que os princípios
-básicos de direção sejam aprendidos sem que acidentes sejam causados
-(figura \ref{fig:simuladorautoescola}).
+exemplo: nelas, entre o fim das aulas teóricas e o começo das aulas práticas,
+dadas em um veículo real, simuladores (\ref{fig:simuladorautoescola}) são
+utilizados por alunos para que os princípios básicos de direção sejam aprendidos
+sem o risco de acidentes.
+
+
 Obviamente, os simuladores de direção não são uma representação completamente
 fiel de um automóvel de verdade, mas são uma aproximação fiel o suficiente para
 que aquele que almeja adquirir sua carteira de habilitação possa embarcar em um
-veículo automotor sabendo ao menos o básico de como guiá-lo. Aqui, há uma
-espécie de troca entre fidelidade e segurança: obviamente os simuladores de
-direção não apresentam ao seu usuário todas as nuances de um automóvel, afinal
-apenas parte do treinamento é dado em ambientes virtuais. Há a vantagem da
-segurança, entretanto: no momento em que o motorista em formação embarca em um
-veículo automotor verdadeiro, os conhecimentos básicos necessários para dirigir
-já foram adquiridos, o que reduz o risco de acidentes causados por falta de
-preparo. Além das questões relacionadas a segurança no trânsito, em um simulador
-de direção, situações corriqueiras do trânsito podem ser simuladas, sem que o
-aluno tenha que vivenciá-las na prática. Isto fornece aos preparadores um grau
-maior de controle sobre as diferentes situações do trânsito que são apresentadas
-àqueles que pretendem obter sua licença para dirigir: cenários que ocorrem com
-pouca frequência, por exemplo, podem ser apresentados em um simulador repetidas
-vezes para o aluno, até que este adquira o domínio necessário para enfrentar a
-mesma situação no mundo real.
+automóvel sabendo ao menos o básico de como guiá-lo. Aqui, há uma espécie de
+troca entre fidelidade e segurança: obviamente os simuladores de direção não
+apresentam ao seu usuário todas as nuances de um automóvel e todas as
+particularidades do trânsito, afinal o simulador possui caráter introdutório e
+apenas uma parte das inúmeras situações que um motorista enfrenta é apresentada.
+Há a vantagem da segurança, entretanto: no momento em que o motorista em
+formação embarca em um veículo verdadeiro, os conhecimentos básicos necessários
+para dirigir já foram adquiridos, o que reduz o risco de acidentes causados por
+falta de preparo por parte do aluno. Além das questões relacionadas a segurança
+no trânsito, em um simulador de direção, situações corriqueiras do trânsito
+podem ser ensaiadas, sem que o aluno tenha que vivenciá-las na prática. Isto
+fornece aos preparadores um grau maior de controle sobre os diferentes desafios
+que são apresentados àqueles que pretendem obter sua licença para dirigir:
+cenários que ocorrem com pouca frequência, por exemplo, podem ser apresentados
+em um simulador repetidas vezes para o aluno, até que este adquira o domínio
+necessário para enfrentar a mesma situação na prática.
 
 \begin{figure}[h]
     \caption{Simulador usado em autoescolas brasileiras.}
@@ -1822,69 +1825,800 @@ mesma situação no mundo real.
 \end{figure}
 
 
-Da mesma maneira, no trabalho apresentado em [1], um simulador é construído para
-ensinar um veículo aéreo autocontrolado a deslocar-se no ar mantendo a
-estabilidade da nave. No simulador, um ambiente que possui condições próximas a
-vários cenários encontrados no mundo real é  apresentado ao \textit{software} de
-controle do veículo automotor, que, através de técnicas de inteligência
-artificial, aprende a guiá-lo sem perder o controle. Neste caso, fica muito mais
-evidente o grau de controle que o simulador fornece aos envolvidos no projeto de
-desenvolvimento do \textit{drone}: nele, situações que fogem do domínio humano,
-como vento e interpéries, podem ser aproximadas para que o \textit{software}
-possa aprender como manter o veículo estável em situações adversas, sem que seja
-necessário esperar para que elas ocorram no mundo real. Há também a questão do
-custo: quando a nave falha em deslocar-se corretamente e se envolve em algum
-tipo de choque destrutivo, uma nova nave precisa ser construída. Quando o evento
-ocorre em um ambiente simulado, entretanto, isto não é necessário.
+Da mesma maneira, no trabalho apresentado em [[1]], um simulador é construído
+para ensinar um veículo aéreo autocontrolado a deslocar-se no ar mantendo a
+estabilidade da nave. No simulador, um ambiente que possui condições próximas
+a vários cenários encontrados no mundo real é apresentado ao programa
+responsável pelo controle do veículo, que, através de técnicas de inteligência
+artificial, aprende a guiá-lo sem grandes desequilíbrios. Neste caso, fica muito
+mais evidente o grau de controle que o simulador fornece aos envolvidos no
+projeto de desenvolvimento do \textit{drone}: nele, situações que fogem do
+domínio humano, como ventos e interpéries, podem ser modeladas virtualmente para
+que o \textit{software} de controle possa aprender como manter o veículo estável
+em situações adversas, sem que seja necessário esperar para que elas ocorram no
+mundo real. Isto acarreta em uma enorme economia de tempo e também de recursos,
+uma vez que, quando um acidente destrutivo ocorre dentro de um ambiente
+simulado, não é necessário construir uma nave novamente.
 
 
-Com base nos exemplos dados acima, é fácil inferir que há um custo associado ao
-uso de simuladores: além, obviamente, dos recursos que devem ser empregados para
-que se tenha um simulador pronto para uso --- aqui, podem ser considerados
-recursos tanto o tempo necessário para desenvolver um simulador quanto o preço
-de um \textit{software} já pronto ---, há também o custo relativo ao tempo que é
-necessário para sejam dominadas todas as ferramentas de construção de cenários
-fornecidas pelo simulador. Tais custos, entretanto, trazem consigo vantagens: no
-caso da autoescola, o risco de acidentes é reduzido, uma vez que os condutores
-em formação já possuem conhecimentos básicos de direção ao conduzir um veículo
-pela primeira vez; no caso do \textit{drone}, descrito também no começo deste
-capítulo, o tempo de treinamento do veículo é reduzido drasticamente,
-acarretando em uma enorme economia de tempo.
+Com base nos exemplos dados acima, é fácil inferir que há vantagens associadas
+ao uso de simuladores. O que não fica tão evidente, entretanto, é o custo que a
+adoção de tais ferramentas traz consigo: além, obviamente, dos recursos que
+devem ser empregados para que se tenha um simulador pronto para uso --- aqui,
+podem ser considerados recursos o tempo necessário para desenvolver um simulador
+quanto o dinheiro para pagar pela licença de um \textit{software} já pronto ---,
+há também o custo relativo ao tempo que é necessário para que sejam dominadas
+todas as ferramentas que um simulador oferece. Tais custos, entretanto, trazem
+consigo as vantagens observáveis nos dois exemplos apresentados: no caso da
+autoescola, o risco de acidentes é reduzido, uma vez que os condutores em
+formação já possuem os conhecimentos básicos de direção ao conduzir um veículo
+pela primeira vez; no caso do \textit{drone}, por sua vez, o tempo de
+treinamento do veículo é reduzido drasticamente, acarretanto em uma economia de
+tempo.
 
 
 O uso de simuladores, assim sendo, traz consigo um custo normalmente associado
 a recursos financeiros ou tempo, que precisam ser empregados para que o
 \textit{software} seja adquirido ou para que as ferramentas fornecidas por ele
 sejam compreendidas e tenham seu uso dominado. Tais custos, entretanto, podem
-ser compensados pelas diferentes vantagens trazidas pelo uso da ferramenta.
-Cabe, neste caso, uma análise minuciosa dos ganhos trazidos pelo uso de um
-simulador em face do ônus também por ele apresentado.
+ser compensados --- ou até mesmo amplamente superados --- pelas diferentes
+vantagens trazidas pelo uso de tais ferramentas. Cabe, neste caso, uma análise
+minuciosa das vantagens e desvantagens da adoção de simuladores, bem como uma
+escolha sensata das diferentes ferramentas disponíveis.
 
 
 \section{Simuladores de Aprendizado por Reforço}
 
+% [1] http://www2.islab.ntua.gr/attachments/article/67/Super%20Mario%20Evolution.pdf
+% [2] https://arxiv.org/pdf/1506.08941.pdf
+
+
 Conforme desenvolvido anteriormente, algoritmos de aprendizado por reforço
-possuem uma vasta série de aplicações: seja jogos de tabuleiro,
-\textit{video games} ou sistemas de controle de veículos autônomos [[1]],
-algoritmos de aprendizado por reforço são recomendados em quaisquer situações
-onde ações devem ser tomadas em sequência dentro de um ambiente. Um problema
-surge, entretanto, quando torna-se necessário modelar um ambiente sob a forma
-de um Modelo de Markov ou sob qualquer outra forma que possa ser entendida por
-um programa de computador. No caso do AlphaGo, mencionado na seção [[x]], o
-tabuleiro e as peças nele dispostas precisaram ser representados em um
-\textit{software} para que o agente em treinamento pudesse lê-los e decidir a
-próxima jogada com base em sua composição; no caso utilizado como exemplo no
-início deste capítulo, uma representação do mundo real precisa ser modelada,
-para que o comportamento diverto que o mundo real pode apresentar esteja sob o
-controle daqueles que treinam o agente.
+possuem uma vasta série de aplicações: seja jogos de tabuleiro, máquinas que
+aprendem por si mesmas a jogar diversos jogos de computador ou sistemas de
+controle de veículos autônomos, algoritmos de AR são recomendados em quaisquer
+situações onde ações devem ser tomadas de maneira sequencial por um agente
+inserido dentro de um ambiente, com o qual ele interage através da sua sucessão
+de decisões tomadas. Problemas diferentes, portanto, requerem diferentes meios
+de simulação: um agente que joga xadrez, por exemplo, pode ser treinado
+usando-se de um simulador que representa o tabuleiro através de uma matriz, onde
+cada célula guarda a informação da peça ali presente, caso haja alguma. Um outro
+simulador, publicado em 2009 [[1]], que treina um agente para jogar o jogo
+\textit{Super Mario World}, baseia-se em uma adaptação do modo com que os
+diferentes níveis do jogo eram representados no \textit{Super Nintendo}, seu
+\textit{console} de origem.
 
 
-É preciso notar, portanto, que as aplicações de simuladores em aprendizado por
-reforço vão muito além da imitação de ambientes encontrados no mundo real.
-Tomemos como exemplo um problema bastante simples, comumente utilizado para fins
-didáticos, chamado de \textit{Frozen Lake}: neste problema, o agente deve
-movimentar-se por sobre um lago congelado, representado por uma matriz de
-tamanho $m \times n$,
+Visto que problemas diferentes requerem maneiras distintas de representar-se o
+ambiente no qual os agentes estão inseridos e com os quais eles interagem, é
+necessário definir a estrutura básica, comum a qualquer simulação, de um
+problema de aprendizado por reforço. É natural que, ao pensarmos na palavra
+"simulador", nos venha à mente algum tipo de ferramenta essencialmente visual,
+como o simulador utilizado em autoescolas da figura
+\ref{fig:simuladorautoescola}. Entretanto, quando se trata de aprendizado por
+reforço, nem sempre há utilidade em construir visualmente o ambiente e o agente
+nele inserido: como no caso do tabuleiro de xadrez, representá-lo através de
+figuras visuais é desnecessário.
+
+
+Tratanto-se de aprendizado por reforço, portanto, o componente visual nem sempre
+faz parte da essência do simulador. Por vezes, é util que este seja ignorado
+para que os recursos que seriam consumidos por algoritmos de computação gráfica
+sejam transferidos às tarefas ligadas ao treinamento do agente e, em alguns
+casos, é até mesmo impossível representar o problema de uma forma essencialmente
+visual [[2]]. Sendo assim, resta definir qual é o elemento fundamental de um
+simulador, quando dentro de um contexto de treinamento de agentes através de
+algoritmos de aprendizado por reforço.
+
+\begin{figure}
+    \caption{Ciclo de aprendizado do agente via interação com o ambiente}
+    \begin{center}
+      \includegraphics[width=0.65\textwidth]{fluxo_ar.png}
+    \end{center}
+    \label{fig:fluxo_ar}
+\end{figure}
+
+
+E qual a peça principal de um sistema modelado por um Processo de Decisão de
+Markov? Bom, é natural que seja, exatamente, o MDP e seus subcomponentes:
+as informações a respeito do ambiente, as ações possíveis que podem ser tomadas
+em um estado, a noção de recompensa pela ação tomada e a transição entre estados
+derivada de uma ação. O componente fundamental de uma simulação de aprendizado
+por reforço é, portanto, o conjunto dos elementos envolvidos em um processo de
+decisão markoviano e as relações que os diferentes elementos travam entre si,
+como as transições entre estados decorrentes das ações tomadas pelo agente e as
+recompensas recebidas pelas ações tomadas. Conclui-se, portanto, que componentes
+visuais são secundários, podendo ou não estar presentes na simulação: mais
+importante que quaisquer ferramentas gráficas é o ciclo de aprendizado de um
+agente de aprendizado por reforço, descrito na figura \ref{fig:fluxo_ar}.
+
+
+Um simulador de aprendizado por reforço é, portanto, uma ferramenta que combina
+o ciclo descrito na figura \ref{fig:fluxo_ar} com alguma outra ferramenta que
+permita que sejam representados os componentes de um Processo de Decisão de
+Markov: o ambiente, o agente nele inserido, as ações possíveis em cada época de
+decisão e a noção de recompensa, sem que, necessariamente, haja uma
+representação visual destes. A ferramenta \textit{VizDoom} [[5]], por exemplo,
+permite que algoritmos de aprendizado por reforço sejam aplicados ao jogo de
+tiro em terceira pessoa \textit{Doom}, tendo se tornado uma ferramenta
+importante de avaliação de algoritmos de AR. Há evidentemente, uma construção
+visual dos objetos (i.e. o jogador, o mapa e os inimigos), mas também há, no
+cerne do \textit{software}, estruturas de dados internas que representam o
+estado atual do jogo e das quais o agente extrai as informações necessárias para
+suas tomadas de decisão. As seções seguintes deste capítulo tratarão de
+ferramentas normalmente utilizadas para a construção de simuladores de
+aprendizado por reforço, explicitando seus destaques positivos e suas
+deficiências, bem como suas aplicações mais comuns.
+
+
+\section{Construindo um simulador de aprendizado por reforço}
+
+
+\begin{figure}[h]
+    \caption{O problema conhecido como \textit{Frozen Lake}}
+    \begin{center}
+      \includegraphics[width=0.5\textwidth]{frozen_lake.png}
+    \end{center}
+    \label{fig:frozen_lake}
+\end{figure}
+
+
+Para construir um simulador de AR, conforme desenvolvido anteriormente, não é
+estritamente necessária a presença de um componente visual. É preciso,
+entretanto, que a arquitetura do simulador contenha os componentes de um MDP e
+que as relações entre eles se deem corretamente, em um ciclo próximo do que é
+descrito na imagem \ref{fig:fluxo_ar}. Estas são as premissas básicas para a
+construção de um simulador de aprendizado por reforço e qualquer construção que
+vá além desta definição irá depender da natureza do problema a ser resolvido, o
+que pode exigir o uso de ferramentas mais complexas, como motores de física, que
+buscam aproximar o comportamento de corpos no espaço tridimensional da maneira
+como ocorre no mundo real, ou o emprego de ferramentas mais simples. Um exemplo
+de problema bastante trivial, que pode ser construído em um simulador sem que
+seja necessário nada além de estruturas básicas de dados e representação visual
+em modo texto é um problema chamado \textit{Frozen Lake}: o problema descreve
+um homem que precisa andar por sobre um lago congelad, saindo de um ponto de
+partida e com destino a um ponto de chegada, previamente conhecido. O lago
+apresenta lugares,
+porém, onde a camada de gelo é fina demais para suportar o peso do homem, que
+cairá na água caso tente passar por eles. Cabe ao agente, portanto, aprender a
+controlar o homem por sobre o lago, sabendo de onde ele sai, para onde ele deve
+se dirigir e quais pontos no lago não podem ser perpassados. Para representar o
+lago, apenas uma matriz de caracteres é necessária, com símbolos distintos para
+representar o ponto de partida, o ponto de chegada, os pontos onde é seguro
+atravessar e os pontos onde o gelo é fino demais. Uma matriz de tamanho
+arbitrário, descrita na tela de um \textit{console}, portanto, é capaz de
+fornecer uma representação completa do problema, como é o caso na imagem
+\ref{fig:frozen_lake}.
+
+
+Cabe esclarecer, entretanto, que o caso do problema \textit{Frozen Lake} é
+bastante especial, uma vez que o problema é comumente utilizado apenas para fins
+didáticos, como exemplo de uso de técnicas simples de resolução de Processos de
+Markov como as exibidas no capítulo \ref{basic_concepts}. É natural que o uso
+de simuladores mais complexos, que tenham a capacidade de representar estados
+definidos por um volume maior de informações, sejam empregados quando o problema
+em questão envolve mais elementos do que uma simples matriz que representa um
+lago congelado.
+
+
+É este o caso no ramo da robótica, por exemplo. Qualquer tarefa que necessite
+ser executada repetidamente e com certo grau de precisão é uma boa candidata
+para a automatização através do emprego de robôs: linhas de montagem de
+empresas automotivas, por exemplo, já são dominadas por robôs há varios anos.
+Outras tarefas, mais complexas do que as executadas pelos robôs da manufatura,
+mas ainda assim consideradas maçantes e repetitivas por humanos --- como
+dirigir, por exemplo ---, também são fortes candidatas à automação, tendo, nos
+últimos tempos, sido alvo de pesquisas de ponta envolvendo inteligência
+artificial, com a popularização de técnicas de aprendizado de máquina e visão
+computacional. É aí que entra o uso de simuladores: durante as fases iniciais
+de desenvolvimento de um robô, uma versão virtual deste pode ser construída,
+como na figura \ref{fig:mujoco_robot}, em um ambiente fundamentado em motores
+de física que simulam as leis do mundo real. No ambiente controlado de um
+simulador, o treinamento do agente pode ser feito de forma acelerada, fazendo
+com que as primeiras versões reais do robô já apresentem uma versão incial do
+comportamento que quer-se ensinar a ele.
+
+\begin{figure}[h]
+    \caption{Um robô real e sua versão modelada em um simulador.}
+    \begin{center}
+      \frame{\includegraphics[width=0.9\textwidth]{mujocosimulator.png}}
+    \end{center}
+    \label{fig:mujoco_robot}
+\end{figure}
+
+\subsection{Motores de Física}
+% [[1]] https://leggedrobotics.github.io/SimBenchmark/
+% [[2]] D. Kaufman et al., “Staggered projections for
+%       frictional contact in multibody systems,” 2008.
+
+Robôs interagem com o mundo ao seu redor através do contato físico com o
+ambiente que os cerca. É primordial, portanto, para o treinamento de um robô,
+que existam ferramentas capazes
+de reconstruir, em um ambiente virtual e controlado, não apenas seu aspecto
+físico (i.e. as diferentes partes que o constituem) e do ambiente no qual ele
+está inserido, mas também de simular, tão próximo quanto possível --- ou
+desejado --- da realidade, as forças envolvidas na interação do robô com o
+ambiente. Para isso, um simulador deve definir os corpos no espaço e calcular
+as forças resultantes do contato entre eles, o que é um problema NP-Difícil [[2]]
+e, portanto, computacionalmente custoso.
+É possível, porém, tornar o problema tratável através da sua aproximação
+utilizando-se de métodos de programação linear. Diferentes métodos possuem
+diferentes abordagens: alguns, mais precisos, requerem mais recursos
+computacionais, enquanto outros sacrificam parte da precisão de seus resultados
+em troca de soluções mais rápidas. Felizmente, nenhum destes métodos precisa ser
+implementado do zero, uma vez que existem diversos motores de física que
+resolvem este tipo de problema. Alguns, normalmente utilizados em jogos
+eletrônicos, utilizam métodos mais simples para o cálculo das forças
+físicas resultantes do contato, uma vez que, pelo menos nos jogos, a precisão
+dos contatos simulados é menos importante do que o número de quadros processados
+por segundo. Outros, por sua vez, utilizados em aplicações industriais --- onde
+normalmente o objetivo são simulações com o máximo de precisão ---, utilizam
+técnicas que consomem mais processamento, mas que entregam um resultado mais
+fidedigno.
+
+
+Em [[1]], uma análise de diferentes motores de física é realizada, com o
+objetivo de comparar a performance deles em diferentes situações. No estudo,
+uma espécie de avaliação qualitativa dos \textit{softwares} é conduzida,
+analisando-se duas características intrínsecas às simulações: velocidade e
+acurácia.
+
+
+É natural que queira-se um simulador que apresente simulações altamente
+fidedignas no menor tempo possível. O que acontece normalmente, entretanto, é
+uma espécie de \textit{trade-off} entre estas duas qualidades: quando simulações
+precisam ser fiéis, o que consome mais recursos computacionais, os resultados
+demoram para ser entregues, o que faz com que as simulações sejam mais
+vagarosas. Por outro lado, quando é desejável que os resultados sejam entregues
+rapidamente, simulações mais simples são conduzidas, abrindo-se mão de parte da
+qalidade dos resultados. Alguns dos motores apresentados fornecem simulações
+robustas, porém mais lentas; outros, por sua vez, por serem voltados à
+aplicações visuais, realizam as simulações mais rapidamente, mas com perda de
+precisão.
+
+
+Dos cinco motores analisados, um deles ainda está em fase de desenvolvimento e,
+portanto, não foi incluído neste trabalho. Todos foram submetidos aos seguintes
+cenários, que cobrem interações entre objetos formados por um único corpo e por
+robôs formados por múltiplos corpos interconectados:
+
+\begin{itemize}
+  \item \textit{Rolling test}: teste de modelos de fricção;
+  \item \textit{Bouncing test}: teste de colisão elástica envolvendo um corpo;
+  \item \textit{666 balls test}: teste de colisão sólida envolvendo múltiplos
+  corpos;
+  \item \textit{Elastic 666 balls test}: teste de colisão elástica envolvendo
+  múltiplos corpos;
+  \item \textit{ANYmal PD control test}: teste de velocidade de um robô
+  quadrúpede;
+  \item \textit{ANYmal momentum test}: teste de impulso de um robô articulado;
+  \item \textit{ANYmal energy test}: teste de energia de um robô articulado;
+\end{itemize}
+
+
+
+\subsubsection{ODE}
+A \textit{Open Dynamics Engine} (ou apenas ODE) é uma ferramenta de simulações
+físicas de propósitos gerais. Feita para simular propriedades físicas de corpos
+rígidos articulados, este motor de física é ideal para simulações que possam
+envolver veículos ou criaturas bípedes, por exemplo. Com uma extensa biblioteca
+capaz de gerar representações para os mais variados tipos de corpos
+tridimensionais, a ODE vem sendo mantida há mais de dez anos, contando com uma
+comunidade bastante ativa de desenvolvedores.
+
+\begin{figure}
+    \caption{Captura de tela do jogo \textit{Call of Juarez}}
+    \begin{center}
+      \includegraphics[width=0.65\textwidth]{call_of_juarez.png}
+    \end{center}
+    \label{fig:call_of_juarez}
+\end{figure}
+
+
+Sendo um motor de física que é relativamente simples, a \textit{Open Dynamics
+Engine} é normalmente utilizada em simulações onde um alto grau de acurácia não
+é requerido e onde não é necessário que modelos muito complexos (onde uma única
+construção é feito de diversos pequenos corpos interligados por um elevado
+número de conexões), como alguns modelos recorrentes na robótica, sejam
+representados. Por isso, uma das aplicações deste motor de física é o
+desenvolvimento de jogos, já tendo sido largamente utilizado para este fim
+(figura \ref{fig:call_of_juarez}). Na avaliação desenvolvida em [[2]], a ODE se
+destaca nos cenários que lidam com a representação de diversos objetos formados
+por um único corpo, como é o caso em jogos eletrônicos. Ainda
+assim, entretanto, a ODE, em termos gerais, não possui a mesma performance de
+outros \textit{frameworks} como o MuJoCo, ficando aquém destes na grande maioria
+dos testes realizados. Parte desta discrepância se deve em partes ao fato de
+que a ODE, sendo uma ferramenta mais antiga, não se aproveita de todos os
+recursos relativos a processamento paralelo disponíveis atualmente. Além disso,
+o método utilizado pela ODE para o cálculo das forças resultantes é impreciso,
+o que impõe que o o tempo da simulação seja discretizado em intervalos menores,
+fazendo com que um mesmo intervalo de tempo de simulação exija mais iterações
+na ODE do que em outros simuladores.
+
+
+\subsubsection{Bullet Physics}
+% [[1]] https://bulletphysics.org
+% [[2]] https://xbpeng.github.io/projects/DeepMimic/2018_TOG_DeepMimic.pdf
+% [[3]] https://arxiv.org/pdf/1903.11239.pdf
+% [[4]] https://xbpeng.github.io/projects/DeepMimic/index.html
+
+
+Lançado em 2006, o motor de física chamado \textit{Bullet Physics} tinha como
+propósito principal ser usado para jogos eletrônicos, tendo também sido usada
+na criação de efeitos especiais em filmes. Quanto a sua performance, a
+ferramenta apresenta um comportamento parecido com a \textit{ODE}, com a
+diferença de que a \textit{Bullet} apresenta um grau de sofisticação maior em
+simulações que devem levar forças de fricção em consideração, executando as
+simulações relacionadas a esta força de maneira eficiente e acurada. Assim como
+a \textit{ODE}, a biblioteca \textit{Bullet} apresenta um desempenho melhor
+quando o objeto representado é representado por apenas um corpo, formado por uma
+das primitivas (i.e. unidades básicas de construção) da ferramenta, enquanto o
+\textit{MuJoCo}, por exemplo, se comporta melhor quando a simulação envolve
+corpos complexos.
+
+\begin{figure}[h]
+    \caption{TossingBot}
+    \begin{center}
+      \includegraphics[width=0.9\textwidth]{tossingbot.jpg}
+    \end{center}
+    \label{fig:tossingbot}
+\end{figure}
+
+
+Dois trabalhos construídos com a ajuda da \textit{Bullet Physics} merecem
+atenção: em um deles, um robô formado por um braço e um par de pinças, com uma
+caixa cheia de objetos disposta à sua frente, deve inferir, a partir de
+informações visuais, como pegar objetos de dentro da caixa e arremessá-los em
+uma outra caixa, disposta um pouco mais distante (figura \ref{fig:tossingbot}).
+O treinamento do robô, chamado de \textit{TossingBot} [[3]], envolveu uma simulação
+utilizando-se da \textit{Bullet Physics}. É importante notar a natureza da
+simulação, que envolveu uma série de corpos (no caso, os objetos da caixa) sem
+nenhum tipo de conexão entre si, cenário para o qual este motor de física é
+recomendado. Em outro trabalho [[4]], um agente deve analisar imagens de atores,
+captadas por câmeras ou por ferramentas de \textit{motion capture}, e fazer com
+que um robô, simulado em um ambiente que usa a biblioteca \textit{Bullet},
+imite os movimentos ou desenvolva variações deles.
+
+\textit{Bullet} apresentou boa performance nos cenários de teste apresentados
+em [[1]] e, além disso, conta com diversas bibliotecas que a integram a várias
+linguagens de programação, como \textit{Python}, por exemplo. Esta combinação de
+praticidade e boa performance é, provavelmente, um dos motivos que fez com que
+os desenvolvedores do simulador \textit{Gazebo} tenham adotado \textit{Bullet}
+como um dos motores de física que compõem a base das simulações da ferramenta.
+
+\subsubsection{DART}
+Voltado, assim como o \textit{MuJoCo}, para simulações envolvendo robótica,
+a ferramenta chamada \textit{DART} (de \textit{Dynamie Animation and Robotics
+Toolkit}) foi desenvolvida em 2012. Nos testes apresentados em [[1]], apresentou
+um comportamento regular, exceto no teste de fricção, onde os objetos simulados
+não se comportaram da maneira esperada.
+
+Em todos os cenários de teste, \textit{DART} apresentou o pior desempenho em
+todos eles, apresentando imprecisões grotescas no cenário que envolve fricção.
+Apesar de não possuir um desempenho excepcional, entretanto, \textit{DART} foi
+adotada como
+um dos motores de física que formam a base do simulador \textit{Gazebo}, voltado
+especialmente para a robótica. O simulador é capaz de importar arquivos que,
+utilizando uma sintaxe própria, definem robôs e criá-los no ambiente simulado de
+uma maneira relativamente simples. Mais sobre o \textit{Gazebo} na seção
+\ref{gazebo}.
+
+\subsubsection{MuJoCo}
+% [1] https://ieeexplore.ieee.org/abstract/document/6386109
+% [2] controller optimization => https://arxiv.org/abs/1509.01066
+% [3] http://proceedings.mlr.press/v48/mniha16.pdf
+% [4] https://arxiv.org/pdf/1707.02286.pdf
+% [5] http://people.reed.edu/~jimfix/math385/lec01.1/Animation/p15-sims-evolving.pdf
+
+\label{mujoco}
+
+\begin{figure}[h]
+    \caption{Modelagem de robôs humanoides no ambiente do MuJoCo}
+    \begin{center}
+      \includegraphics[width=0.9\textwidth]{mujoco_humanoids.png}
+    \end{center}
+    \label{fig:humanoids_mujoco}
+\end{figure}
+
+MuJoCo [[1]] é um \textit{framework} surgido do rápido crescimento do ramo da
+robótica e da necessidade dos simuladores utilizados nesta área de acompanhar
+o acentuado desenvolvimento --- não apenas em termos de capacidade, como também
+tratando-se de complexidade --- deste domínio. O MuJoCo é voltado para o
+desenvolvimento de sistemas de controle para robôs, área fundamental da robótica
+que visa a automatização de tarefas antes realizadas por humanos ou por outros
+sistemas mais simples, porém menos robustos, como é o caso do trabalho
+desenvolvido em [[2]], que discursa sobre a modelagem e o refinamento de um
+sistema de controle de quadricópteros baseado em otimização Bayesiana.
+
+
+O MuJoCo é voltado, portanto, para otimização de sistemas de controle, o que
+consiste, basicamente, em construir diversas variações de um sistema e
+avaliá-las de acordo com um processo que pode ser baseado em inteligência
+artificial, com o uso de algoritmos genéticos ou de aprendizado por reforço, por
+exemplo. Apesar, entretanto, de ter por objetivo apresentar uma solução para
+sistemas de robótica, onde é interessante representar virtualmente sistemas
+compostos de diversas partes conectadas de modo relativamente complexo (como é
+o caso de braços robóticos) e de possuir uma performance significativamente
+melhor do que outras ferramentas da área (no que tange a acurácia da simulação),
+o que acarreta em um custo computacional maior, e de possuir certas deficiências
+no tocante à simulações que não são normalmente empregadas em problemas de
+robótica (MuJoCo é incapaz de reproduzir colisões elásticas, por exemplo),
+MuJoCo foi rapidamente
+adotado por pesquisadores da área do aprendizado por reforço profundo [[3]]
+(abordada brevemente na seção \ref{dqn}), onde algoritmos de aprendizado por
+reforço são combinados com redes neurais profundas.
+
+
+Isto deve-se à facilidade com que modelos podem ser construídos no ambiente
+virtual do MuJoCo, o que pode ser feito através de uma descrição de alto nível com
+base em um arquivo no formato XML ou de chamadas diretas a uma API que fornece
+ao desenolvedor as ferramentas necessárias para a definição de modelos. Dado o
+modo simples através do qual objetos podem ser construídos em seu ambiente, é
+natural que este \textit{framework} tenha se tornado uma peça importante no
+estudo de algoritmos de inteligência artificial quando aplicados em simulações,
+mesmo que sua performance em alguns dos cenários apresentados em [[1]] seja
+baixa.
+Em especial, pode ser citado o caso da DeepMind [[4]], que desenvolveu uma
+extensa pesquisa envolvendo as diferentes maneiras com as quais robôs humanóides
+(figura \ref{fig:humanoids_mujoco}) aprendem a se locomover de acordo com a
+maneira através da qual a noção de recompensa é representada.
+
+
+Devido, entretanto, ao seu alto grau de especificidade (o MuJoCo foi feito
+especialmente para atender às demandas do ramo da robótica, onde motores de
+simulações físicas voltados para jogos não são acurados o suficiente --- há
+casos, por exemplo, onde a simulação aprende a explorar falhas do motor de
+física, que não condizem com a realidade [[5]]), há casos onde o
+\textit{framework} pode ser considerado complexo demais, não só pela sua
+extensa documentação sobre as funções da sua API para criação de corpos e
+conectores, como também pelo seu conjunto de algoritmos de cálculos físicos, que
+fornecem uma lista bastante abrangente de informações sobre os corpos
+representados na simulação. Além do mais, há a questão do custo: o MuJoCo não
+é um \textit{software} livre, sendo oferecido de graça apenas para integrantes
+da comunidade científica. Para os demais, sua licença é oferecida a preços que
+variam de quinhentos a dois mil dólares.
+
+
+\section{Simuladores existentes}
+Apesar de executarem as tarefas para as quais foram propostos com bastante
+eficiência, os motores de física, sozinhos, não possuem a capacidade de
+construir uma simulação voltada para aprendizado por reforço, pois é preciso
+mais do que técnicas de resolução de forças vetoriais para dar inteligência a um
+agente. Um simulador de aprendizado por reforço precisa não só de um ambiente
+virtual (tal como os oferecidos pelos motores de física, mas sem que os
+ambientes possíveis estejam restritos aos fornecidos por eles), mas também de
+estruturas que representem as informações que representam os elementos
+envolvidos no ciclo de aprendizado de um agente de AR, como descrito na figura
+\ref{fig:fluxo_ar}.
+
+
+Felizmente, dependendo da natureza do agente e do problema que ele tenta
+resolver, não é necessário desenvolver um simulador de aprendizado por reforço
+completamente do zero. Há diversos \textit{softwares} disponíveis no mercado que
+fornecem as ferramentas necessárias para treinar um agente sem que seja
+necessário preocupar-se com os elementos básicos envolvidos no treinamento,
+ficando a encargo do desenvolvedor somente a formulação do problema e do método
+de aprendizado.
+
+
+Há uma série de problemas, de naturezas muito distintas, que técnicas de
+aprendizado por reforço se propõem a resolver. É bastante diverso, justamente
+por isso, o universo de simuladores de agentes de AR. O desenvolvimento de um
+trabalho na área envolve, portanto, uma análise cuidadosa das ferramentas que
+serão utilizadas para a construção da simulação do problema: um
+\textit{software} de propósito mais geral, por exemplo, pode ser utilizado sem
+problema algum para formular e resolver um problema do campo da robótica. Um
+outro \textit{software}, voltado apenas para formulação de problemas desta área,
+entretanto, pode ser uma escolha melhor neste caso, uma vez que seu objetivo é
+justamente simplificar tarefas deste tipo.
+
+
+Três \textit{softwares} para a formulação de problemas e treinamento de agentes
+de AR são apresentados a seguir. Um deles é voltado para o campo da robótica,
+outro para a construção de cenários típicos de jogos eletrônicos ou de
+tabuleiro, enquanto o terceiro, sendo um \textit{framework} de propósito mais
+geral, apresenta uma coleção mais variada de ferramentas e de algoritmos
+pré-estabelecidos de treinamento, com o intuito de servir de base comparativa.
+
+\subsection{Gazebo}
+% [[1]] http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.304.8999&rep=rep1&type=pdf
+% [[2]] https://www.willowgarage.com/sites/default/files/icraoss09-ROS.pdf
+
+\textit{Gazebo} [[1]] é uma ferramenta voltada para a simulação de cenários envolvendo
+problemas de robótica. Dotada de uma interface gráfica que auxilia na criação
+de ambientes tridimensionais e dos robôs nele inseridos, \textit{Gazebo}
+facilita enormemente o trabalho de pesquisadores e desenvolvedores da área de
+robótica, uma vez que fornece meios de definir robôs e ambientes através de uma
+linguagem própria de marcação, o que não só simplifica o trabalho de
+desenvolvimento, mas também estimula o compartilhamento de diferentes modelos
+entre os membros da comunidade.
+
+
+\textit{Gazebo} é compatível com um sistema chamado \textit{ROS} [[2]] --- de
+\textit{Robot Operating System}, ou Sistema Operacional de Robôs, em tradução
+livre ---, que agrupa uma série de bibliotecas, ferramentas e convenções que
+visam não apenas simplificar a tarefa de desenvolver um robô, mas também de
+estabelecer normas e padrões a fim de que seja facilitada e estimulada a
+colaboração entre pesquisadores de diversas instituições. Assim como no
+\textit{software} fornecido pelo \textit{Gazebo}, \textit{ROS} também fornece
+uma linguagem própria de marcação pela qual é possível definir robôs e o espaço
+no qual eles estão inseridos. O formato também é compreendido pelo
+\textit{Gazebo}, simplificando o intercâmbio de informações entre os dois
+sistemas.
+
+
+Conforme descrito em [[1]], \textit{Gazebo} oferece um meio de integrar
+descrições textuais de alto nível de robôs e de ambientes com diferentes motores
+de física, incluindo \textit{Bullet Physics}, \textit{DART} e \textit{ODE}, com
+\textit{ODE} sendo o padrão, podendo ser facilmente substituído. Esta é a grande
+vantagem oferecida por \textit{Gazebo} àqueles que decidem adotar seu
+\textit{software}: é oferecido aos desenvolvedores e pesquisadores um ambiente
+rico e agnóstico quanto às ferramentas utilizadas, uma vez que vários sistemas
+amplamente usados são compatíveis com \textit{Gazebo}. Além disso, o
+\textit{software} não tem custo e seu código é aberto, o que sifnifica que ele
+pode ser alterado e qualquer pessoa pode contribuir com mudanças e adições nele.
+Isto possibilitou que florescesse uma comunidade bastante ativa de pessoas
+dispostas a contribuir com o projeto, desenvolvendo modelos de robôs e ambientes
+com o objetivo de compartilhá-los. Todo o material já produzido pela comunidade,
+aliado às ferramentas que o \textit{software} disponibiliza para a rápida
+criação de modelos e ambientes, é o que faz o \textit{Gazebo} ser o que é. Seu
+uso é tão simples que ele é utilizado até por alunos de graduação, inclusive
+na UFRGS.
+
+
+\subsection{Unity ML-Agents Toolkit}
+
+\begin{figure}[h]
+    \caption{Imagem do jogo \textit{Puppo}}
+    \begin{center}
+      \includegraphics[width=0.9\textwidth]{puppo.png}
+    \end{center}
+    \label{fig:puppo}
+\end{figure}
+
+% [[1]] https://arxiv.org/pdf/1809.02627.pdf
+% [[2]] https://blogs.unity3d.com/2018/10/02/puppo-the-corgi-cuteness-overload-with-the-unity-ml-agents-toolkit/
+
+A biblioteca chamada de \textit{Unity ML-Agents} [[1]] nada mais é do que uma
+extensão do \textit{software} chamado \textit{Unity}, programa que possui um
+motor próprio de física tridimensional e que é voltado para o desenvolvimento de
+jogos eletrônicos. A extensão, proposta em 2018, fornece uma série de
+ferramentas para aqueles que querem rodar simulações de problemas de
+inteligência artificial dentro do ambiente da \textit{Unity}. Apesar de ter sido
+desenvolvida como uma plataforma de propósitos gerais, por causa da natureza
+do sistema sobre o qual ela foi incorporada, muitas das aplicações envolvem
+simulações de jogos, onde agentes aprendem a competir entre si.
+
+
+Um dos princípios básicos que guiou a equipe responsável pelo desenvolvimento
+da \textit{Unity ML-Agents Toolkit} foi possibilitar que desenvolvedores e
+estúdios de jogos eletrônicos incorporassem técnicas de inteligência artificial
+em suas obras utilizando técnicas atuais, como as redes neurais descritas na
+seção \ref{dqn}. Como forma de promover a plataforma e demonstrar suas capacidades,
+pesquisadores da Unity exibiram, em um evento em meados de 2018, o jogo
+\textit{Puppo} [[2]], onde um cachorro busca um graveto atirado pelo jogador
+através de toques na tela (figura \ref{fig:puppo}). O agente responsável pelos
+movimentos do cachorro, neste caso, foi treinado inteiramente utilizando-se de
+algoritmos de Aprendizagem por Reforço Profunda.
+
+
+Dada a natureza do programa que serve de base para o simulador e o enfoque dado
+às ferramentas fornecidas por ele, fica claro que o interesse dos
+desenvolvedores é estimular o treinamento e uso de agentes nos jogos
+desenvolvidos na plataforma \textit{Unity}. Problemas de robótica, por exemplo,
+são modelados e resolvidos de uma maneira muito mais simples e prática através
+de outras ferramentas, como a \textit{Gazebo}. Fica claro, portanto, o foco dado
+ao \textit{Unity ML-Agents Toolkit}: facilitar a vida daqueles que pretendem
+utilizar inteligência artificial no universo de jogos eletrônicos.
+
+
+\subsection{Baselines}
+% [1] https://openai.com/blog/openai-baselines-dqn/
+Desenvolvido pela OpenAI, uma organização sem fins lucrativos que realiza
+estudos na área de inteligência artificial, a ferramenta \textit{Baselines}
+surgiu como uma tentativa de criar-se uma espécie de padronização para a
+avaliação de algoritmos a serem propostos pela comunidade de pesquisadores e
+desenvolvedores da área de aprendizado por reforço. No artigo que apresenta a
+ferramenta [[1]], os responsáveis pela ferramenta deixam claro que seu objetivo
+é permitir que, no momento que um algoritmo é proposto e precisa ser avaliado,
+haja uma espécie de "parâmetro comum", que seja amplamente conhecido e que sirva
+de base para comparações. O \textit{software} oferece uma vasta coleção de
+simuladores, que vão desde representações de problemas conhecidos da literatura
+até simulações de plataformas antigas de jogos eletrônicos.
+
+
+\textit{Baselines} possui uma coleção bastante diversa de cenários e de
+algoritmos, o que é um mais um indício do foco dado ao projeto pelos seus
+desenvolvedores: o objetivo maior do \textit{Baselines} não é trazer comodidade
+a quem realiza pesquisas em uma determinada área da inteligência artificial,
+como o \textit{Gazebo} se propõe a oferecer auxílio àqueles que desenvolvem
+trabalhos no ramo da robótica. Em vez disso, \textit{Baselines} se compromete
+a fornecer uma coleção padrão de problemas e implementações de algoritmos
+para servir de base a estudos futuros, como uma espécie de base de comparação.
+Conforme o artigo que apresenta a ferramenta, inteligência artificial é uma
+ciência empírica, na qual a praticidade em conduzir experimentos está
+diretamente relacionada ao progresso no campo. \textit{Baselines} fornece uma
+série de implementações de algoritmos já estudados e ferramentas para medir
+suas performances em uma coleção variada de problemas para poupar pesquisadores
+do trabalho de implementá-los novamente.
+
+
+Um detalhe deve ser observado, entretanto: \textit{Baselines} não permite que
+quem estiver desenvolvendo algoritmos novos teste-os em seus ambientes
+simulados, possibilitanto apenas que algoritmos presentes em sua coleção sejam
+empregados nos cenários. É possível medir sua performance e gerar gráficos que
+representem, por exemplo, o aumento na recompensa recebida pelo agente ao longo
+do treinamento. \textit{Baselines} falha, porém, ao impossibilitar que novos
+métodos de treinamento de agentes sejam empregados em seus cenários, o que
+poderia possibilitar, por exemplo, que as curvas de aprendizado de um agente
+treinado com dois algoritmos diferentes, um externo e um interno de sua
+biblioteca, fossem meticulosamente comparadas.
+
+
+É da necessidade de ter-se ferramentas que forneçam cenários de teste para
+vários algoritmos diferentes, para que estes possam ter suas performances
+comparadas quando submetidas às mesmas condições, que surgiram as ferramentas de
+\textit{benchmark}. As três mais conhecidas são apresentadas e analisadas a
+seguir.
+
+
+\section{Ferramentas de \textit{Benchmark}}
+
+Em se tratando de aprendizado por reforço, ferramentas de \textit{benchmark}
+servem para fornecer uma base padronizada de avaliação de algoritmos, o que
+significa que elas nada mais são do que um meio padronizado de comparar a
+performance de diferentes técnicas de aprendizado quando submetidas a um mesmo
+problema de aprendizado por reforço. Tais coleções permitem, por exemplo, que
+um algoritmo que está sendo desenvolvido seja comparado, em uma série de
+problemas, com diferentes outros algoritmos consagrados, a fim de que seja
+estudado o seu comportamento em diferentes situações.
+
+
+Dado que problemas de aprendizado por reforço lidam com cenários onde um agente
+deve tomar uma série de ações em sequência, é natural que tenha surgido no ramo
+uma série de pesquisas e algoritmos que tentam ensinar agentes dotados de
+inteligência artificial a jogar diversos jogos eletrônicos. Duas coleções de
+cenários do tipo, que reproduzem jogos famosos de plataformas antigas (ou seja,
+mais simples do que os jogos eletrônicos atuais e, portanto, mais fáceis de
+simular e de treinar agentes para jogá-los), chamadas de \textit{VizDoom} e
+\textit{ALE}, resolvem, até certo ponto, a necessidade de ter-se ferramentas
+de \textit{benchmark} para problemas do tipo.
+
+\subsection{VizDoom e ALE}
+\label{vizdoom_ale}
+% [[1]] https://arxiv.org/pdf/1605.02097.pdf
+% [[2]] https://www.jair.org/index.php/jair/article/download/10819/25823
+% [[3]] https://www.jair.org/index.php/jair/article/download/11182/26388
+As ferramentas \textit{VizDoom} [[1]], que simula o jogo Doom, e \textit{ALE}
+(de \textit{Arcade Learning Environment}) [[2]], que simula dezenas de jogos
+\textit{arcade} de plataformas como Atari, possuem o mesmo objetivo: fornecer
+uma série de cenários onde algoritmos de treinamento podem ser testados. As
+formas através das quais cada um dos \textit{frameworks} atinge o seu objetivo,
+entretanto, é ligeiramente diferente: \textit{VizDoom} simula a arquitetura do
+jogo \textit{Doom}, tornando possível para o agente que informações como a
+distância entre o jogador e objetos ou monstros na cena seja acessada a qualquer
+momento. Isto torna o treinamento de agentes mais complexo, uma vez que o
+volume de dados que pode ser lido do ambiente simulado é maior. \textit{ALE},
+por sua vez, disponibiliza as informações do jogo ao agente apenas através de
+uma visualização da tela, que deve, por sua vez, ser alimentada a algum tipo
+de rede neural, como as DQNs, discutidas na seção \ref{dqn}.
+
+
+Como ferramentas de \textit{benchmark}, os dois \textit{frameworks} cumprem bem
+o seu papel. Entretanto, com o avanço dos algoritmos estudados na área de AR,
+a necessidade de ferramentas de \textit{benchmark} novas, também mais avançadas,
+surge juntamente com ele. A maioria dos cenários fornecidos pela \textit{ALE},
+por exemplo, já foi solucionada por algoritmos que apresentam performances
+bastante superiores à performance humana nos mesmos jogos, limitando o espaço
+disponível para algoritmos mais avançados demonstrarem sua performance [[3]]. O
+desenvolvimento contínuo de ferramentas de \textit{benchmkark}, portanto, deve
+acompanhar o desenvolvimento de novas soluções para problemas de aprendizado por
+reforço; há uma relação desproporcional, entretanto, entre o volume de estudos
+empregados no desenvolvimento de novos algoritmos e o montante de pesquisa
+destinada ao desenvolvimento de novas ferramentas de avaliação.
+
+
+\subsection{Gym}
+\label{gym}
+%
+% \begin{figure}[h]
+%     \caption{Modelagem de robôs humanoides no ambiente do MuJoCo}
+%     \begin{center}
+%       \includegraphics[width=0.5\textwidth]{frozen_lake.png}
+%     \end{center}
+%     \label{fig:frozen_lake2s}
+% \end{figure}
+%
+Desenvolvido pela OpenAI, o \textit{Gym} [[1]] é, em sua essência, um conjunto
+de simuladores de aprendizado por reforço que fornece ao pesquisador da área uma
+série de cenários (chamados de \textit{environments}, ou ambientes) nos quais
+seus algoritmos de aprendizado podem ser desenvolvidos e testados. Já havia,
+antes da concepção do Gym, algumas outras ferramentas de \textit{benchmarking}
+de AR, como o Arcade Learning Environment [[2]] ou o ViZDoom [[3]], mas, além de
+reunir vários simuladores sob um único pacote, o Gym vai além e proporciona aos
+desenvolvedores que usam sua plataforma uma maneira de publicarem seus
+resultados, criando, desta forma, um ambiente colaborativo onde algoritmos
+e soluções são compartilhados. O objetivo dos
+idealizadores do Gym é criar, desta maneira, um ambiente onde desenvolvedores,
+estudantes e pesquisadores colaborem entre si, ao invés de competirem,
+encorajando que, junto com as soluções para cada problema, seja também fornecida
+uma breve explicação de como o problema foi abordado, quais técnicas foram
+usadas e como as informações fornecidas pelo ambiente foram interpretadas. Há
+ainda a possibilidade de ser submetido, juntamente do código e do pequeno texto
+explicativo, um vídeo ou imagem animada no formato \textit{gif} do problema
+sendo resolvido, para ilustrar a evolução do treinamento e o resultado final
+atingido.
+
+
+A coleção de cenários ofecerida pelo Gym é bastante abrangente, contendo
+problemas simples que podem ser descritos através de texto na tela do
+\textit{console}, como  o problema chamado \textit{Frozen Lake}, retradado na
+figura \ref{fig:frozen_lake}, até problemas que utilizam motores de física (como
+o próprio MuJoCo, abordado na seção \ref{mujoco}) para representar intrincados
+conjuntos de corpos e conexões. Por isso, não há apenas uma única maneira de
+representar, por exemplo, um estado: cenários mais simples podem conter menos
+informações a seu respeito ao mesmo tempo em que cenários que lidam com
+problemas de robótica possuem muito mais dados os quais podem ser lidos durante
+a fase de treinamento de um agente. Entretanto, todos os cenários do Gym foram
+construídos com base em algumas diretrizes simples, que tentam uniformizar, no
+que é possível, o processo de treinamento de um agente em um cenário
+disponibilizado pelo Gym.
+
+
+Apesar, todavia, de apresentar uma ampla coleção de problemas que, além de
+possuírem uma estrutura padronizada, permitem que suas soluções sejam
+compartilhadas, não há ferramentas que permitam a expansão desta coleção ou que
+auxiliem na criação de cenários novos. Tal possibilidade, como discutida no
+final da seção \ref{vizdoom_ale}, é primordial para o desenvolvimento de
+algoritmos novos de aprendizado por reforço, uma vez que o desenvolvimento de
+soluções novas requer também a construção de novas ferramentas comuns de
+avaliação. Este trabalho apresenta uma ferramenta que auxilia na construção de
+novos cenários de aprendizado por reforço que, além de compatíveis com motores
+de física, também respeitam a estrutura ditada pelo \textit{Gym}.
+
+
+\henrique{TODO: completar}
+% ate aqui
+%
+% simuladores
+%   simuladores AR
+%   arquitetura de um simulador??
+%   ciclo de aprendizado?/?
+%   como construir um simulador de AR do zero
+%   motores de física
+%   simuladores prontos
+%   mujoco
+%   gym
+%   ALE
+% %%
+%
+% Conforme desenvolvido anteriormente, algoritmos de aprendizado por reforço
+% possuem uma vasta série de aplicações: seja jogos de tabuleiro,
+% \textit{video games} ou sistemas de controle de veículos autônomos [[1]],
+% algoritmos de aprendizado por reforço são recomendados em quaisquer situações
+% onde ações devem ser tomadas de maneira sequencial por um agente inserido em
+% ambiente. Um problema
+% surge, entretanto, quando torna-se necessário modelar um ambiente sob a forma
+% de um Modelo de Markov ou sob qualquer outra forma que possa ser entendida por
+% um programa de computador. No caso do AlphaGo, mencionado na seção [[x]], o
+% tabuleiro e as peças nele dispostas precisaram ser representados em um
+% \textit{software} para que o agente em treinamento pudesse lê-los e decidir a
+% próxima jogada com base em sua composição; nos casos utilizados como exemplo no
+% início deste capítulo, uma representação do mundo real precisa ser modelada,
+% para que o comportamento diverso que cenários reais podem apresentar estejam
+% sob o controle daqueles que treinam o agente.
+%
+%
+%
+% É preciso notar, portanto, que as aplicações de simuladores em aprendizado por
+% reforço são vastas e vão muito além da imitação de ambientes encontrados no
+% mundo real.??
+% É preciso notar, portanto, que as aplicações de simuladores em aprendizado por
+% reforço vão muito além da imitação de ambientes encontrados no mundo real.
+% Tomemos como exemplo um problema bastante simples, comumente utilizado para fins
+% didáticos, chamado de \textit{Frozen Lake}: neste problema, o agente deve
+% movimentar-se por sobre um lago congelado, representado por uma matriz de
+% tamanho $m \times n$,
 
 %
 % É preciso notar, portanto, que as aplicações de simuladores em aprendizado por
@@ -1995,7 +2729,7 @@ simulações de cenários de aprendizado por reforço.
     \begin{center}
       \includegraphics[width=0.65\textwidth]{fluxo_ar.png}
     \end{center}
-    \label{fig:fluxo_ar}
+    \label{fig:fluxo_ar2}
 \end{figure}
 
 é natural que, ao pensarmos na palavra "simulador", nos venha à mente algum tipo
@@ -2243,7 +2977,7 @@ tomadas durante o desenvolvimento do \textit{software}.
     \begin{center}
       \includegraphics[width=0.5\textwidth]{frozen_lake.png}
     \end{center}
-    \label{fig:frozen_lake}
+    \label{fig:frozen_lake2s}
 \end{figure}
 
 Desenvolvido pela OpenAI, uma organização sem fins lucrativos voltada para o
