@@ -2577,127 +2577,8 @@ novos cenários de aprendizado por reforço que, além de compatíveis com motor
 de física, também respeitam a estrutura ditada pelo \textit{Gym}.
 
 
-\henrique{TODO: completar}
-% ate aqui
-%
-% simuladores
-%   simuladores AR
-%   arquitetura de um simulador??
-%   ciclo de aprendizado?/?
-%   como construir um simulador de AR do zero
-%   motores de física
-%   simuladores prontos
-%   mujoco
-%   gym
-%   ALE
-% %%
-%
-% Conforme desenvolvido anteriormente, algoritmos de aprendizado por reforço
-% possuem uma vasta série de aplicações: seja jogos de tabuleiro,
-% \textit{video games} ou sistemas de controle de veículos autônomos [[1]],
-% algoritmos de aprendizado por reforço são recomendados em quaisquer situações
-% onde ações devem ser tomadas de maneira sequencial por um agente inserido em
-% ambiente. Um problema
-% surge, entretanto, quando torna-se necessário modelar um ambiente sob a forma
-% de um Modelo de Markov ou sob qualquer outra forma que possa ser entendida por
-% um programa de computador. No caso do AlphaGo, mencionado na seção [[x]], o
-% tabuleiro e as peças nele dispostas precisaram ser representados em um
-% \textit{software} para que o agente em treinamento pudesse lê-los e decidir a
-% próxima jogada com base em sua composição; nos casos utilizados como exemplo no
-% início deste capítulo, uma representação do mundo real precisa ser modelada,
-% para que o comportamento diverso que cenários reais podem apresentar estejam
-% sob o controle daqueles que treinam o agente.
-%
-%
-%
-% É preciso notar, portanto, que as aplicações de simuladores em aprendizado por
-% reforço são vastas e vão muito além da imitação de ambientes encontrados no
-% mundo real.??
-% É preciso notar, portanto, que as aplicações de simuladores em aprendizado por
-% reforço vão muito além da imitação de ambientes encontrados no mundo real.
-% Tomemos como exemplo um problema bastante simples, comumente utilizado para fins
-% didáticos, chamado de \textit{Frozen Lake}: neste problema, o agente deve
-% movimentar-se por sobre um lago congelado, representado por uma matriz de
-% tamanho $m \times n$,
 
-%
-% É preciso notar, portanto, que as aplicações de simuladores em aprendizado por
-% reforço vão muito além da simples imitação de ambientes reais. Tomemos como
-% exemplo um problema bastante simples (comumente utilizado para fins didáticos)
-% conhecido como \textit{Frozen Lake}: nele, o agente deve movimentar-se por
-% sobre um lago congelado. No lago, há seções
-%
-%
-%
-% É preciso notar, portanto, que as aplicações de simuladores em aprendizado por
-% reforço vão muito além da simples imitação de ambientes reais: no caso do
-% AlphaGo, um tabuleiro e peças nele dispostas são tudo que é necessário simular;
-% no caso de um problema conhecido da literatura de inteligência artificial
-% referido como \textit{Frozen Lake}, por exemplo, um conjunto de caracteres é
-% suficiente para representar o problema.
-
-
-%
-% Conforme desenvolvido anteriormente, algoritmos de aprendizado por reforço
-% possuem uma miríade de aplicações; seja em jogos de tabu
-
-%
-% O uso de simuladores, assim sendo, traz consigo um custo associado. Este custo
-% entretanto, pode ser compensado pelas tantas vantagens que o emprego de tais
-% ferramentas de treinamento pode trazer. Cabe, neste caso, uma análise minuciosa
-% do ganho econômico ou de eficiência trazidos pela ferramenta, em face do ônus
-% também por ela apresentado.
-
-
-% Com base nos exemplos dados acima, é fácil inferir que há um custo associado ao
-% uso de simuladores: além, obviamente, dos recursos que devem ser empregados para
-% que tenha-se um simulador pronto para uso --- aqui, podem ser considerados
-% recursos tanto o tempo necessário para desenvolver um simulador quanto o preço
-% de um \textit{software} já pronto, há também o custo relativo ao tempo que é
-% necessário para que se domine todas as ferramentas fornecidas pelo simulador.
-% Tais custos, entretanto, vêm acompanhados de vantagens.
-%
-%
-% - vantagens;
-% - desvantagens;
-% - tradeoff;
-% - anatomia de um simulador;
-% - motores de física;
-% - simuladores de AR;
-% - anatomia;
-%
-%
-%
-% Com base nos exemplos dados acima, é fácil inferir que há um custo associado ao
-% uso de simuladores: além, obviamente, dos recursos que devem ser utilizados para
-% que tenha-se um simulador pronto para uso --- aqui, podem ser considerados
-% recursos o tempo necessário para desenvolver o simulador ou o preço de um
-% \textit{software} já pronto ---, há também o custo relativo à incapacidade do
-% simulador de apresentar
-
-
-%
-% É fácil inferir que há um custo associado ao uso de simuladores: além, é claro,
-% do tempo que precisa ser desprendido(?)
-%
-% é fácil inferir que as representações feitas por simuladores não são
-% completamente fidedignas e, ao menos nos exemplos dados nos parágrafos
-% anteriores, podem não ser capazes de cobrir todas as possibilidades de eventos
-% do mundo real.
-%
-%
-% É fácil inferir que as representações feitas por simuladores não são
-% completamente fidedignas e, ao menos nos exemplos propostos, podem não ser
-% capazes de cobrir todas as possibilidades do mundo real. Entretanto, é
-% igualmente fácil concluir que simuladores apresentam
-%
-% É fácil inferir que
-% Com base apenas nos exemplos apresentados nos parágrafos anteriores, é possível
-% concluir qu
-
-
-
-\chapter{Estado da Arte}
+% \chapter{Estado da Arte}
 % [1] https://ieeexplore.ieee.org/abstract/document/7139807
 % [2] https://ieeexplore.ieee.org/abstract/document/6386109
 % [3] controller optimization => https://arxiv.org/abs/1509.01066
@@ -2708,201 +2589,57 @@ de física, também respeitam a estrutura ditada pelo \textit{Gym}.
 % [8] http://people.reed.edu/~jimfix/math385/lec01.1/Animation/p15-sims-evolving.pdf
 % [9] http://ode.org/ode-latest-userguide.pdf
 
-\henrique{Dúvida: como eu referencio um dicionário? Precisa?}
+\chapter{Desenvolvimento}
+\label{desenvolvimento}
 
-Em sua definição de dicionário, um simulador é "uma máquina com um conjunto de
-controles designada para proporcionar uma imitação realística da operação de um
-veículo, aeronave ou outro sistema complexo, usado para fins de treinamento", ou
-"Aparelho capaz de reproduzir o comportamento de outro aparelho cujo
-funcionamento se deseja estudar, ou de um corpo cuja evolução se quer seguir".
-Na seção \ref{simuladores_ar}, as as aplicações práticas de simuladores de
-aprendizado por reforço, que encaixam-se nas definições dadas acima, são
-brevemente discutidas. Este capítulo tratará de exemplos de conjuntos de
-ferramentas (ou \textit{frameworks}) frequentemente usados para a construção de
-simulações de cenários de aprendizado por reforço.
+% [1] Unity ML Agents-tk article
 
-\section{Estrutura de um simulador de aprendizado por reforço}
-\label{ar_structure}
-
-\begin{figure}
-    \caption{Ciclo de aprendizado do agente via interação com o ambiente}
-    \begin{center}
-      \includegraphics[width=0.65\textwidth]{fluxo_ar.png}
-    \end{center}
-    \label{fig:fluxo_ar2}
-\end{figure}
-
-é natural que, ao pensarmos na palavra "simulador", nos venha à mente algum tipo
-de ferramenta essencialmente visual, como simuladores de voo utilizados para
-treinar pilotos, por exemplo. Entretanto, quando se trata de aprendizado por
-reforço, nem sempre há utilidade em construir visualmente o ambiente e o agente
-nele inserido; muito pelo contrário: por vezes, a representação gráfica deste é
-propositalmente desligada durante a fase de treinamento, visando o emprego dos
-recursos computacionais disponíveis apenas para o que é importante: neste caso,
-o treinamento em si (ou seja, a resolução do Processo de Markov, como descrito
-na seção \ref{markov_process}).
+Conforme desenvolvido nos capítulos anteriores, técnicas de aprendizado por
+reforço são aplicáveis a uma vasta gama de problemas. De agentes que aprendem
+a disputar partidas de jogos de tabuleiro a sistemas de controle de braços
+robóticos que aprendem a atirar objetos, ações são tomadas em sequência em
+inúmeras situações diferentes. Também foi mostrado através de vários exemplos
+que simuladores são ferramentas imprescindíveis no treinamento de tais agentes,
+uma vez que, apresar de possuírem suas limitações, fornecem uma poderosa
+ferramenta de abstração do problema, deixando as diferentes situações pelas
+quais o agente é submetido sob o controle daqueles que o treinam.
 
 
-Tratando-se de aprendizado por reforço, o componente visual, portanto, não é
-seu componente essencial: por vezes, é útil que este seja ignorado para
-transferir os recursos computacionais que seriam consumidos por ele para as
-tarefas intrínsecas ao processo de treinamento, e, em alguns casos, é até
-impossível representar o problema de uma forma essencialmente visual [[4]].
-Sendo assim, resta definir qual é o elemento fundamental de um simulador, quando
-dentro de um contexto de aprendizado por reforço.
+Também foi desenvolvido que ferramentas de simulação de problemas de aprendizado
+por reforço podem ter diferentes graus de especificidade. Para problemas
+de uma subárea específica do aprendizado de máquina, como a robótica, pode ser
+mais vantajoso adotar ferramentas menos genéricas de construção de ambientes de
+AR em detrimento de ferramentas de propósito mais geral, dado que
+\textit{frameworks} mais específicos fornecem atalhos para a modelagem de
+problemas dentro do seu contexto. Há de ser analisado, portanto, o
+\textit{trade-off} entre a adoção de uma ferramenta de propósitos mais gerais,
+que facilita a criação de simulações das mais variadas naturezas, mas que não
+fornece atalhos que facilitem a criação de ambientações de problemas com alto
+grau de especificidade, e a adoção de ferramentas mais especializadas, como o
+\textit{Gazebo} para problemas de robótica ou a \textit{Unity ML-Agents Toolkit}
+para problemas envolvendo jogos onde agentes competem entre si, que são bastante
+específicas e provêm maneiras mais simplificadas de modelagem de ambientes
+dentro do seu próprio contexto, mas que são limitadas quando o problema exige
+elementos que estão fora dele.
 
 
-E qual a peça principal de um sistema modelado por um Processo de Decisão de
-Markov? Bom, é natural que seja, exatamente, o MDP e seus \textit{subprocessos}:
-a leitura do ambiente realizada pelo agente, a decisão tomada por ele com base
-nas informações oriundas desta leitura e a transformação do ambiente pelo
-resultado de suas ações, conforme o ciclo explicitado na figura
-\ref{fig:fluxo_politica}. O componente fundamental de uma simulação de
-aprendizado por reforço é, pois, a representação dos elementos envolvidos em um
-processo de decisão markoviano (i.e. o agente, o ambiente, as ações e a noção de
-recompensa) e da maneira como estes interagem entre si. A figura
-\ref{fig:fluxo_ar} ilustra o que seria o esqueleto de um processo de treinamento
-de um agente em um problema de aprendizado por reforço: o ciclo descrito na
-imagem é fundamental em qualquer cenário que envolva aprendizado por reforço.
-
-
-Um simulador de aprendizado por reforço é, portanto, uma ferramenta que combina
-o ciclo de aprendizado descrito na figura \ref{fig:fluxo_ar} com alguma outra
-ferramenta que permite que sejam representados os componentes de um MDP: o
-ambiente, o agente nele inserido, as ações possíveis em cada época de decisão e
-a noção de recompensa; sem que, necessariamente, haja uma representação visual
-destes. A ferramenta \textit{ViZDoom} [[5]], por exemplo, permite que algoritmos
-de aprendizado sejam aplicados ao jogo de tiro Doom. Há, evidentemente, uma
-construção visual de objetos (i.e. o jogador, o mapa e os inimigos), mas há,
-também, estruturas de dados internas das quais o agente extrai informações em
-suas tomadas de decisão. As seções seguintes deste capítulo tratarão de
-ferramentas comumente utilizadas para a construção de simuladores de aprendizado
-por reforço, explicitando seus destaques positivos e deficiências, a fim de que
-seja apresentado ao leitor, ao final do capítulo, um panorama dos
-\textit{softwares} mais utilizados por pesquisadores da área.
-
-
-\section{MuJoCo}
-\label{mujoco}
-
-\begin{figure}[h]
-    \caption{Modelagem de robôs humanoides no ambiente do MuJoCo}
-    \begin{center}
-      \includegraphics[width=0.9\textwidth]{mujoco_humanoids.png}
-    \end{center}
-    \label{fig:humanoids_mujoco}
-\end{figure}
-
-MuJoCo [[2]] é um \textit{framework} surgido do rápido crescimento do ramo da
-robótica e da necessidade dos simuladores utilizados nesta área de acompanhar
-o acentuado desenvolvimento --- não apenas em termos de capacidade, como também
-tratando-se de complexidade --- deste domínio. Voltado para o desenvolvimento de
-sistemas de controle para robôs, o \textit{software} não apresenta, nativamente,
-o ciclo de aprendizado examinado na seção \ref{ar_structure}, mas este pode ser
-facilmente implementado a partir da biblioteca oferecida pelos desenvolvedores
-do sistema (como é o caso de alguns cenários disponibilizados pelo \textit{Gym},
-a serem apresentados no próximo capítulo). Sistemas de controle são uma área
-fundamental da robótica, e seu desenvolvimento é parte de um processo que não
-necessariamente envolve algoritmos de aprendizado por reforço, como é o caso do
-trabalho desenvolvido em [[3]], que apresenta um algoritmo de refinamento de
-sistemas de controle de quadricópteros baseado em otimização Bayesiana.
-
-
-O MuJoCo é voltado para otimização de sistemas de controle, que consiste,
-basicamente, em construir diversas variações de um sistema e avaliá-las de
-acordo com um processo que pode ser baseado em inteligência artificial, com o
-uso de algoritmos genéticos ou de aprendizado por reforço, por exemplo. Apesar,
-entretanto, de ter por objetivo apresentar uma solução para sistemas de
-robótica, onde é interessante representar virtualmente sistemas compostos de
-diversas partes conectadas de uma maneira bastante complexa (como é o caso de
-braços robóticos) e de performar significativamente melhor que outros
-simuladores da área [[1]], o MuJoCo foi rapidamente adotado por pesquisadores da
-área do aprendizado por reforço profundo [[6]], desenvolvida brevemente na seção
-\ref{dqn}, onde algoritmos de AR são combinados com redes neurais profundas.
-Dada a facilidade com que modelos podem ser construídos no ambiente virtual do
-MuJoCo --- através de uma descrição de alto nível com base em um arquivo no
-formato XML ou através de chamadas diretas à uma API que fornece ao
-desenvolvedor as ferramentas necessárias para a construção de modelos ---, é
-natural que este \textit{framework} tenha se tornado uma peça importante nos
-no estudo de algoritmos de aprendizado por reforço quando aplicados em
-simuladores. Em especial, pode ser citado o caso da DeepMind [[7]], que
-desenvolveu uma extensa pesquisa envolvendo a maneira como robôs humanoides
-aprendem a locomover-se de acordo com a maneira com que a recompensa é
-calculada.
-
-
-Devido, entretanto, ao seu alto grau de especificidade (o MuJoCo foi feito
-especialmente para atender às demandas do ramo da robótica, onde motores de
-simulações físicas voltados para jogos não são acurados o suficiente --- há
-casos, por exemplo, onde a simulação aprende a explorar falhas do motor de
-física, que não condizem com a realidade [[8]]), há casos
-onde o \textit{framework} pode ser considerado complexo demais, não só pela sua
-extensa documentação sobre as funções da sua API para criação de corpos e
-conectores, como também pelo seu conjunto de algoritmos de cálculos físicos, que
-fornecem uma lista bastante abrangente de informações sobre os corpos
-representados na simulação. Além do mais, há a questão do custo: o MuJoCo não
-é um \textit{software} livre, sendo oferecido de graça apenas para integrantes
-da comunidade científica. Para os demais, sua licença é oferecida a preços que
-variam de quinhentos a dois mil dólares.
-
-\section{ODE}
-\label{ode}
-%
-
-A \textit{Open Dynamics Engine} (ou, como é comumente chamada, ODE) é uma
-ferramenta de simulações físicas de propósitos mais gerais do que a MuJoCo.
-Feita para simular propriedades físicas de corpos rígidos articulados, este
-motor de física é ideal para simulações que possam envolver veículos ou
-criaturas bípedes, por exemplo. Com uma extensa biblioteca capaz de gerar
-representações para os mais variados tipos de corpos físicos, a ODE vem sendo
-desenvolvida há mais de dez anos, contando com uma comunidade bastante ativa de
-desenvolvedores.
+Além da necessidade de haver programas de simulação com diferentes graus de
+especificidade, também versamos neste trabalho sobre a necessidade de ter-se
+meios comuns de avaliação de algoritmos: as chamadas ferramentas de
+\textit{benchmark}. Tais mecanismos de avaliação de algoritmos fornecem uma base
+comum de comparação para aqueles que propõem novos métodos de aprendizado por
+reforço, permitindo que estes tenham sua performance facilmente posta à prova
+quando aplicados em cenários ou problemas amplamente conhecidos e estudados.
+Assim como apresentado na discussão acerca dos diferentes graus de
+especificidade que um instrumento de simulação de problemas de aprendizado por
+reforço pode ter, há aqui também um certo grau de limitação: como discutido em
+[[1]], o desenvolvimento de novos algoritmos de AR depende diretamente do
+constante criação de coleções de problemas de \textit{benchmark}, dado que tais
+coleções tendem a tornarem-se praticamente inúteis à medida em que o campo do
+aprendizado por reforço avança.
 
 
 
-\begin{figure}
-    \caption{Captura de tela do jogo \textit{Call of Juarez}}
-    \begin{center}
-      \includegraphics[width=0.65\textwidth]{call_of_juarez.png}
-    \end{center}
-    \label{fig:call_of_juarez}
-\end{figure}
-
-Sendo um motor de física que é relativamente mais simples que o MuJoCo, a
-\textit{Open Dynamics Engine} é usada onde um alto grau de acurácia não é
-requerido, e onde não é necessário que modelos muito complexos (onde um único
-corpo é feito de diversos pequenos corpos interligados por um elevado número de
-juntas), como os modelos recorrentes na robótica, sejam representados. Por isso,
-uma das aplicações deste motor de física é o desenvolvimento de jogos, tendo
-sido bastante usada para este fim, como ilustrado pela figura
-\ref{fig:call_of_juarez}. No trabalho desenvolvido em [[1]], uma comparação
-entre diversas \textit{engines} de física é feito, e a ODE se destaca no quesito
-que lida com cenários onde diversos corpos são representados sem que haja
-muitas interações entre eles, como é normalmente o caso quando se trata de
-jogos. Ainda assim, entretanto, a ODE, em termos gerais, não possui a mesma
-performance de outros \textit{frameworks} como o MuJoCo, ficando aquém deste na
-grande maioria dos testes realizados em [[1]]. Parte dessa discrepância entre os
-dois motores de física pode ser explicada pelo fato de que o MuJoCo,
-desenvolvido mais recentemente, aproveita-se muito mais de processamento
-paralelo, que utiliza completamente todos os núcleos disponíveis, e também pelo
-fato de que o MuJoCo possui uma acurácia muito maior, permitindo que o intervalo
-de tempo (\textit{timestep}) representado entre um processamento e outro pode
-ser muito maior no MuJoCo do que no ODE, fazendo com que o primeiro tenha uma
-vantagem sobre o segundo. Além disso, ainda há, novamente, a questão da
-complexidade: a documentação da ODE é tão extensa quanto a do MuJoCo [[9]],
-exigindo que o desenvolvedor que pretende usá-la para desenvolver um cenário de
-aprendizado por reforço disponha de bastante tempo para estudar todas as
-ferramentas disponibilizadas por sua biblioteca.
-
-\henrique{são 3am e eu tô no meu segundo copo de gim tônica. caso tu não tenha
-entendido os últimos dois parágrafos, pensa que eu já tava meio alterado quando
-escrevi eles}
-
-\section{Aquele dos italianos??}
-\blindtext
-
-
-(conclusão) \blindtext
 
 
 % \label{estadodaarte}
