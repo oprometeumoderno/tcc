@@ -54,6 +54,9 @@
 \usepackage{minted}
 \usepackage{algpseudocode,algorithm}
 \usepackage{amsmath}
+\usepackage{dirtree}
+\usepackage{tikz}
+\usetikzlibrary{trees}
 % \usepackage{algorithmic}
 
 \algnewcommand\algorithmicforeach{\textbf{for each}}
@@ -162,7 +165,9 @@
 % inicio do documento
 %
 \begin{document}
-
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{selected}=[draw=red,fill=red!30]
+\tikzstyle{optional}=[dashed,fill=gray!50]
 % folha de rosto
 % às vezes é necessário redefinir algum comando logo antes de produzir
 % a folha de rosto:
@@ -2463,6 +2468,7 @@ seguir.
 
 
 \section{Ferramentas de \textit{Benchmark}}
+\label{benchmark}
 
 Em se tratando de aprendizado por reforço, ferramentas de \textit{benchmark}
 servem para fornecer uma base padronizada de avaliação de algoritmos, o que
@@ -2594,32 +2600,39 @@ de física, também respeitam a estrutura ditada pelo \textit{Gym}.
 % [1] Unity ML Agents-tk article
 
 Conforme desenvolvido nos capítulos anteriores, técnicas de aprendizado por
-reforço são aplicáveis a uma vasta gama de problemas. De agentes que aprendem
-a disputar partidas de jogos de tabuleiro a sistemas de controle de braços
-robóticos que aprendem a atirar objetos, ações são tomadas em sequência em
-inúmeras situações diferentes. Também foi mostrado através de vários exemplos
-que simuladores são ferramentas imprescindíveis no treinamento de tais agentes,
-uma vez que, apresar de possuírem suas limitações, fornecem uma poderosa
-ferramenta de abstração do problema, deixando as diferentes situações pelas
-quais o agente é submetido sob o controle daqueles que o treinam.
+reforço são aplicáveis a uma vasta gama de problemas, uma vez que existem
+inúmeras situações onde problemas devem ser resolvidos através de uma sequência
+de ações. Seja definir quais jogadas devem ser tomadas a fim de que uma partida
+de um jogo de tabuleiro seja vencida ou decidir como regular a força propulsora
+das hélices de um \textit{drone} autodirigido a fim de estabilizá-lo, quaisquer
+problemas que requerem a tomada sequencial de ações e nos quais a qualidade
+dessas ações seja captada pela noção de recompensa permitem o uso de técnicas de
+aprendizado por reforço. Também foi extensamente discorrido e exemplificado
+sobre a importância do uso de simuladores no treinamento de agentes de
+aprendizado por reforço, mostrando que, apesar das diversas limitações que um
+simulador pode possuir, tais ferramentas fornecem uma maneira poderosa de
+modelar a abstração de um problema, deixando as diferentes situações às quais
+o agente é submetido sob o controle daqueles que o treinam.
 
 
-Também foi desenvolvido que ferramentas de simulação de problemas de aprendizado
-por reforço podem ter diferentes graus de especificidade. Para problemas
-de uma subárea específica do aprendizado de máquina, como a robótica, pode ser
-mais vantajoso adotar ferramentas menos genéricas de construção de ambientes de
-AR em detrimento de ferramentas de propósito mais geral, dado que
-\textit{frameworks} mais específicos fornecem atalhos para a modelagem de
-problemas dentro do seu contexto. Há de ser analisado, portanto, o
-\textit{trade-off} entre a adoção de uma ferramenta de propósitos mais gerais,
-que facilita a criação de simulações das mais variadas naturezas, mas que não
-fornece atalhos que facilitem a criação de ambientações de problemas com alto
-grau de especificidade, e a adoção de ferramentas mais especializadas, como o
-\textit{Gazebo} para problemas de robótica ou a \textit{Unity ML-Agents Toolkit}
-para problemas envolvendo jogos onde agentes competem entre si, que são bastante
-específicas e provêm maneiras mais simplificadas de modelagem de ambientes
-dentro do seu próprio contexto, mas que são limitadas quando o problema exige
-elementos que estão fora dele.
+Além do papel imprescindível que ferramentas de modelagem de problemas de
+aprendizado por reforço exercem durante a fase de treinamento de agentes para
+resolvê-los, também foi discorrido acerca dos diferentes graus de especificidade
+que tais \textit{softwares} podem apresentar. Para problemas de uma subárea
+específica de aprendizado por reforço como a robótica, por exemplo, pode ser
+mais vantajoso para quem deseja treinar um agente adotar ferramentas menos
+genéricas de construção de ambientes em detrimento de ferramentas de propósito
+mais geral, dado que \textit{frameworks} mais específicos fornecem atalhos para
+a modelagem de problemas que não fogem ao seu escopo. Sendo assim, há de ser
+analisado o \textit{trade-off} que surge do conflito entre a adoção de um
+mecanismo de modelagem de simulações de propósito mais geral, que permite a
+construção de problemas das mais variadas naturezas mas que não fornece atalhos
+que facilitem a criação de simulações de uma área em específico, e a adoção de
+ferramentas mais especializadas, como o \textit{Gazebo}, voltado para a
+robótica, ou a \textit{Unity ML-Agents Toolkit}, voltada para problemas
+envolvendo jogos onde agentes competem entre si, que fornecem caminhos mais
+curtos e ferramentas que facilitam a criação de cenários dentro dos seus
+próprios contextos.
 
 
 Além da necessidade de haver programas de simulação com diferentes graus de
@@ -2635,22 +2648,391 @@ reforço pode ter, há aqui também um certo grau de limitação: como discutido
 [[1]], o desenvolvimento de novos algoritmos de AR depende diretamente do
 constante criação de coleções de problemas de \textit{benchmark}, dado que tais
 coleções tendem a tornarem-se praticamente inúteis à medida em que o campo do
-aprendizado por reforço avança.
+aprendizado por reforço avança e os problemas fornecidos por elas são
+resolvidos.
+
+
+De todas as coleções de \textit{benchmark} analisadas por este trabalho, talvez
+a mais famosa delas --- e certamente a que possui a coleção de problemas mais
+ampla --- seja o \textit{framework} conhecido como \textit{Gym}. Muito mais do
+que uma ferramenta de \textit{benchmark} com uma vasta coleção de diferentes
+cenários que compreendem desde problemas simples, com representação em modo
+texto, até problemas que envolvem robôs que devem aprender a andar em universos
+virtuais regidos por um motor de física, \textit{Gym} consegue ir além e
+fornecer meios de compartilhamento de soluções para os problemas oferecidos,
+estimulando a colaboração entre pesquisadores do mundo todo.
+
+
+Apesar da vasta coleção oferecida pelo \textit{Gym} e pela facilidade com que
+diferentes soluções para um mesmo problema podem ser comparadas e
+compartilhadas, há poucas ferramentas disponíveis para a a criação e o
+compartilhamento de cenários novos. A criação de cenários novos para ferramentas
+de \textit{benchmark} é tão importante quanto o desenvolvimento de novos métodos
+de aprendizado, apesar de não receber tanta atenção por parte dos especialistas
+como a construção de novos algoritmos. O campo carece, portanto, de uma
+ferramenta que permita o desenvolvimento rápido de novos cenários para a
+expansão de coleções de \textit{benchmark}.
+
+
+Este trabalho é uma tentativa de estabelecer um meio para a criação de novos
+cenários de aprendizado por reforço. Além de fornecer um meio simples para a
+modelagem de problemas de qualquer natureza, tentando, quando possível, agregar
+elementos presentes em ferramentas de simulação de alto grau de especificidade e
+que funcionam como atalhos na criação de cenários, o trabalho aqui desenvolvido
+produz cenários compatíveis com a API do \textit{Gym}, beneficiando-se, desta
+maneira, das ferramentas disponibilizadas pela plataforma para o
+compartilhamento, a avaliação e a comparação de diferentes soluções para um
+mesmo problema.
+
+
+O \textit{Barbell}, \textit{software} proposto por este trabalho, é, portanto,
+uma espécie de extensão ao \textit{Gym}, que permite que sua coleção de
+problemas seja expandida através de ferramentas que visam facilitar a construção
+de novos cenários de aprendizado por reforço. Ao mesmo tempo que tenta empregar
+as vantangens oferecidas por simuladores altamente específicos, como a descrição
+textual de elementos a serem simulados no ambiente, o \textit{Barbell} tenta
+manter a natureza genérica do \textit{Gym}, aplicando, desta maneira, as
+vantagens de simuladores de alto grau de especificidade na modelagem de
+problemas das mais diversas naturezas.
+
+
+A seguir, o funcionamento do \textit{Gym} será estudado de maneira detalhada, a
+fim de que suas funções sejam compreendidas. Logo após, as funcionalidades do
+\textit{Barbell} serão apresentadas a fim de que fique claro para o leitor
+quais funcionalidades são estas e de que maneira elas se beneficiam daquilo
+que o \textit{Gym} já fornece.
 
 
 
+\section{Objetivo do Gym}
+% [1] - https://www.nature.com/news/1-500-scientists-lift-the-lid-on-reproducibility-1.19970
 
 
-% \label{estadodaarte}
-% \section{Gym}
-% Gym é um simulador desenvolvido pela OpenAI \bruno{nao é um simulador. É uma API}, uma empresa sem fins lucrativos que desenvolve pesquisas em inteligência artificial com o intuito de
+
+Conforme descrito na seção \ref{sec:gym}, \textit{Gym} é uma ferramenta que
+apresenta uma coleção de modelagens de problemas de aprendizado por reforço
+(chamadas de \textit{cenários}) e que é mantida pela OpenAI, uma entidade sem
+fins lucrativos que promove estudos na área de inteligência artificial e cujo
+intuito é "desenvolver IA amigável de tal forma que a humanidade como um todo
+beneficie-se dela". Seu trabalho com o \textit{Gym}, portanto, não tem por
+objetivo somente fornecer a pesquisadores do mundo todo uma ferramenta com a
+qual seja possível desenvolver, avaliar e comparar diferentes algoritmos de
+aprendizado por reforço, mas também fornecer a todos que usam os simuladores do
+\textit{Gym} um canal por onde se possa compartilhar ideias e comparar métodos.
+
+
+É inegável que o compartilhamento de conhecimento entre pesquisadores de uma
+determinada área é essencial para alavancar o seu desenvolvimento. Entretanto, a
+escolha do canal ou da forma através dos quais este conhecimento é compartilhado
+pode muitas vezes limitar o seu alcance ou até mesmo impedir por completo que
+experimentos sejam replicados. O problema da reprodutibilidade é bastante
+conhecido: em uma pesquisa conduzida pela revista Nature [[1]], 70\% dos
+pesquisadores entrevistados admitiram que, ao menos uma vez, já tentaram, sem
+sucesso, reproduzir os experimentos de artigos escritos por terceiros, e mais da
+metade dos entrevistados disseram ter tido dificuldades em reproduzir os
+próprios experimentos. Do mesmo modo, também podem residir limitações no canal
+escolhido para divulgar um estudo novo: a grande maioria dos periódicos de
+artigos científicos é paga, o que pode vir a afastar o conhecimento daqueles que
+não têm dinheiro suficiente para pagar por ele.
+
+
+\begin{figure}[h]
+    \caption{Classificação das melhores soluções para o problema
+    \textit{Mountain Car}.}
+    \begin{center}
+      \includegraphics[width=0.6\textwidth]{leaderboard.png}
+    \end{center}
+    \label{fig:leaderboard}
+\end{figure}
+
+
+Residem problemas, portanto, na forma com que o conhecimento derivado de estudos
+novos é passado adiante: nem sempre um artigo científico apresenta experimentos
+de fácil reprodução e nem sempre ele é publicado em um canal de fácil acesso ao
+grande público. Há uma tentativa, entretanto, por parte dos responsáveis pelo
+\textit{Gym}, de atenuar este problema: ao estimular que soluções para os
+cenários oferecidos por ele sejam publicadas em um espaço aberto na rede, o
+acesso a algoritmos avançados de aprendizado por reforço é democratizado. A
+maneira através da qual o \textit{Gym} propicia este compartilhamento de
+soluções é bem simples: há um guia, no formato de uma enciclopédia
+\textit{on-line} e editável, que lista todos os cenários oferecidos pelo
+\textit{Gym}, juntamente com as soluções de melhor performance. Há duas maneiras
+diferentes de se medir a performance de uma solução, de acordo com o cenário:
+em alguns cenários, o critério que qualifica as soluções é o numero de épocas de
+decisão necessárias para que o agente pudesse solucionar o problema --- e aqui
+a definição de "solução" é particular de cada cenário: no problema chamado de
+\textit{Cart Pole}, por exemplo, o problema é considerado solucionado quando a
+recompensa acumulada de um episódio ultrapassa uma determinada marca --- e em
+outros problemas, estes mais complexos e, portanto, mais difíceis de definir
+quando o problema foi de fato solucionado, usam como critério de avaliação de
+soluções apenas a recompensa média recebida em cem episódios. Os números são
+facilmente verificáveis, uma vez que, juntamente com um pequeno texto que
+explica o funcionamento do algoritmo, deve ser também submetido o código
+utilizado na solução, com ambos ficando disponíveis para \textit{download}. Em
+alguns casos, também é encorajada a submissão de um vídeo ou imagem no formato
+\textit{GIF} do comportamento do agente, quando da solução do problema. Um
+exemplo de listagem das melhores soluções para um problema da coleção do
+\textit{Gym} é dado na figura \ref{fig:leaderboard}.
+
+
+\section{Implementação do Gym}
+
+Além de atacar o problema resultante da dificuldade em compartilhar-se
+resultados de um experimento, o \textit{Gym} propõe uma espécie de padronização
+de problemas de aprendizado por reforço, que fica evidente quando é analisada a
+maneira através da qual os diferentes problemas de aprendizado por reforço são
+transformados em cenários do \textit{Gym}. Na seção a seguir, será estudada a
+implementação do \textit{Gym}, para que fique claro de que maneira esta
+padronização é feita.
+
+
+\subsection{Representação do ciclo de aprendizado}
+% [1] - R. S. Sutton and A. G. Barto. Reinforcement Learning: An Introduction. MIT Press, 1998
+% [2] - http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.146.1515&rep=rep1&type=pdf
+A implementação do \textit{Gym} é bastante próxima do ciclo de aprendizado de um
+agente de AR definido na imagem \ref{fig:fluxo_ar}, baseando-se apenas nos
+seguintes conceitos de aprendizado por reforço:
+
+\begin{itemize}
+  \item o agente está inserido em um ambiente;
+  \item a cada passo, o agente toma uma \textit{decisão} e recebe uma
+        \textit{recompensa} e realiza uma \textit{observação} do ambiente;
+  \item o ambiente é representado através de Processo de Decisão de Markov
+  Parcialmente Observável (POMDP) [[1]].
+\end{itemize}
+
+Baseando-se nos conceitos acima, o grande destaque do \textit{Gym} talvez seja
+no sistema de \textit{episódios} de um treinamento de uma gente de AR. Quando um
+treinamento de um agente separa-se em episódios, um cenário é iniciado em um
+estado randômico e o agente toma uma série de decisões até que uma ação
+modifique o ambiente de tal forma que ele transicione para um estado terminal.
+Quando isso ocorre, é calculada a recompensa total, acumulada durante toda a
+sequência de ações tomadas pelo agente desde o momento em que o cenário foi
+inicializado até o momento em que ele chegou em um estado terminal, e o cenário
+é reinicializado.
+O código a seguir exemplifica a inicialização de um agente, que toma uma série
+de ações até que um estado final seja atingido:
+
+\begin{minted}[linenos]{python}
+  # definição do cenário
+  env = gym.make('CartPole-v0')
+
+  # cenário é inicializado, observação retornada
+  obs = env.reset()
+  done = False
+
+  while not done:
+    # observação, recompensa para a ação tomada
+    # e variável booleana indicando se cenário
+    # chegou a um estado terminal são retornados
+    obs, reward, done = env.step(agent.act(observation))
+\end{minted}
+
+É necessário observar aqui que toda a modelagem de um cenário disponibilizado
+pelo \textit{Gym} gira em torno do ambiente e das transições entre seus estados.
+O agente, apesar de ser um conceito bastante importante em problemas de
+aprendizado por reforço, não possui uma abstração explícita no \textit{Gym} (no
+exemplo acima, um agente, desenvolvido à parte, age de acordo com a observação),
+permitindo, desta maneira, que ele seja modelado da maneira que for mais
+conveniente para quem desenvolve soluções para um determinado cenário. Toda
+informação relevante para a solução do problema é retornada durante uma tomada
+de decisão (exemplificada na linha 12 do código acima) e segue o formato
+$(observation, reward, done, info)$, onde:
+
+\begin{itemize}
+  \item $observation$ é um vetor de números que representa o estado do ambiente
+  naquele momento;
+  \item $reward$ é a recompensa atribuída à ação tomada;
+  \item $done$ é uma variável binária que diz se o estado atual do ambiente é
+  um estado terminal, utilizada para reiniciar as simulações quando assim for
+  conveniente;
+  \item $info$ é um dicionário com informações adicionais sobre o episódio,
+  utilizado apenas quando necessário.
+\end{itemize}
+
+Este formado, através do qual as informações do cenário são representadas,
+juntamente com a ausência de uma abstração da entidade tomadora de decisões,
+permite vários estilos diferentes de aprendizado. As informações retornadas a
+cada $n$ episódios, por exemplo, podem ser agrupadas em um lode de dados que
+só mais tarde, após finalizados os episódios, é repassado a uma entidade de
+aprendizado por reforço que processa as informações e atualiza o seu agente de
+acordo. Um outro estilo de aprendizado, por exemplo, pode consistir em utilizar
+as informações de cada episódio para o treinamento do agente no momento em que
+elas são fornecidas, corrigindo o seu comportamento de maneira incremental. Além
+disso, a ausência de um modelo de agente permite que sejam desenvolvidos
+cenários onde dois ou mais agentes atuam.
+
+
+A decisão de subtrair do sistema a abstração de um agente, portanto, dá mais
+liberdade para pesquisadores desenvolverem agentes com a interface que for mais
+conveniente. Com o agente transformado em uma espécie de "caixa-preta" no
+ecossistema do \textit{Gym} é bastante simples que diferentes agentes sejam
+utilizados alternadamente a fim de que suas performances sejam comparadas
+utilizando-se de um mesmo cenário de base. É possível também que um agente seja
+pré-treinado em um problema antes de ser inserido em outro cenário, permitindo
+que o conhecimento adquirido no primeiro cenário seja utilizado no segundo,
+técnica conhecida como \textit{transfer learning} [[2]].
+
+\section{Representação dos resultados}
+
+\begin{figure}[h]
+    \caption{Classificação das melhores soluções para o problema
+    \textit{Pendulum-v0}.}
+    \begin{center}
+      \includegraphics[width=0.6\textwidth]{leaderboard_best100.png}
+    \end{center}
+    \label{fig:leaderboard_best100}
+\end{figure}
+
+Além de versar sobre a forma como os cenários são representados no \textit{Gym},
+é importante também falar sobre como os resultados de um treinamento são
+gravados. A performance de um treinamento pode ser medida de acordo com dois
+critérios: o primeiro é a quantidade de episódios necessários para que o
+problema seja dado como resolvido, critério este que varia de acordo com o
+cenário. Nem todos os cenários, entretanto, possuem um mecanismo que informa
+explicitamente se o problema foi resolvido; há, portanto, um meio alternativo
+de se medir a performance de um treinamento: usa-se, neste caso, os melhores
+valores de recompensas totais recebidas para uma série de cem episódios
+consecutivos, como ilustrado na figura \ref{fig:leaderboard_best100}.
+Para que seja facilitada a comparação de resultados, o \textit{Gym} possui
+uma estrutura interna chamada de \textit{Monitor}, que mantém um controle
+interno de todas as vezes que o uma simulação é atualizada ou reiniciada. Esta
+estrutura, que também pode gravar videos periodicamente, torna possível a
+construção de curvas de aprendizado, a partir dos dados oriundos das
+recompensas recebidas. O código a seguir ilustra uma situação onde o
+\textit{Gym} é programado para gravar vídeos do treinamento em uma pasta chamada
+\textit{recording}.
+
+\begin{minted}[linenos]{python}
+  env = gym.make("CartPole-v0")
+  env = gym.wrappers.Monitor(env, "recording")
+\end{minted}
+
+
+\textit{Arquitetura de um cenário}
+Depois de explicitados os meios através dos quais o \textit{Gym} representa as
+informações do ambiente, como o agente lê essas informações e como os resultados
+do seu aprendizado são arquivados para análises futuras, resta saber como um
+cenário é modelado no sistema do \textit{Gym}. Primeiro, algumas definições são
+necessárias: um \textit{módulo} nada mais é do que uma coleção de funções que
+possuem uma finalidade específica, enquanto um \textit{pacote} é uma coleção de
+módulos e de outros subpacotes. Em \textit{Python}, um pacote é representado por
+uma pasta, enquanto módulos são representados por arquivos. Caso queiramos
+definir um pacote chamado \textit{generic\_package}, que contém dois módulos
+\textit{a} e \textit{b}, portanto, devemos definir em um sistema a estrutura de
+arquivos representada na figura \ref{fig:python_package}. O arquivo
+\textit{\_\_init\_\_.py} é obrigatório e serve para marcar para o motor da
+linguagem que aquela pasta representa um pacote.
+
+\begin{figure}[h]
+  \label{fig:python_package}
+  \caption{Estrutura de um pacote na linguagem \textit{Python}}
+  \vspace{2mm}
+  \begin{center}
+    \begin{tikzpicture}[%
+      grow via three points={one child at (0.5,-0.7) and
+      two children at (0.5,-0.7) and (0.5,-1.4)},
+      edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+
+      \node {generic\_package}
+          child { node {\_\_init\_\_.py}}
+          child { node {a.py}}
+          child { node {b.py}};
+
+    \end{tikzpicture}
+\end{center}
+\end{figure}
+
+Caso o pacote siga a estrutura da figura \ref{fig:python_package}, ele pode ser
+incluído em um \textit{script Python} da seguinte maneira:
+
+\begin{minted}[linenos]{python}
+  import generic_package
+  from generic_package import a, b
+\end{minted}
+
+Um cenário pertencente ao \textit{Gym} segue a estrutura de um pacote
+\textit{Python}, com a exceção de que, como um cenário agrupa mais de um pacote
+em sua estrutura, ela é ligeiramente mais complexa do que a apresentada na
+figura \ref{fig:python_package}. Caso queiramos, portanto, definir um cenário
+chamado \textit{rl\_problem} que contenha duas versões, \texttt{rl\_problem-v0}
+e \texttt{rl\_problem\_hard-v0}, todo: continuar
+
+\section{Implementação do Barbell}
+\blindtext[2]
+%
+% É inegável que o compartilhamento de conhecimento entre pesquisadores da área é
+% essencial para alavancar o seu crescimento. O canal para este compartilhamento,
+% entretanto, muitas vezes é
+
+ - compartilhamento de soluções
+ - wiki... video ou gif
+ - reprodutibilidade
+ - T R A N S F E R    L E A R N I N G
+
+ - Como o gym define o bagulho la do ciclo
+ - renderizaçao
+
+ - barbell
+
+%
+% Gym é um simulador desenvolvido pela OpenAI \bruno{nao é um simulador. É uma API},
+% uma empresa sem fins lucrativos que desenvolve pesquisas em inteligência artificial com o intuito de
 % "desenvolver IA amigável de tal forma que a humanidade como um todo beneficie-se dela". Seu trabalho com o Gym, portanto, não tem por objetivo
-% somente prover a pesquisadores do mundo todo uma ferramenta com a qual seja possível desenvolver, \bruno{avaliar e comparar diferentes} algoritmos de aprendizado por reforço, mas também
-% fornecer a todos que usam o simulador um canal por onde se possa compartilhar ideias e comparar métodos. O Gym nasceu, portanto, da necessidade de
-% se ter uma ferramenta capaz de fazer o \textit{benchmark} de algoritmos de AR. Enquanto em outras áreas da IA, como aprendizado supervisionado,
-% já existe grandes bases de dados como a ImageNet, com centenas de milhares de imagens já etiquetadas para uso principalmente em projetos de IA que
-% envolvam reconhecimento de imagens, não existia, até o momento em que o Gym foi concebido, uma biblioteca de ambientes e resultados que fosse grande
-% o suficiente e que, principalmente, fosse fácil de usar \bruno{tem que clarificar que é uma API que tu usa pra especificar tanto os ambientes de RL quanto os algoritmos de aprendizado, e que como toda a interface fica padronizada, é possivel fazer combinacoes e testar qualquer algoritmo em qualquer ambiente, e é possível reproduzir resultados de outros algoritmos, facilmente comparar novos algoritmos com aqueles existentes, etc. Aí precisa dizer concretamente o que o Gym faz: qual a interface de métodos principais que a pessoa precisa implementar pra especificar um ambiente, e quais precisa implementar pra especificar um agente de aprendizado. Diz aí tipo 'o metodo takeAction, p.ex., implementa a politica $\pi$ de escolha de acoes. O metodo runAction (to inventendo os nomes, nao lembro de cor) pega uma acao e o estado atual, e devolve o proximo estado do ambiente e a recompensa; ou seja, ele corresponde à implementacao computacional da funcao de transicao T do MDP e da funcao de recompensa R'. Acho que falta, nessa parte, falar de forma mais concreta o que que é o que o Gym faz/especifica, pra conseguir fazer essa padronizacao. Isso é importante porque todo o teu argumento, depois, é que o teu framework, ao gerar codigo compativel com o Gym, permite a geracao facilitada de novos ambientes para teste, avaliacao e comparacao de algoritmos de RL. Quando for explicar o Gym, tu poderia nao só colocar aquelas imagens, mas realmente descrever alguns deles, como exemplos. Tipo 'Alguns exemplos de ambientes clássicos usados como benchmark de algoritmos de aprendizado por reforco, tais como poll balancing e mountain car, por exemplo, estao disponiveis na plataforma Gym. O mountain car corresponde ao problema de (...). Para que um desenvolvedor com interesse em implementar e validar um novo algoritmo de RL pudesse testar sua criacao no mountain car, bastaria utilizar o seguinte codigo Python: (...). Caso quisesse testar esse metodo codigo no problema de poll balancing, bastaria alterar o codigo do seu agente de aprendizado da seguinte forma: (...). Como pode ser visto, uma vez que ambientes e agentes sao implementados seguindo a API do Gym, torna-se trivial instanciar comparacoes de qualquer método em qualquer tarefa de aprendizado'. Aí fala 'alem de ambientes classicos, cenarios mais recentesmente propostos como benchmark, tais como aqueles envolvendo jogos de atari, tambem estao disponiveis'. Aí fala um pouco deles. Depois de falar sobre a parte de cenarios/ambientes que tem no Gym, fala sobre como é sao disponibilizados os algoritmos de aprendizado que existem nele. As pessoas enviam codigo pra resolver um ambiente especifico, e o codigo é rodado la? Elas rodam localmente e loggam os resultados, e só os resultados sao enviados, com alguma maneira de eles verificarem que nao foram adulterados? Tem alguma maneira facil de baixar os top N best-ranked algorithms pra um detemrinado problema? Coisas desse tipo. Aí descreve como ter acesso aos melhores algoritmos submetidos pra um dado ambiente é util pra que depois tu possa pegar o algoritmo que tu inventou e comparar com o estado-da-arte, de acordo com as pessoas que submetem pro Gym; fala que esse ranking é interessante porque consiste em resultados que podem ser reproduzidos, e nao apenas em resultados que *apenas* foram publicados em artigos cientificos, mas para os quais frequenemtenete nao se tem acesso ao fonte, e/ou nao se conhece como os autores ajustaram os meta-parametros tipo taxa de aprendizado, etc. Ou seja, facilidade reproducibility e permite com que tu rapidamente avalie o teu algoritmo contra varios existentes, ou entao teste algoritmos existentes (publicados la) em um novo tipo de ambiente/tarefa de aprendizado, no qual tu possa ter interesse}.\par
+% somente prover a pesquisadores do mundo todo uma ferramenta com a qual seja possível
+ % desenvolver, \bruno{avaliar e comparar diferentes} algoritmos de aprendizado por reforço, mas também
+% fornecer a todos que usam o simulador um canal por onde se possa compartilhar
+% ideias e comparar métodos. O Gym nasceu, portanto, da necessidade de
+% se ter uma ferramenta capaz de fazer o \textit{benchmark} de algoritmos de AR.
+ % Enquanto em outras áreas da IA, como aprendizado supervisionado,
+% já existe grandes bases de dados como a ImageNet, com centenas de milhares de imagens já etiquetadas para
+% uso principalmente em projetos de IA que
+% envolvam reconhecimento de imagens, não existia, até o momento em que o Gym
+% foi concebido, uma biblioteca de ambientes e resultados que fosse grande
+% o suficiente e que, principalmente, fosse fácil de usar
+\bruno{tem que clarificar que é uma API que tu usa pra especificar tanto os
+ambientes de RL quanto os algoritmos de aprendizado, e que como toda a interface
+ fica padronizada, é possivel fazer combinacoes e testar qualquer algoritmo em
+  qualquer ambiente, e é possível reproduzir resultados de outros algoritmos,
+  facilmente comparar novos algoritmos com aqueles existentes, etc. Aí precisa
+  dizer concretamente o que o Gym faz: qual a interface de métodos principais
+  que a pessoa precisa implementar pra especificar um ambiente, e quais precisa
+   implementar pra especificar um agente de aprendizado. Diz aí tipo 'o metodo
+   takeAction, p.ex., implementa a politica $\pi$ de escolha de acoes. O metodo
+   runAction (to inventendo os nomes, nao lembro de cor) pega uma acao e o
+    estado atual, e devolve o proximo estado do ambiente e a recompensa; ou
+    seja, ele corresponde à implementacao computacional da funcao de transicao
+    T do MDP e da funcao de recompensa R'. Acho que falta, nessa parte, falar
+    de forma mais concreta o que que é o que o Gym faz/especifica, pra conseguir
+     fazer essa padronizacao. Isso é importante porque todo o teu argumento,
+     depois, é que o teu framework, ao gerar codigo compativel com o Gym,
+     permite a geracao facilitada de novos ambientes para teste, avaliacao
+      e comparacao de algoritmos de RL. Quando for explicar o Gym, tu poderia
+      nao só colocar aquelas imagens, mas realmente descrever alguns deles,
+      como exemplos. Tipo 'Alguns exemplos de ambientes clássicos usados
+      como benchmark de algoritmos de aprendizado por reforco, tais como
+      poll balancing e mountain car, por exemplo, estao disponiveis na
+      plataforma Gym. O mountain car corresponde ao problema de (...).
+      Para que um desenvolvedor com interesse em implementar e validar
+       um novo algoritmo de RL pudesse testar sua criacao no mountain
+       car, bastaria utilizar o seguinte codigo Python: (...).
+       Caso quisesse testar esse metodo codigo no problema de poll
+       balancing, bastaria alterar o codigo do seu agente de aprendizado
+        da seguinte forma: (...). Como pode ser visto, uma vez que
+         ambientes e agentes sao implementados seguindo a API do Gym,
+          torna-se trivial instanciar comparacoes de qualquer método em
+          qualquer tarefa de aprendizado'. Aí fala 'alem de ambientes
+          classicos, cenarios mais recentesmente propostos como benchmark,
+          tais como aqueles envolvendo jogos de atari, tambem estao
+           disponiveis'. Aí fala um pouco deles. Depois de falar sobre a
+           parte de cenarios/ambientes que tem no Gym, fala sobre como é
+           sao disponibilizados os algoritmos de aprendizado que existem
+           nele. As pessoas enviam codigo pra resolver um ambiente especifico,
+            e o codigo é rodado la? Elas rodam localmente e loggam os resultados,
+             e só os resultados sao enviados, com alguma maneira de eles
+             verificarem que nao foram adulterados? Tem alguma maneira facil
+             de baixar os top N best-ranked algorithms pra um detemrinado
+             problema? Coisas desse tipo. Aí descreve como ter acesso aos melhores algoritmos submetidos pra um dado ambiente é util pra que depois tu possa pegar o algoritmo que tu inventou e comparar com o estado-da-arte, de acordo com as pessoas que submetem pro Gym; fala que esse ranking é interessante porque consiste em resultados que podem ser reproduzidos, e nao apenas em resultados que *apenas* foram publicados em artigos cientificos, mas para os quais frequenemtenete nao se tem acesso ao fonte, e/ou nao se conhece como os autores ajustaram os meta-parametros tipo taxa de aprendizado, etc. Ou seja, facilidade reproducibility e permite com que tu rapidamente avalie o teu algoritmo contra varios existentes, ou entao teste algoritmos existentes (publicados la) em um novo tipo de ambiente/tarefa de aprendizado, no qual tu possa ter interesse}.\par
 %
 % Os cenários disponibilizados pelo Gym são bastante diversos e vão desde problemas em modo texto até jogos de plataformas bidimensionais (figura \ref{fig:gymenvironments}).
 % Para cada um dos \textit{enviroments} disponíveis, há, na página do projeto, um \textit{ranking} dos algoritmos que resolveram o problema da maneira mais eficiente,
@@ -2662,33 +3044,47 @@ aprendizado por reforço avança.
 % fornecer ao desenvolvedor uma maneira de criar seus próprios ambientes, cria-se a possibilidade de expandir a biblioteca do Gym; por outro lado, ao desenvolver
 % cenários que de certa forma recordem outros que já existem, o \textit{Barbell} permite que o desenvolvedor parta de algoritmos que já foram desenvolvidos ao
 % invés de se encontrar obrigado a construir sua solução do zero. O método de construção de cenários e a maneira como os resultados são apresentados, em comparação
-% com os resultados fornecidos pelos cenários padrão do Gym, será descrito no próximo capítulo. \par
-%
-%
-%
-% \begin{figure}[h]
-%     \caption{Alguns dos cenários disponíveis na base do Gym.}
-%     \begin{center}
-%       \includegraphics[width=0.9\textwidth]{environments.png}
-%     \end{center}
-%     \label{fig:gymenvironments}
-% \end{figure}
-%
-%
-% \section{MuJoCo}
-%
-% \bruno{\textbf{IMPORTANTE}: que outros artigos discutem frameworks com esse mesmo objetivo? DISCUTIR ISSO NOS TRABALHOS RELACIONADOS:
-% \begin{itemize}
-%     \item rllab, moveit \url{https://stackoverflow.com/questions/48490828/should-i-using-mujoco-or-moveit-for-modeling};
-%     \item quais outros motores de fisica as pessoas usam? gazebosim.org, vrep;
-%     \item como as pessoas implementam os dominios compativeis com o RLGlue?
-%     \item que outros simuladores de robotica sao utilizados? p.ex. \url{https://en.wikipedia.org/wiki/Robotics_simulator};
-%     \item andersonrochatavares@gmail.com, perguntar se ele conhece artigos e/ou frameworks que se costuma usar para gerar jogos/dominios;
-% \end{itemize}
-% }
+% com os resultados fornecidos pelos cenários padrão do Gym, será descrito no próximo capítulo.
 
-%
-% \bruno{ver comentario no inicio do capto. Acho que o gym e o mujoco nao sao comparaveis, porque Gym=API, e mujoco=framework pra geracao de ambientes/simulacoes. ALgo comparavel com mujoco seriam aqueles outros trabalhos que eu mencionei em algum dos emails anteriores}
+
+% \subsection{Ciclo de aprendizado no Gym}
+% \blindtext
+% \section{Barbell}
+% \blindtext[2]
+
+% Apesar da vasta coleção oferecida pelo \textit{Gym} e pela facilidade com que
+% diferentes soluções para um mesmo problema podem ser comparadas e
+% compartilhadas, há poucos meios disponíveis de criar-se e compartilhar-se
+
+% \label{estadodaarte}
+
+
+
+
+
+\begin{figure}[h]
+    \caption{Alguns dos cenários disponíveis na base do Gym.}
+    \begin{center}
+      \includegraphics[width=0.9\textwidth]{environments.png}
+    \end{center}
+    \label{fig:gymenvironments}
+\end{figure}
+
+
+\section{MuJoCo}
+
+\bruno{\textbf{IMPORTANTE}: que outros artigos discutem frameworks com esse mesmo objetivo? DISCUTIR ISSO NOS TRABALHOS RELACIONADOS:
+\begin{itemize}
+    \item rllab, moveit \url{https://stackoverflow.com/questions/48490828/should-i-using-mujoco-or-moveit-for-modeling};
+    \item quais outros motores de fisica as pessoas usam? gazebosim.org, vrep;
+    \item como as pessoas implementam os dominios compativeis com o RLGlue?
+    \item que outros simuladores de robotica sao utilizados? p.ex. \url{https://en.wikipedia.org/wiki/Robotics_simulator};
+    \item andersonrochatavares@gmail.com, perguntar se ele conhece artigos e/ou frameworks que se costuma usar para gerar jogos/dominios;
+\end{itemize}
+}
+
+
+\bruno{ver comentario no inicio do capto. Acho que o gym e o mujoco nao sao comparaveis, porque Gym=API, e mujoco=framework pra geracao de ambientes/simulacoes. ALgo comparavel com mujoco seriam aqueles outros trabalhos que eu mencionei em algum dos emails anteriores}
 
 \chapter{Desenvolvimento}
 \label{desenvolvimento}
