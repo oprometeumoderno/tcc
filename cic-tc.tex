@@ -194,77 +194,22 @@
 
 % resumo na língua do documento
 \begin{abstract}
-  Métodos de aprendizado por reforço tratam de problemas compreendidos por uma
-  subárea da inteligência artificial onde um agente, inserido dentro de um
-  ambiente, tenta encontrar a maneira mais eficaz de resolver um problema
-  através da tomada de uma sequência de ações. Ao executar ações dentro do
-  ambiente, o agente recebe \textit{recompensas}, que são valores numéricos
-que indicam a qualidade de uma ação tomada em um determinado momento. É somente
-  através do valor total das recompensas recebidas pelas ações tomadas pelo
-  agente e pelas mudanças por elas causas no ambiente que ele deve decidir
-  qual será a próxima ação a ser executada. Diferentemente de outras áreas da
-  inteligência artificial, portanto, onde nas quais o agente recebe, para cada
-  decisão tomada, uma resposta que diz se aquela decisão era a melhor naquele
-  momento, métodos de aprendizado por reforço são recomendados em situações
-  onde decisões devem ser tomadas em sequência, sem que necessariamente fique
-  claro para o agente se uma ação tomada é a mais recomendada em um determinado
-  instante.
+  Métodos de aprendizado por reforço tratam de problemas que compreendem uma
+  subárea da inteligência artificial onde um agente, insediro dentro de um
+  ambiente, tenta solucionar um determinado problema através de uma sequência de
+  ações. Cada ação resulta em uma recompensa, e é com base apenas no acúmulo
+  destas recompensas que o agente deve se guiar em busca da melhor solução para
+  o problema. Problemas de aprendizado por reforço exigem, portanto, que o
+  agente desenvolva uma solução capaz de encontrar a melhor ação a ser tomada
+  em um dado momento, a fim de maximizar o valor total das recompensas
+  recebidas.
 
-  Problemas de aprendizado por reforço exigem, portanto, que o agente desenvolva
-  uma solução capaz de encontrar a melhor ação a ser tomada em um dado momento,
-  a fim de maximizar o valor total das recompensas recebidas. Normalmente,
-  este processo é bastante trabalhoso (tratando-se tanto de custo computacional
-  quanto de tempo requerido), uma vez que ele envolve não só o refinamento da
-  melhor solução encontrada até o momento, como também a exploração de soluções
-  completamente novas dentro do espaço de soluções possíveis. Por isso, quando
-  métodos de aprendizado por reforço são aplicados em problemas onde é custoso
-  avaliar-se a qualidade de uma solução encontrada (como, por exemplo, em
-  um problema onde deve ser encontrada a melhor configuração para um braço
-  robótico que deve executar um determinado movimento), é usual o uso de
-  simuladores para, através da simulação do agente em um ambiente virtual,
-  direcionar o processo de aprendizado antes de aplicá-lo no problema real e,
-  deste modo, acelerar o processo de treinamento do agente.
-
-  %
-  % Métodos de aprendizado por reforço compreendem uma subárea da inteligência
-  % artificial que trata de problemas onde um agente, inserido dentro de um
-  % ambiente, aprende ao interagir com ele. Através de uma série de ações que
-  % modificam o ambiente e da leitura das modificações que foram causadas por ele,
-  % o agente busca resolver um problema pré-determinado, mas cuja solução não
-  % precisa obrigatoriamente ser conhecida de antemão. Diferentemente de outras
-  % áreas da inteligência artificial, portanto, nas quais o agente atualiza-se
-  % com base em uma solução ótima apresentada a ele, no aprendizado por reforço
-  % a qualidade da solução de um problema é representada por uma valor numérico
-  % chamado de "recompensa" e que representa soluções melhores através de recompensas
-  % mais altas.
-
-  % Posto que, em aprendizado por reforço, uma sequência de ações leva a uma
-  % determinada recompensa, um agente deve desenvolver uma solução para o problema
-  % proposto através de um processo que envolve não somente o refinamento da
-  % sequência de ações que levaram à melhor recompensa até o momento, mas também
-  % através de uma busca por ações completamente novas dentro do espaço de
-  % soluções possíveis. A resolução de um problema através de aprendizado por
-  % reforço, portanto, pode se tornar um processo lento e trabalhoso de busca por
-  % soluções novas e refinamento das soluções já conhecidas.
-  % Por isso, quando algoritmos de aprendizado por reforço são aplicados em
-  % tarefas onde a avaliação de uma solução possível é bastante cara
-  % (computacionalmente e em
-  % termos de tempo), tais como tarefas de robótica, é normal o uso de simuladores
-  %  para, através da simulação do robô em um ambiente virtual, direcionar o processo
-  % de aprendizado antes de aplicá-lo a um robô construído no mundo real e,
-  % deste modo, acelerar o processo de treinamento do agente.
-
-
-  Um simulador, portanto, nada mais é do que uma instância de um problema de
-  aprendfizado por reforço construído em um ambiente virtual, com o objetivo
-  de se acelerar o treinamento de um agente, que, de outra forma,
-  consumiria muito mais tempo. A construção de um simulador normalmente é
-  baseada na união de um motor de física, para simular as condições apresentadas
-  no ambiente, a uma interface gráfica, para a representação visual dos
-  diferentes objetos nele inseridos. Construir um simulador desde
-  a sua base, entretanto, nem sempre é uma tarefa simples, uma vez que é exigido
-  de quem o desenvolve que este seja versado em ambos os tipos de ferramentas.
-
+  Normalmente, o processo de busca por uma solução aceitável é bastante custoso,
+  pois o processo exige que o agente avalie inúmeras sequências possíveis de
+  ações, refinando sequências encontradas anteriormente e buscando outras
+  sequências, completamente novas. Para acelerar a avaliação de soluções
+  encontradas e, portanto, o treinamento do agente, é comum o emprego de
+  simuladores, que constroem virtualmente o ambiente e o agente nele inserido.
 
   Já existem diversos conjuntos de ferramentas (ou \textit{frameworks}) que
   permitem que sejam construídos simuladores com certo grau de fidelidade e que
@@ -279,60 +224,15 @@ custo associado à adoção de um \textit{framework} para construção de simula
   desta maneira, a troca de informações entre grupos de pesquisa que usam
   simuladores diferentes para modelar seus ambientes.
 
-  %
-  % Um simulador nada mais é, portanto, do que uma instância de um problema de
-  % aprendizado por reforço construído em um ambiente virtual, com o objetivo
-  % de se acelerar o processo de treinamento de um agente, que, de outra forma,
-  % consumiria muito mais tempo. Diversas ferramentas para a construção desses
-  % simuladores já existem, sendo a grande maioria dessas ferramentas (ou
-  % \textit{frameworks}) baseada na união de uma interface gráfica a um motor
-  % de física, visando a modelagem de objetos presentes no mundo real e da
-  % representação destes na tela. Há, entretanto, um custo associado à adoção
-  % da construção de um simulador em um projeto de inteligência artificial:
-  % normalmente, esse custo refere-se ao tempo necessário para que o responsável
-  % pelo projeto domine o \textit{framework} e consiga construir o cenário
-  % proposto pelo problema com certo grau de fidelidade. Ademais, percebe-se que
-  % ainda não há uma padronização entre o formato através do qual problemas de
-  % aprendizado por reforço são representados por estes simuladores, mitigando,
-  % desta maneira, a troca de informações entre pesquisadores que usam simuladores
-  % diferentes para modelar seus ambientes.
 
-
-  Recentemente, entretanto, foi publicado pela organização OpenAI um
-  conjunto de simuladores chamado Gym, que disponibiliza uma série de modelagens
-  de problemas conhecidos da literatura de inteligência artificial e que também
-  permite que tornem-se públicas as melhores soluções para tais problemas,
-  possibilitando que programadores disponibilizem não só seus algoritmos, como
-  relatórios com informações a respeito do andamento do aprendizado do agente,
-  o que pode ser considerado um enorme passo em direção à padronização da forma
-  com que problemas de aprendizado por reforço e suas respectivas soluções são
-  representados, fornecendo a pesquisadores e programadores uma ferramenta para
-  facilmente comparar um novo algoritmo proposto com outros já amplamente
-  conhecidos e testados.
-
-
-  A documentação do Gym a respeito dos cenários disponibilizados é bastante
-  ampla. Não há, todavia, nenhuma orientação a respeito da construção de
-  cenários que modelem problemas diferentes daqueles disponíveis em seu
-  catálogo. Tais ferramentas seriam úteis na construção de soluções para
-  problemas novos, uma vez que seria possível que soluções para problemas
-  conhecidos poderiam ser facilmente adaptadas aos novos problemas propostos.
-  Este trabalho propõe, portanto, um \textit{framework} para a criação de
-  cenários de aprendizado por reforço que possuam um formato compatível com a
-  API disponibilizada pelo Gym, a fim de facilitar a comparação de um
-  problema novo com soluções que já existam e a reprodutibilidade deste
-  problema, ao mesmo tempo em que seja uma ferramenta de fácil uso e que não
-  exija do programador um extenso estudo da sua documentação.
-
-
-  Neste trabalho, é descrito o processo de criação deste \textit{framework} e é
-  comparada a complexidade de código necessário para criar ambientes
-  de aprendizado por reforço através dele e de outros \textit{frameworks}
-  existentes, demonstrando não apenas que os simualdores automaticamente gerados
-  pelo nosso \textit{framework} são compatíveis com APIs padrão na área, mas
-  também que são de fácil especificação, permitindo que a construção de
-  simuladores seja feita através da especificação do problema em uma linguagem
-  descritiva de alto nível e de sintaxe relativamente simples.
+  Este trabalho descreve o processo de criação de um \textit{framework} de uso
+  simples e que produz cenários padronizados, compatíveis com a API do
+  \textit{Gym}, \textit{software} que vem sendo adotado como padrão no que diz
+  respeito a ferramentas de \textit{benchmark} de algoritmos de AR. Na
+  ferramenta proposta por este trabalho, cenários são descritos através de uma
+  linguagem de especificação de alto nível, permitindo que simulações de
+  problemas de AR sejam feitas através de maneira eficiente e que o resultado
+  produzido esteja de acordo com ferramentas amplamente utilizadas na área.
   %
   % \bruno{essas ultimas frases, aonde tu fala sobre a contribuicao propriamente dita, nao estao vendendo o peixe muito bem. Tem que cuidar pra dizer que tu nao vai apresentar aqui simuladores, nem criar um simulador. Tu ta discutindo frameworks para criacao de simuladores. Um simulador é uma instancia de ambiente/problema que se cria usando esses frameworks (o teu, ou o mujoco, etc). Nessas frases finais tu precisa apresentar a tua contribuicao parecido com aqueles pontos/itens que eu mandei num dos ultimos emails: falar que como é importante conseguir construir esses simuladores, pra acelerar o treinamento, foram propostas ao longo dos anos varias plataformas para automatizar a criacao das simulacoes. Elas normalmente se baseiam em alguma interface com um motor de fisica, etc etc. As existentes facilitam em parte essa tarefa, disponibilizando uma API especifica para que o programador especifique caracteristicas de alto-nivel do ambiente que ele quer simular, mas elas tem algmas limitacoes: as vezes a curva de aprendizado é acentuada, porque elas tentam ser plataformas pra criacao de ambientes super genericos e arbitrariamente complexos; e as simulacoes criadas por elas sao codificadas pelos frameworks existentes em codigo-fonte que nao permite a facil avaliacao de agentes de aprendizado já existentes naquele novo ambiente. Ai tem que ter uma frase bem clara e direta, tipo 'Nesse trabalho, iremos propor um framework para criacao de ambientes de aprendizado por reforco, o qual consiste em uma plataforma que recebe a descricao de alto nivel de um determinado ambiente (e.g., em termos das propriedades fisicas de um agente sendo simulado, do efeito fisico que suas acoes tem no ambiente, de caracteristicas gerais do cenario, tais como gravidade, etc), e que automaticamente gera codigo-fonte para implementar tal simulacao em um motor de fisica realistico. A facilitacao da criacao de cenarios desse tipo é importante para que pesquisadores possam rapidamente avaliar a performance de diferentes algoritmos de aprendizado por reforco sendo propostos. Ademais, nao apenas o framework proposto facilita essa tarefa, como tambem garante que as simulacoes criadas sejam compativeis com o sistema OpenAI Gym, o qual propoe uma API padronizada para especificacao de ambientes e de agentes de aprendizado por reforco. Isso significa que o framework sendo proposto garante que os simuladores sendo geradas poderao ser utilizados para avaliacao de quaisquer algoritmos de aprendizado por reforco ja existentes e disponibilizados na plataforma OpenAI Gym (dizer: atualmente essa API é um padrão bastante difundido e utilizado por pesquisadores na área; existem atualmente na ordem de X algoritmos compativeis com ela---ver no site quantos as pessoas fizeram upload dos seus algoritmos. Deve ter centenas). Essa caracteristica é importante pois não apenas permite a fácil avaliacao de um novo algoritmo de aprendizado por reforco sendo proposto (com as centenas de algoritmos ja existentes) em um novo ambiente de aprendizado, como tambem auxilia com o problema de reprodutibilidade de resultados de pesquisa, uma vez que quaisquer resultados de performance obtidos via um determinado agente/algoritmo nos ambientes propostos podem, posteriormente, ser facilmente recriados por outros pesquisadores, e tambem comparados de forma rapida e simples com algoritmos alternativos. Neste trabalho nós descrevemos o processo de criacao deste framework e comparamos a complexidade de código necessário para criar ambientes de aprendizado por reforco atraves dele, e atraves de frameworks existentes, demonstrando que nao apenas os simualdores automaticamente gerados pelo nosso framework sao (por construocao) compativeis com APIs padrão na área, mas tambem são de fácil especificacao, via uma linguagem de alto-nivel, o que facilita a criacao de ambientes para avaliacao e comparacao de difernetes algoritmos de aprendizado por reforco'. Ta, as frases que eu sugeri ai tao bem desorganizadas, mas essencialmente ta faltando no resumo um conjunto de frases que passe naqueles pntos principais que eu mencionei no email, e que digam CLARAMENTE qual a contribuicao e vantagens desse trabalho, em relacao aos frameworks para criacao de ambientes que ja existem}
 \end{abstract}
