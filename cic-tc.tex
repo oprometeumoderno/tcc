@@ -2396,6 +2396,9 @@ for (int32 i = 0; i < 60; ++i)
 }
 \end{minted}
 
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+
 Um exemplo de pesquisa que utiliza Box2D pode ser encontrada em \cite{Box2DExample}.
 Neste trabalho, um enxame de robôs, simulado no ambiente da ferramenta, deve
 aprender a resolver tarefas em conjunto.
@@ -2404,11 +2407,142 @@ aprender a resolver tarefas em conjunto.
 \blindtext
 
 \subsection{DART}
-\blindtext
+Voltado, assim como o \textit{MuJoCo}, para simulações envolvendo robótica,
+a ferramenta chamada \textit{DART} (de \textit{Dynamie Animation and Robotics
+Toolkit}) foi desenvolvida em 2012. Nos testes apresentados em [[1]], apresentou
+um comportamento regular, exceto no teste de fricção, onde os objetos simulados
+não se comportaram da maneira esperada.
+
+Em todos os cenários de teste, \textit{DART} apresentou o pior desempenho em
+todos eles, apresentando imprecisões grotescas no cenário que envolve fricção.
+Apesar de não possuir um desempenho excepcional, entretanto, \textit{DART} foi
+adotada como
+um dos motores de física que formam a base do simulador \textit{Gazebo}, voltado
+especialmente para a robótica. O simulador é capaz de importar arquivos que,
+utilizando uma sintaxe própria, definem robôs e criá-los no ambiente simulado de
+uma maneira relativamente simples. Mais sobre o \textit{Gazebo} na seção
+\ref{gazebo}.
+
+
 \subsection{Gazebo}
-\blindtext
+% [[1]] http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.304.8999&rep=rep1&type=pdf
+% [[2]] https://www.willowgarage.com/sites/default/files/icraoss09-ROS.pdf
+
+\textit{Gazebo} [[1]] é uma ferramenta voltada para a simulação de cenários envolvendo
+problemas de robótica. Dotada de uma interface gráfica que auxilia na criação
+de ambientes tridimensionais e dos robôs nele inseridos, \textit{Gazebo}
+facilita enormemente o trabalho de pesquisadores e desenvolvedores da área de
+robótica, uma vez que fornece meios de definir robôs e ambientes através de uma
+linguagem própria de marcação, o que não só simplifica o trabalho de
+desenvolvimento, mas também estimula o compartilhamento de diferentes modelos
+entre os membros da comunidade.
+
+
+\textit{Gazebo} é compatível com um sistema chamado \textit{ROS} [[2]] --- de
+\textit{Robot Operating System}, ou Sistema Operacional de Robôs, em tradução
+livre ---, que agrupa uma série de bibliotecas, ferramentas e convenções que
+visam não apenas simplificar a tarefa de desenvolver um robô, mas também de
+estabelecer normas e padrões a fim de que seja facilitada e estimulada a
+colaboração entre pesquisadores de diversas instituições. Assim como no
+\textit{software} fornecido pelo \textit{Gazebo}, \textit{ROS} também fornece
+uma linguagem própria de marcação pela qual é possível definir robôs e o espaço
+no qual eles estão inseridos. O formato também é compreendido pelo
+\textit{Gazebo}, simplificando o intercâmbio de informações entre os dois
+sistemas.
+
+
+Conforme descrito em [[1]], \textit{Gazebo} oferece um meio de integrar
+descrições textuais de alto nível de robôs e de ambientes com diferentes motores
+de física, incluindo \textit{Bullet Physics}, \textit{DART} e \textit{ODE}, com
+\textit{ODE} sendo o padrão, podendo ser facilmente substituído. Esta é a grande
+vantagem oferecida por \textit{Gazebo} àqueles que decidem adotar seu
+\textit{software}: é oferecido aos desenvolvedores e pesquisadores um ambiente
+rico e agnóstico quanto às ferramentas utilizadas, uma vez que vários sistemas
+amplamente usados são compatíveis com \textit{Gazebo}. Além disso, o
+\textit{software} não tem custo e seu código é aberto, o que sifnifica que ele
+pode ser alterado e qualquer pessoa pode contribuir com mudanças e adições nele.
+Isto possibilitou que florescesse uma comunidade bastante ativa de pessoas
+dispostas a contribuir com o projeto, desenvolvendo modelos de robôs e ambientes
+com o objetivo de compartilhá-los. Todo o material já produzido pela comunidade,
+aliado às ferramentas que o \textit{software} disponibiliza para a rápida
+criação de modelos e ambientes, é o que faz o \textit{Gazebo} ser o que é. Seu
+uso é tão simples que ele é utilizado até por alunos de graduação, inclusive
+na UFRGS.
+
 \subsection{MuJoCo}
-\blindtext
+% [1] https://ieeexplore.ieee.org/abstract/document/6386109
+% [2] controller optimization => https://arxiv.org/abs/1509.01066
+% [3] http://proceedings.mlr.press/v48/mniha16.pdf
+% [4] https://arxiv.org/pdf/1707.02286.pdf
+% [5] http://people.reed.edu/~jimfix/math385/lec01.1/Animation/p15-sims-evolving.pdf
+
+\label{mujoco}
+
+\begin{figure}[h]
+    \caption{Modelagem de robôs humanoides no ambiente do MuJoCo}
+    \begin{center}
+      \includegraphics[width=0.9\textwidth]{mujoco_humanoids.png}
+    \end{center}
+    \label{fig:humanoids_mujoco}
+\end{figure}
+
+MuJoCo [[1]] é um \textit{framework} surgido do rápido crescimento do ramo da
+robótica e da necessidade dos simuladores utilizados nesta área de acompanhar
+o acentuado desenvolvimento --- não apenas em termos de capacidade, como também
+tratando-se de complexidade --- deste domínio. O MuJoCo é voltado para o
+desenvolvimento de sistemas de controle para robôs, área fundamental da robótica
+que visa a automatização de tarefas antes realizadas por humanos ou por outros
+sistemas mais simples, porém menos robustos, como é o caso do trabalho
+desenvolvido em [[2]], que discursa sobre a modelagem e o refinamento de um
+sistema de controle de quadricópteros baseado em otimização Bayesiana.
+
+
+O MuJoCo é voltado, portanto, para otimização de sistemas de controle, o que
+consiste, basicamente, em construir diversas variações de um sistema e
+avaliá-las de acordo com um processo que pode ser baseado em inteligência
+artificial, com o uso de algoritmos genéticos ou de aprendizado por reforço, por
+exemplo. Apesar, entretanto, de ter por objetivo apresentar uma solução para
+sistemas de robótica, onde é interessante representar virtualmente sistemas
+compostos de diversas partes conectadas de modo relativamente complexo (como é
+o caso de braços robóticos) e de possuir uma performance significativamente
+melhor do que outras ferramentas da área (no que tange a acurácia da simulação),
+o que acarreta em um custo computacional maior, e de possuir certas deficiências
+no tocante à simulações que não são normalmente empregadas em problemas de
+robótica (MuJoCo é incapaz de reproduzir colisões elásticas, por exemplo),
+MuJoCo foi rapidamente
+adotado por pesquisadores da área do aprendizado por reforço profundo [[3]]
+(abordada brevemente na seção \ref{dqn}), onde algoritmos de aprendizado por
+reforço são combinados com redes neurais profundas.
+
+
+Isto deve-se à facilidade com que modelos podem ser construídos no ambiente
+virtual do MuJoCo, o que pode ser feito através de uma descrição de alto nível com
+base em um arquivo no formato XML ou de chamadas diretas a uma API que fornece
+ao desenolvedor as ferramentas necessárias para a definição de modelos. Dado o
+modo simples através do qual objetos podem ser construídos em seu ambiente, é
+natural que este \textit{framework} tenha se tornado uma peça importante no
+estudo de algoritmos de inteligência artificial quando aplicados em simulações,
+mesmo que sua performance em alguns dos cenários apresentados em [[1]] seja
+baixa.
+Em especial, pode ser citado o caso da DeepMind [[4]], que desenvolveu uma
+extensa pesquisa envolvendo as diferentes maneiras com as quais robôs humanóides
+(figura \ref{fig:humanoids_mujoco}) aprendem a se locomover de acordo com a
+maneira através da qual a noção de recompensa é representada.
+
+
+Devido, entretanto, ao seu alto grau de especificidade (o MuJoCo foi feito
+especialmente para atender às demandas do ramo da robótica, onde motores de
+simulações físicas voltados para jogos não são acurados o suficiente --- há
+casos, por exemplo, onde a simulação aprende a explorar falhas do motor de
+física, que não condizem com a realidade [[5]]), há casos onde o
+\textit{framework} pode ser considerado complexo demais, não só pela sua
+extensa documentação sobre as funções da sua API para criação de corpos e
+conectores, como também pelo seu conjunto de algoritmos de cálculos físicos, que
+fornecem uma lista bastante abrangente de informações sobre os corpos
+representados na simulação. Além do mais, há a questão do custo: o MuJoCo não
+é um \textit{software} livre, sendo oferecido de graça apenas para integrantes
+da comunidade científica. Para os demais, sua licença é oferecida a preços que
+variam de quinhentos a dois mil dólares.
 
 \section{Simuladores com interface para Aprendizado de máquina}
 \blindtext
@@ -2664,96 +2798,6 @@ robôs formados por múltiplos corpos interconectados:
   \item \textit{ANYmal energy test}: teste de energia de um robô articulado;
 \end{itemize}
 
-
-
-\subsubsection{ODE}
-A \textit{Open Dynamics Engine} (ou apenas ODE) é uma ferramenta de simulações
-físicas de propósitos gerais. Feita para simular propriedades físicas de corpos
-rígidos articulados, este motor de física é ideal para simulações que possam
-envolver veículos ou criaturas bípedes, por exemplo. Com uma extensa biblioteca
-capaz de gerar representações para os mais variados tipos de corpos
-tridimensionais, a ODE vem sendo mantida há mais de dez anos, contando com uma
-comunidade bastante ativa de desenvolvedores.
-
-\begin{figure}
-    \caption{Captura de tela do jogo \textit{Call of Juarez}}
-    \begin{center}
-      \includegraphics[width=0.65\textwidth]{call_of_juarez.png}
-    \end{center}
-    \label{fig:call_of_juarez}
-\end{figure}
-
-
-Sendo um motor de física que é relativamente simples, a \textit{Open Dynamics
-Engine} é normalmente utilizada em simulações onde um alto grau de acurácia não
-é requerido e onde não é necessário que modelos muito complexos (onde uma única
-construção é feito de diversos pequenos corpos interligados por um elevado
-número de conexões), como alguns modelos recorrentes na robótica, sejam
-representados. Por isso, uma das aplicações deste motor de física é o
-desenvolvimento de jogos, já tendo sido largamente utilizado para este fim
-(figura \ref{fig:call_of_juarez}). Na avaliação desenvolvida em [[2]], a ODE se
-destaca nos cenários que lidam com a representação de diversos objetos formados
-por um único corpo, como é o caso em jogos eletrônicos. Ainda
-assim, entretanto, a ODE, em termos gerais, não possui a mesma performance de
-outros \textit{frameworks} como o MuJoCo, ficando aquém destes na grande maioria
-dos testes realizados. Parte desta discrepância se deve em partes ao fato de
-que a ODE, sendo uma ferramenta mais antiga, não se aproveita de todos os
-recursos relativos a processamento paralelo disponíveis atualmente. Além disso,
-o método utilizado pela ODE para o cálculo das forças resultantes é impreciso,
-o que impõe que o o tempo da simulação seja discretizado em intervalos menores,
-fazendo com que um mesmo intervalo de tempo de simulação exija mais iterações
-na ODE do que em outros simuladores.
-
-
-\subsubsection{Bullet Physics}
-% [[1]] https://bulletphysics.org
-% [[2]] https://xbpeng.github.io/projects/DeepMimic/2018_TOG_DeepMimic.pdf
-% [[3]] https://arxiv.org/pdf/1903.11239.pdf
-% [[4]] https://xbpeng.github.io/projects/DeepMimic/index.html
-
-
-Lançado em 2006, o motor de física chamado \textit{Bullet Physics} tinha como
-propósito principal ser usado para jogos eletrônicos, tendo também sido usada
-na criação de efeitos especiais em filmes. Quanto a sua performance, a
-ferramenta apresenta um comportamento parecido com a \textit{ODE}, com a
-diferença de que a \textit{Bullet} apresenta um grau de sofisticação maior em
-simulações que devem levar forças de fricção em consideração, executando as
-simulações relacionadas a esta força de maneira eficiente e acurada. Assim como
-a \textit{ODE}, a biblioteca \textit{Bullet} apresenta um desempenho melhor
-quando o objeto representado é representado por apenas um corpo, formado por uma
-das primitivas (i.e. unidades básicas de construção) da ferramenta, enquanto o
-\textit{MuJoCo}, por exemplo, se comporta melhor quando a simulação envolve
-corpos complexos.
-
-\begin{figure}[h]
-    \caption{TossingBot}
-    \begin{center}
-      \includegraphics[width=0.9\textwidth]{tossingbot.jpg}
-    \end{center}
-    \label{fig:tossingbot}
-\end{figure}
-
-
-Dois trabalhos construídos com a ajuda da \textit{Bullet Physics} merecem
-atenção: em um deles, um robô formado por um braço e um par de pinças, com uma
-caixa cheia de objetos disposta à sua frente, deve inferir, a partir de
-informações visuais, como pegar objetos de dentro da caixa e arremessá-los em
-uma outra caixa, disposta um pouco mais distante (figura \ref{fig:tossingbot}).
-O treinamento do robô, chamado de \textit{TossingBot} [[3]], envolveu uma simulação
-utilizando-se da \textit{Bullet Physics}. É importante notar a natureza da
-simulação, que envolveu uma série de corpos (no caso, os objetos da caixa) sem
-nenhum tipo de conexão entre si, cenário para o qual este motor de física é
-recomendado. Em outro trabalho [[4]], um agente deve analisar imagens de atores,
-captadas por câmeras ou por ferramentas de \textit{motion capture}, e fazer com
-que um robô, simulado em um ambiente que usa a biblioteca \textit{Bullet},
-imite os movimentos ou desenvolva variações deles.
-
-\textit{Bullet} apresentou boa performance nos cenários de teste apresentados
-em [[1]] e, além disso, conta com diversas bibliotecas que a integram a várias
-linguagens de programação, como \textit{Python}, por exemplo. Esta combinação de
-praticidade e boa performance é, provavelmente, um dos motivos que fez com que
-os desenvolvedores do simulador \textit{Gazebo} tenham adotado \textit{Bullet}
-como um dos motores de física que compõem a base das simulações da ferramenta.
 
 \subsubsection{DART}
 Voltado, assim como o \textit{MuJoCo}, para simulações envolvendo robótica,
