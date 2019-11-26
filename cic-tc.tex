@@ -1,4 +1,4 @@
-%
+ %
 % exemplo genérico de uso da classe iiufrgs.cls
 % $Id: iiufrgs.tex,v 1.1.1.1 2005/01/18 23:54:42 avila Exp $
 %
@@ -2091,40 +2091,47 @@ física são essenciais para garantir a verossimilhança de uma simulação de u
 problema de robótica ou de um jogo, por exemplo.
 
 
-Robôs interagem com o mundo ao seu redor através do contato físico com o
-ambiente que os cerca. É primordial, portanto, para o treinamento de um robô,
-que existam ferramentas capazes
-de reconstruir, em um ambiente virtual e controlado, não apenas seu aspecto
-físico (i.e. as diferentes partes que o constituem) e do ambiente no qual ele
-está inserido, mas também de simular, tão próximo quanto possível --- ou
-desejado --- da realidade, as forças envolvidas na interação do robô com o
-ambiente. Para isso, um simulador deve definir os corpos no espaço e calcular
-as forças resultantes do contato entre eles, o que é um problema computacionalmente
-custoso.
-É possível, porém, tornar o problema tratável através da sua aproximação
-utilizando-se de métodos de programação linear. Diferentes métodos possuem
-diferentes abordagens: alguns, mais precisos, requerem mais recursos
-computacionais, enquanto outros sacrificam parte da precisão de seus resultados
-em troca de soluções mais rápidas. Felizmente, nenhum destes métodos precisa ser
-implementado do zero, uma vez que existem diversos motores de física que
-resolvem este tipo de problema. Alguns, normalmente utilizados em jogos
-eletrônicos, utilizam métodos mais simples para o cálculo das forças
-físicas resultantes do contato, uma vez que, pelo menos nos jogos, a precisão
-dos contatos simulados é menos importante do que o número de quadros processados
-por segundo. Outros, por sua vez, utilizados em aplicações industriais --- onde
-normalmente o objetivo são simulações com o máximo de precisão ---, utilizam
-técnicas que consomem mais processamento, mas que entregam um resultado mais
-fidedigno.
+Robôs executam tarefas através do contato físico com o ambiente que os cerca. É
+primordial, portanto, para o desenvolvimento do \textit{software} que compõe o
+robô, que existam ferramentas capazes de reconstruir, com elevado grau de
+precisão, em um ambiente virtual e controlado, os aspectos físicos de todos os
+elementos que podem estar à sua volta.Para isso, um simulador deve definir os
+corpos no espaço e calcular as forças resultantes do contato entre eles, o que é
+um problema custoso do ponto de vista computacional.
 
 
-É natural que queira-se um simulador que apresente simulações altamente
-fidedignas no menor tempo possível. O que acontece normalmente, entretanto, é
-uma espécie de \textit{trade-off} entre estas duas qualidades: quando simulações
-precisam ser fiéis, o que consome mais recursos computacionais, os resultados
-demoram para ser entregues, o que faz com que as simulações sejam mais
-vagarosas. Por outro lado, quando é desejável que os resultados sejam entregues
-rapidamente, simulações mais simples são conduzidas, abrindo-se mão de parte da
-qalidade dos resultados.
+A ideia por trás de um motor de física é simples: define-se um intervalo de
+tempo $\delta$ e, para um instante de tempo $t$, todas as interações entre os
+objetos representados e as resultantes das forças neles aplicadas são
+calculadas, e o resultado destes cálculos são as posições dos objetos e as
+forças que sobre eles atuam no instante de tempo $t+\delta$. Imprecisões são
+proporcionais a $\delta$, ou seja, um simulador de física só é completamente
+preciso se o intervalo $\delta$ é infinitamente pequeno.
+
+
+Em um mundo ideal, simulações feitas por um motor de física teriam ao mesmo
+tempo um custo computacional pequeno e uma precisão próxima da realidade. O que
+acontece, entretanto, é uma espécie de \textit{trade-off} entre a precisão da
+simulação e o tempo necessário para sua execução: em aplicações onde o mais
+importante é a velocidade da simulação, como em jogos eletrônicos --- onde o
+$\delta$ é normalmente $\frac{1}{60}s$ --- o sistema pode abrir mão da precisão.
+Em simulações utilizadas na robótica, por outro lado, a precisão é muito mais
+importante, uma vez que a simulação pode anteceder um experimento feito no
+mundo real e imprecisões no motor de física podem levar a resultados
+completamente divergentes da realidade. Conforme apontado em \cite{Sims1994},
+imprecisões em simulações serão invariavelmente exploradas por algoritmos de
+otimização.
+
+
+Todas estas nuances devem ser levadas em consideração na hora de se escolher ou
+desenvolver um motor de física, o que torna complicada a tarefa de decidir qual
+será a ferramenta utilizada para a simulação que se deseja desenvolver.
+Desenvolver um motor de física próprio, entretanto, é uma tarefa ainda mais
+complexa. O mero cálculo de forças que atuam sobre corpos unidos por juntas, por
+exemplo, pode requerer o uso de diversas fórmulas \cite{ODEJoints2002}. Para
+aqueles que desejam desenvolver aplicações de aprendizado por reforço, portanto,
+surge a necessidade de se estudar diferentes ferramentas de física, o que pode
+consumir bastante tempo.
 
 
 Há vários motores de física disponíveis, alguns com custo e outros sob licenças
@@ -2133,28 +2140,60 @@ aplicações de aprendizado por reforço onde eles são empregados, são apresen
 a seguir. Alguns dos motores apresentados fornecem simulações
 robustas, porém mais lentas; outros, por sua vez, por serem voltados à
 aplicações visuais, realizam as simulações mais rapidamente, mas com perda de
-precisão.
+precisão. Foram trazidos para este trabalho três motores de física bastante
+conhecidos, sendo dois deles tridimensionais e um bidimensional. Além disso,
+este trabalho descreve também um estudo \cite{LeggedRobotics2018}, que compara não
+só os dois motores de física tridimensionais apresentados nesta seção, como dois
+outros simuladores de propósito mais específico, apresentados na seção seguinte.
 
 
-\blindtext
+O trabalho desenvolvido em \cite{LeggedRobotics2018} apresenta um estudo
+comparativo entre diversos motores de física onde cada um dos cenários de teste
+verifica o comportamento de uma característica diferente das  simulações. São
+sete cenários de teste ao todo:
+
+
+\begin{itemize}
+  \item \textit{Rolling test}: teste de modelos de fricção. Testa a capacidade
+  dos motores de simular forças de atrito corretamente;
+  \item \textit{Bouncing test}: nesta simulação um objeto esférico cai no chão.
+  Testa a capacidade dos motores de simular forças de colisão elástica;
+  \item \textit{666 balls test}: uma perturbação é inserida em uma pilha de
+  tamanho $6 \times 6 \times 6$ de objetos esféricos. Testa a capacidade dos
+  motores de lidar com colisões sólidas envolvendo múltiplos corpos;
+  \item \textit{Elastic 666 balls test}: mesma situação que o cenário anterior,
+  porém com colisões elásticas;
+  \item \textit{ANYmal PD control test}: neste cenário, um robô quadrúpede
+  \cite{ANYmal} deve permanecer em pé. O cenário testa a precisão da
+  representação das juntas e a escalabilidade do motor, uma vez que o teste é
+  repetido várias vezes para um número crescente de robôs;
+  \item \textit{ANYmal momentum test}: neste cenário, um objeto esférico colide
+  com o robô. É testada a capacidade do motor de representar as juntas
+  corretamente durante e após o momento da colisão;
+  \item \textit{ANYmal energy test}: neste cenário, o robô é objeto de uma força
+  que o impulsiona para cima. O cenário testa a capacidade do motor de
+  representar as juntas do robô corretamente durante a queda e no instante que
+  ele colide com o chão.
+
+\end{itemize}
+
 
 \subsubsection{ODE}
-A \textit{Open Dynamics Engine} (ou apenas ODE) é uma ferramenta de simulações
+Sendo uma ferramenta de simulações físicas de propósitos gerais, a
+\textit{Open Dynamics Engine} \cite{ODE} foi feita para simular propriedades
+físicas de corpos articulados.
+
+Este motor é ideal para simulações que possam
+envolver veículos ou criaturas bípedes, por exemplo. Com uma extensa biblioteca
+capas de gerar representações para os mais va
+
+A \textit{Open Dynamics Engine} \cite{ODE} é uma ferramenta de simulações
 físicas de propósitos gerais. Feita para simular propriedades físicas de corpos
 rígidos articulados, este motor de física é ideal para simulações que possam
 envolver veículos ou criaturas bípedes, por exemplo. Com uma extensa biblioteca
 capaz de gerar representações para os mais variados tipos de corpos
-tridimensionais, a ODE vem sendo mantida há mais de dez anos, contando com uma
+tridimensionais, a ODE vem sendo mantida há mais de uma década, contando com uma
 comunidade bastante ativa de desenvolvedores.
-
-\begin{figure}
-    \caption{Captura de tela do jogo \textit{Call of Juarez}}
-    \begin{center}
-      \includegraphics[width=0.65\textwidth]{call_of_juarez.png}
-    \end{center}
-    \label{fig:call_of_juarez}
-\end{figure}
-
 
 Sendo um motor de física que é relativamente simples, a \textit{Open Dynamics
 Engine} é normalmente utilizada em simulações onde um alto grau de acurácia não
@@ -2162,8 +2201,8 @@ Engine} é normalmente utilizada em simulações onde um alto grau de acurácia 
 construção é feito de diversos pequenos corpos interligados por um elevado
 número de conexões), como alguns modelos recorrentes na robótica, sejam
 representados. Por isso, uma das aplicações deste motor de física é o
-desenvolvimento de jogos, já tendo sido largamente utilizado para este fim
-(figura \ref{fig:call_of_juarez}). Na avaliação desenvolvida em [[2]], a ODE se
+desenvolvimento de jogos, já tendo sido largamente utilizado para este fim.
+Na avaliação desenvolvida em \cite{LeggedRobotics}, a ODE se
 destaca nos cenários que lidam com a representação de diversos objetos formados
 por um único corpo, como é o caso em jogos eletrônicos. Ainda
 assim, entretanto, a ODE, em termos gerais, não possui a mesma performance de
@@ -2171,10 +2210,11 @@ outros \textit{frameworks} como o MuJoCo, ficando aquém destes na grande maiori
 dos testes realizados. Parte desta discrepância se deve em partes ao fato de
 que a ODE, sendo uma ferramenta mais antiga, não se aproveita de todos os
 recursos relativos a processamento paralelo disponíveis atualmente. Além disso,
-o método utilizado pela ODE para o cálculo das forças resultantes é impreciso,
+o método utilizado pela ODE para o cálculo das forças resultantes \cite{LCP1971} é impreciso,
 o que impõe que o o tempo da simulação seja discretizado em intervalos menores,
 fazendo com que um mesmo intervalo de tempo de simulação exija mais iterações
 na ODE do que em outros simuladores.
+
 
 
 \subsubsection{Bullet Physics}
@@ -2184,7 +2224,7 @@ na ODE do que em outros simuladores.
 % [[4]] https://xbpeng.github.io/projects/DeepMimic/index.html
 
 
-Lançado em 2006, o motor de física chamado \textit{Bullet Physics} tinha como
+Lançado em 2006, o motor de física \textit{Bullet Physics} tinha como
 propósito principal ser usado para jogos eletrônicos, tendo também sido usada
 na criação de efeitos especiais em filmes. Quanto a sua performance, a
 ferramenta apresenta um comportamento parecido com a \textit{ODE}, com a
@@ -2226,6 +2266,10 @@ linguagens de programação, como \textit{Python}, por exemplo. Esta combinaçã
 praticidade e boa performance é, provavelmente, um dos motivos que fez com que
 os desenvolvedores do simulador \textit{Gazebo} tenham adotado \textit{Bullet}
 como um dos motores de física que compõem a base das simulações da ferramenta.
+
+
+\subsubsection{Box2D}
+\blindtext
 
 \subsubsection{DART}
 Voltado, assim como o \textit{MuJoCo}, para simulações envolvendo robótica,
