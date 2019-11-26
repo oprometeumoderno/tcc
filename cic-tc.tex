@@ -2095,12 +2095,14 @@ Robôs executam tarefas através do contato físico com o ambiente que os cerca.
 primordial, portanto, para o desenvolvimento do \textit{software} que compõe o
 robô, que existam ferramentas capazes de reconstruir, com elevado grau de
 precisão, em um ambiente virtual e controlado, os aspectos físicos de todos os
-elementos que podem estar à sua volta.Para isso, um simulador deve definir os
+elementos que podem estar à sua volta. Para isso, um simulador deve definir os
 corpos no espaço e calcular as forças resultantes do contato entre eles, o que é
-um problema custoso do ponto de vista computacional.
+um problema NP-difícil \cite{Kaufman2008}. Para tratar o problema, motores de
+física utilizam de versões relaxadas do problema, permitindo que este seja
+tratado por métodos de solução que envolvem programação linear.
 
 
-A ideia por trás de um motor de física é simples: define-se um intervalo de
+A ideia por trás de um motor de física é simples:  define-se um intervalo de
 tempo $\delta$ e, para um instante de tempo $t$, todas as interações entre os
 objetos representados e as resultantes das forças neles aplicadas são
 calculadas, e o resultado destes cálculos são as posições dos objetos e as
@@ -2178,44 +2180,136 @@ sete cenários de teste ao todo:
 \end{itemize}
 
 
-\subsubsection{ODE}
+\subsubsection{Open Dynamics Engine}
+
 Sendo uma ferramenta de simulações físicas de propósitos gerais, a
 \textit{Open Dynamics Engine} \cite{ODE} foi feita para simular propriedades
-físicas de corpos articulados.
-
-Este motor é ideal para simulações que possam
+físicas de corpos articulados. Este motor é ideal para simulações que possam
 envolver veículos ou criaturas bípedes, por exemplo. Com uma extensa biblioteca
-capas de gerar representações para os mais va
+capas de gerar fidedignas dos mais variados corpos tridimensionais e de junções
+que os conectam, a ODE vem sendo mantida por mais de uma década, contando com
+uma comunidade bastante ativa de desenvolvedores. Entretanto, justamente por
+ser um motor de física relativamente antigo, a \text{ODE} acaba por não se
+beneficiar de tecnologias mais recentes, como paralelismo, por exemplo. Há
+registros de tentativas de expansão da ferramenta para adicionar o suporte a
+processamento paralelo, mas a tarefa se provou desafiadora \cite{ODEParallel}.
 
-A \textit{Open Dynamics Engine} \cite{ODE} é uma ferramenta de simulações
-físicas de propósitos gerais. Feita para simular propriedades físicas de corpos
-rígidos articulados, este motor de física é ideal para simulações que possam
-envolver veículos ou criaturas bípedes, por exemplo. Com uma extensa biblioteca
-capaz de gerar representações para os mais variados tipos de corpos
-tridimensionais, a ODE vem sendo mantida há mais de uma década, contando com uma
-comunidade bastante ativa de desenvolvedores.
-
-Sendo um motor de física que é relativamente simples, a \textit{Open Dynamics
-Engine} é normalmente utilizada em simulações onde um alto grau de acurácia não
-é requerido e onde não é necessário que modelos muito complexos (onde uma única
-construção é feito de diversos pequenos corpos interligados por um elevado
-número de conexões), como alguns modelos recorrentes na robótica, sejam
-representados. Por isso, uma das aplicações deste motor de física é o
-desenvolvimento de jogos, já tendo sido largamente utilizado para este fim.
-Na avaliação desenvolvida em \cite{LeggedRobotics}, a ODE se
-destaca nos cenários que lidam com a representação de diversos objetos formados
-por um único corpo, como é o caso em jogos eletrônicos. Ainda
-assim, entretanto, a ODE, em termos gerais, não possui a mesma performance de
-outros \textit{frameworks} como o MuJoCo, ficando aquém destes na grande maioria
-dos testes realizados. Parte desta discrepância se deve em partes ao fato de
-que a ODE, sendo uma ferramenta mais antiga, não se aproveita de todos os
-recursos relativos a processamento paralelo disponíveis atualmente. Além disso,
-o método utilizado pela ODE para o cálculo das forças resultantes \cite{LCP1971} é impreciso,
-o que impõe que o o tempo da simulação seja discretizado em intervalos menores,
-fazendo com que um mesmo intervalo de tempo de simulação exija mais iterações
-na ODE do que em outros simuladores.
+Na avaliação conduzida em \cite{LeggedRobotics2018} a \textit{ODE} se destaca no
+cenário \textit{ANYmal momentum test}, saindo-se ligeiramente melhor, no que se
+refere à acurácia da simulação (neste cenário, o erro é representado pela
+diferença quadrática entre a quantidade de energia que deveria haver no sistema
+em uma simulação ideal e a quantidade de energia presente no sistema simulado,
+medido em $(N \cdot m/s)^2$). Deve ser observado, entretanto, que, mesmo no
+cenário de teste em que a \textit{Open Dynamics Engine} apresentou simulações de
+qualidade, o tempo utilizado pelo motor para computar as simulações é muito
+maior do que o tempo usado nos outros motores, o que se deve pelo fato da
+\textit{ODE} ser um sistema antigo, e que portanto não se beneficia de
+ferramentas de paralelização fornecidas por processadores recentes.
 
 
+Ainda assim, a \textit{ODE} é amplamente utilizada em jogos, talvez pelo fato de
+ser um sistema de código aberto, licenciado sob a BSD e a LGPL, e também em
+razão do sistema ter sido portado para diversas linguagens de programação
+diferentes. Abaixo, um exemplo de código que utiliza a versão em \textit{Python}
+da \textit{ODE} para, juntamente com a biblioteca \textit{Pygame}, desenhar um
+pêndulo.
+
+\begin{longlisting}
+\begin{minted}{python}
+# pyODE example 2: Connecting bodies with joints
+
+import pygame
+from pygame.locals import *
+import ode
+
+
+def coord(x,y):
+    "Convert world coordinates to pixel coordinates."
+    return 320+170*x, 400-170*y
+
+
+# Initialize pygame
+pygame.init()
+
+# Open a display
+srf = pygame.display.set_mode((640,480))
+
+# Create a world object
+world = ode.World()
+world.setGravity((0,-9.81,0))
+
+# Create two bodies
+body1 = ode.Body(world)
+M = ode.Mass()
+M.setSphere(2500, 0.05)
+body1.setMass(M)
+body1.setPosition((1,2,0))
+
+body2 = ode.Body(world)
+M = ode.Mass()
+M.setSphere(2500, 0.05)
+body2.setMass(M)
+body2.setPosition((2,2,0))
+
+# Connect body1 with the static environment
+j1 = ode.BallJoint(world)
+j1.attach(body1, ode.environment)
+j1.setAnchor( (0,2,0) )
+
+# Connect body2 with body1
+j2 = ode.BallJoint(world)
+j2.attach(body1, body2)
+j2.setAnchor( (1,2,0) )
+
+
+# Simulation loop...
+fps = 50
+dt = 1.0/fps
+loopFlag = True
+clk = pygame.time.Clock()
+
+while loopFlag:
+    events = pygame.event.get()
+    for e in events:
+        if e.type==QUIT:
+            loopFlag=False
+        if e.type==KEYDOWN:
+            loopFlag=False
+
+    # Clear the screen
+    srf.fill((255,255,255))
+
+    # Draw the two bodies
+    x1,y1,z1 = body1.getPosition()
+    x2,y2,z2 = body2.getPosition()
+    pygame.draw.circle(srf, (55,0,200),\
+      coord(x1,y1), 20, 0)
+    pygame.draw.line(srf, (55,0,200),\
+      coord(0,2), coord(x1,y1), 2)
+    pygame.draw.circle(srf, (55,0,200),\
+      coord(x2,y2), 20, 0)
+    pygame.draw.line(srf, (55,0,200),\
+      coord(x1,y1), coord(x2,y2), 2)
+
+    pygame.display.flip()
+
+    # Next simulation step
+    world.step(dt)
+
+    # Try to keep the specified framerate
+    clk.tick(fps)
+\end{minted}
+\caption[]{Exemplo de uma simulação que usa a Open Dynamics Engine.}
+\label{ode_example}
+\end{longlisting}
+
+% daqui http://pyode.sourceforge.net/tutorials/tutorial2.html
+
+É necessário observar no código acima que as chamadas da função que atualiza as
+propriedades físicas de cada objeto depois de um intervalo $dt$ e da função que
+desenha os objetos criados não é automática, sendo de responsabilidade do
+programador. No capítulo seguinte deste trabalho, será exposto como a ferramenta
+proposta tenta simplificar estas tarefas.
 
 \subsubsection{Bullet Physics}
 % [[1]] https://bulletphysics.org
@@ -2224,14 +2318,15 @@ na ODE do que em outros simuladores.
 % [[4]] https://xbpeng.github.io/projects/DeepMimic/index.html
 
 
-Lançado em 2006, o motor de física \textit{Bullet Physics} tinha como
-propósito principal ser usado para jogos eletrônicos, tendo também sido usada
-na criação de efeitos especiais em filmes. Quanto a sua performance, a
+O motor de física \textit{Bullet Physics} \cite{BulletPhysics} tinha como
+propósito principal ser usado para jogos eletrônicos, tendo também sido usado
+na criação de efeitos especiais em filmes. Quanto à sua performance, a
 ferramenta apresenta um comportamento parecido com a \textit{ODE}, com a
 diferença de que a \textit{Bullet} apresenta um grau de sofisticação maior em
 simulações que devem levar forças de fricção em consideração, executando as
-simulações relacionadas a esta força de maneira eficiente e acurada. Assim como
-a \textit{ODE}, a biblioteca \textit{Bullet} apresenta um desempenho melhor
+simulações relacionadas a esta força de maneira eficiente e acurada e, portanto,
+apresentando um desempenho melhor nos cenários relacionados em \cite{LeggedRobotics2018}.
+Assim como a \textit{ODE}, a biblioteca \textit{Bullet} apresenta um desempenho melhor
 quando o objeto representado é representado por apenas um corpo, formado por uma
 das primitivas (i.e. unidades básicas de construção) da ferramenta, enquanto o
 \textit{MuJoCo}, por exemplo, se comporta melhor quando a simulação envolve
@@ -2251,17 +2346,17 @@ atenção: em um deles, um robô formado por um braço e um par de pinças, com 
 caixa cheia de objetos disposta à sua frente, deve inferir, a partir de
 informações visuais, como pegar objetos de dentro da caixa e arremessá-los em
 uma outra caixa, disposta um pouco mais distante (figura \ref{fig:tossingbot}).
-O treinamento do robô, chamado de \textit{TossingBot} [[3]], envolveu uma simulação
+O treinamento do robô, chamado de \textit{TossingBot} \cite{TossingBot2019}, envolveu uma simulação
 utilizando-se da \textit{Bullet Physics}. É importante notar a natureza da
 simulação, que envolveu uma série de corpos (no caso, os objetos da caixa) sem
 nenhum tipo de conexão entre si, cenário para o qual este motor de física é
-recomendado. Em outro trabalho [[4]], um agente deve analisar imagens de atores,
+recomendado. Em outro trabalho \cite{DeepMimic}, um agente deve analisar imagens de atores,
 captadas por câmeras ou por ferramentas de \textit{motion capture}, e fazer com
 que um robô, simulado em um ambiente que usa a biblioteca \textit{Bullet},
 imite os movimentos ou desenvolva variações deles.
 
 \textit{Bullet} apresentou boa performance nos cenários de teste apresentados
-em [[1]] e, além disso, conta com diversas bibliotecas que a integram a várias
+em \cite{LeggedRobotics2018} e, além disso, conta com diversas bibliotecas que a integram a várias
 linguagens de programação, como \textit{Python}, por exemplo. Esta combinação de
 praticidade e boa performance é, provavelmente, um dos motivos que fez com que
 os desenvolvedores do simulador \textit{Gazebo} tenham adotado \textit{Bullet}
@@ -2269,8 +2364,59 @@ como um dos motores de física que compõem a base das simulações da ferrament
 
 
 \subsubsection{Box2D}
+
+% http://eprints.lincoln.ac.uk/28089/1/LearningToAssembleObjectsWithARobotSwarm.pdf
+
+Há situações em que um motor de física tridimensional é desnecessário. Em jogos
+eletrônicos, por exemplo, quando, por uma opção de \textit{design}, o jogo é
+desenvolvido em um ambiente bidimensional, não há a necessidade de usar motores
+que usem mais do que duas dimensões para representar seus objetos. O grau de
+complexidade de motores bidimensionais, entretanto, é praticamente o mesmo de
+motores de três dimensões, uma vez que o problema de simular interações físicas
+em ambientes bidimensionais também deve ser tratado de maneira aproximada,
+fazendo com que motores do tipo apresentem o mesmo \textit{trade-off} entre
+custo computacional e acurácia.
+
+
+De todos os motores bidimensionais, talvez o mais conhecido seja o \textit{Box2D}
+\cite{Box2d}. Criado para o desenvolvimento de jogos, a ferramenta possui
+versões para diversas linguagens de programação diferentes. O trecho de código
+a seguir visa evidenciar as semelhanças entre um programa que utiliza Box2D e o
+código-fonte \ref{ode_example}, que utiliza Open Dynamics Engine. Em ambos, o
+a função que atualiza as propriedades físicas de cada objeto deve ser chamada
+e um instante de tempo deve ser fornecido.
+
+\begin{minted}{c++}
+for (int32 i = 0; i < 60; ++i)
+{
+ world.Step(timeStep, velocityIterations, positionIterations);
+ b2Vec2 position = body->GetPosition();
+ float32 angle = body->GetAngle();
+ printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
+}
+\end{minted}
+
+Um exemplo de pesquisa que utiliza Box2D pode ser encontrada em \cite{Box2DExample}.
+Neste trabalho, um enxame de robôs, simulado no ambiente da ferramenta, deve
+aprender a resolver tarefas em conjunto.
+
+\section{Simuladores de propósito específico}
 \blindtext
 
+\subsection{DART}
+\blindtext
+\subsection{Gazebo}
+\blindtext
+\subsection{MuJoCo}
+\blindtext
+
+\section{Simuladores com interface para Aprendizado de máquina}
+\blindtext
+\subsection{Unity-ML}
+\subsection{Gym}
+\subsubsection{ALE}
+\subsubsection{VizDoom}
+\subsubsection{Arquitetura do Gym}
 \subsubsection{DART}
 Voltado, assim como o \textit{MuJoCo}, para simulações envolvendo robótica,
 a ferramenta chamada \textit{DART} (de \textit{Dynamie Animation and Robotics
