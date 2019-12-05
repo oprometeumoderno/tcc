@@ -2868,6 +2868,7 @@ exemplo de listagem das melhores soluções para um problema da coleção do
 
 
 \section{Implementação do Gym}
+\label{sec:gym_implementation}
 
 Além de atacar o problema resultante da dificuldade em compartilhar-se
 resultados de um experimento, o \textit{Gym} propõe uma espécie de padronização
@@ -3048,8 +3049,212 @@ Um cenário pertencente ao \textit{Gym} segue a estrutura de um pacote
 em sua estrutura, ela é ligeiramente mais complexa do que a apresentada na
 figura \ref{fig:python_package}. Caso queiramos, portanto, definir um cenário
 chamado \textit{rl\_problem} que contenha duas versões, \texttt{rl\_problem-v0}
-e \texttt{rl\_problem\_hard-v0}, 
+e \texttt{rl\_problem\_hard-v0},
 
+
+
+\chapter{Barbell}
+
+Conforme desenvolvido nos capítulos anteriores, técnicas de aprendizado por
+reforço são aplicáveis a uma vasta gama de problemas, dado que existem inúmeras
+situações onde um problema deve ser resolvido através de ações tomadas
+sequencialmente. Seja definir quais jogadas devem ser tomadas em um tabuleiro de
+xadrez para que a partida seja vencida ou decidir como regular a força propulsora
+das hélices de um veículo aéreo autocontrolado a fim de torná-lo estável diante
+de mudanças na direção do vento, quaisquer problemas que requeiram a tomada
+sequencial de ações e nos quais a qualidade dessas ações possam ser captadas
+pela noção de recompensa permitem o uso de algoritmos de AR. Também foi
+extensamente discorrindo e exemplificado sobre a importância do uso de
+ferramentas de simulação no treinamento de agentes de aprendizado por reforço,
+mostrando que, apesar das diversas limitações que um simulador pode possuir,
+tais ferramentas fornecem uma maneira poderosa de modelar um problema, deixando
+as diferentes situações às quais o agente é submetido sob o controle daqueles
+que o treinam.
+
+
+
+Além do papel imprescindível que ferramentas de modelagem de problemas de
+aprendizado por reforço exercem durante a fase de treinamento de agentes para
+resolvê-los, também foi discorrido acerca dos diferentes graus de especificidade
+que tais \textit{softwares} podem apresentar. Para problemas de uma subárea
+específica de aprendizado por reforço como a robótica, por exemplo, pode ser
+mais vantajoso para quem deseja treinar um agente adotar ferramentas menos
+genéricas de construção de ambientes em detrimento de ferramentas de propósito
+mais geral, dado que \textit{frameworks} mais específicos fornecem atalhos para
+a modelagem de problemas que não fogem ao seu escopo. Sendo assim, há de ser
+analisado o \textit{trade-off} que surge do conflito entre a adoção de um
+mecanismo de modelagem de simulações de propósito mais geral, que permite a
+construção de problemas das mais variadas naturezas mas que não fornece atalhos
+que facilitem a criação de simulações de uma área em específico, e a adoção de
+ferramentas mais especializadas, como o \textit{MuJoCo}, voltado para a
+robótica, ou a \textit{Unity ML-Agents Toolkit}, voltada para problemas
+envolvendo jogos onde agentes competem entre si, que fornecem caminhos mais
+curtos e ferramentas que facilitam a criação de cenários dentro dos seus
+próprios contextos.
+
+
+
+Além da necessidade de haver programas de simulação com diferentes graus de
+especificidade, também versamos neste trabalho sobre a necessidade de ter-se
+meios comuns de avaliação de algoritmos: as chamadas ferramentas de
+\textit{benchmark}. Tais mecanismos de avaliação de algoritmos fornecem uma base
+comum de comparação para aqueles que propõem novos métodos de aprendizado por
+reforço, permitindo que estes tenham sua performance facilmente posta à prova
+quando aplicados em cenários ou problemas amplamente conhecidos e estudados.
+Assim como apresentado na discussão acerca dos diferentes graus de
+especificidade que um instrumento de simulação de problemas de aprendizado por
+reforço pode ter, há aqui também um certo grau de limitação: como discutido em
+[[1]], o desenvolvimento de novos algoritmos de AR depende diretamente do
+constante criação de coleções de problemas de \textit{benchmark}, dado que tais
+coleções tendem a tornarem-se praticamente inúteis à medida em que o campo do
+aprendizado por reforço avança e os problemas fornecidos por elas são
+resolvidos.
+
+
+A ferramenta de \textit{benchmark} analisada por este trabalho, talvez
+a mais famosa delas --- e certamente a que possui a coleção de problemas mais
+ampla --- seja o \textit{framework} conhecido como \textit{Gym}. Muito mais do
+que uma ferramenta de \textit{benchmark} com uma vasta coleção de diferentes
+cenários que compreendem desde problemas simples, com representação em modo
+texto, até problemas que envolvem robôs que devem aprender a andar em universos
+virtuais regidos por um motor de física, \textit{Gym} consegue ir além e
+fornecer meios de compartilhamento de soluções para os problemas oferecidos,
+estimulando a colaboração entre pesquisadores do mundo todo.
+
+
+Apesar da vasta coleção oferecida pelo \textit{Gym} e pela facilidade com que
+diferentes soluções para um mesmo problema podem ser comparadas e
+compartilhadas, há poucas ferramentas disponíveis para a a criação e o
+compartilhamento de cenários novos. A criação de cenários novos para ferramentas
+de \textit{benchmark} é tão importante quanto o desenvolvimento de novos métodos
+de aprendizado, apesar de não receber tanta atenção por parte dos especialistas
+como a construção de novos algoritmos. O campo carece, portanto, de uma
+ferramenta que permita o desenvolvimento rápido de novos cenários para a
+expansão de coleções de \textit{benchmark}.
+
+
+Este trabalho é uma tentativa de estabelecer um meio para a criação de novos
+cenários de aprendizado por reforço. Além de fornecer um meio simples para a
+modelagem de problemas de qualquer natureza, tentando, quando possível, agregar
+elementos presentes em ferramentas de simulação de alto grau de especificidade e
+que funcionam como atalhos na criação de cenários, o trabalho aqui desenvolvido
+produz cenários compatíveis com a API do \textit{Gym}, beneficiando-se, desta
+maneira, das ferramentas disponibilizadas pela plataforma para o
+compartilhamento, a avaliação e a comparação de diferentes soluções para um
+mesmo problema.
+
+
+O \textit{Barbell}, \textit{software} proposto por este trabalho, é, portanto,
+uma espécie de extensão ao \textit{Gym}, que permite que sua coleção de
+problemas seja expandida através de ferramentas que visam facilitar a construção
+de novos cenários de aprendizado por reforço. Ao mesmo tempo que tenta empregar
+as vantangens oferecidas por simuladores altamente específicos, como a descrição
+textual de elementos a serem simulados no ambiente, o \textit{Barbell} tenta
+manter a natureza genérica do \textit{Gym}, aplicando, desta maneira, as
+vantagens de simuladores de alto grau de especificidade na modelagem de
+problemas das mais diversas naturezas.
+
+
+O \textit{Barbell}, em sua essência, nada mais é do que um gerador de código. A
+sua maior vantagem, entretanto, é a geração de código compatível com o \textit{Gym},
+permitindo não só que os resultados produzidos por ele sejam compatíveis a API
+proposta pelo \textit{Gym}, mas também que seus usuários não precisem desprender
+muito tempo no desenvolvimento de seus cenários de simulação.
+
+A seguir, as funcionalidades do
+\textit{Barbell} serão apresentadas a fim de que fique claro para o leitor
+quais funcionalidades são estas e de que maneira elas se beneficiam daquilo
+que o \textit{Gym} já fornece. O \textit{Barbell} conta com duas ferramentas de
+geração de código, uma para gerar o código referente à interface do programa, e
+outra que permite que seja gerado o código da simulação do problema.
+
+
+\section{Gerador de código de interface}
+
+O gerador de código para interface é, basicamente, uma ferramenta que gera a
+estrutura formada pelos métodos que implementam o ciclo de aprendizado descrito
+na figura \ref{fig:fluxo_ar}, comum a todos os ambientes implementados pelo Gym
+e descrita na seção \ref{sec:gym_implementation}. Além gerar um arquivo descritivo
+com informações a respeito do ambiente coletadas através de uma ferramenta
+interativa de linha de comando, o gerador de código de interface do Barbell é
+capaz de gerar variações de um mesmo ambiente, o que é comum no Gym.
+
+A seguir, um exemplo de ambiente chamado \texttt{Exemplo1} gerado pelo Barbell:
+\begin{longlisting}
+\begin{minted}[linenos]{python}
+  import gym
+from barbell_environment import BarbellWorld, BarbellViewer
+
+
+# CONSTANTS
+FPS = 50  # desired FPS rate
+VIEWPORT_W = 600
+VIEWPORT_H = 400
+GRAVITY = (0, -100)
+
+
+class Exemplo1(gym.Env):
+    metadata = {
+        'render.modes': ['human', 'rgb_array'],
+        'video.frames_per_second': FPS
+    }
+
+    def __init__(self):
+        self.scroll = 0.0
+        self.viewer = None
+        self.drawlist = {}
+        self.world = BarbellWorld(gravity=GRAVITY)
+
+    def observation(self):
+        pass
+
+    def reward(self):
+        pass
+
+    def done(self):
+        pass
+
+    def step(self, action):
+        reward = self.reward()
+        observation = self.observation()
+        done = self.done()
+        self.world.Step(1.0 / FPS, 6 * 30, 2 * 30)
+
+        return observation, reward, done
+
+    def reset(self):
+        pass
+
+    def render(self, mode='human', close=False):
+        if self.viewer is None:
+                    self.viewer = BarbellViewer(
+                    viewport_width=VIEWPORT_W,
+                    viewport_height=VIEWPORT_H)
+
+        self.viewer.draw_objects(self.drawlist)
+        return self.viewer.render(
+                return_rgb_array=(mode == 'rgb_array'))
+
+\end{minted}
+\caption[]{Exemplo de uma simulação que usa a Open Dynamics Engine.}
+\label{ode_example}
+\end{longlisting}
+
+
+O gerador de código para
+interface é uma ferramenta de linha de comando interativa que, através de uma
+série de entradas de dados, gera os arquivos que contêm a estrutura básica das
+simulações do Gym
+
+
+O gerador de código para interface é, basicamente, uma ferramenta que gera a
+estrutura formada pelos métodos que implementam o ciclo de aprendizado descrito
+na figura \ref{fig:fluxo_ar}, comum a todos os ambientes implementados pelo Gym.
+Este passo de geração de código gera a estrutura básica para um ambiente do Gym,
+podendo gerar até mesmo código para uma ou mais variações do mesmo problema.
+
+
+\section{Gerador de código de simulação}
 
 
 \section{Simuladores existentes}
@@ -3194,6 +3399,11 @@ utilizar inteligência artificial no universo de jogos eletrônicos.
 \label{desenvolvimento}
 
 % [1] Unity ML Agents-tk article
+
+Conforme desenvolvido nos capítulos anteriores
+
+
+
 
 Conforme desenvolvido nos capítulos anteriores, técnicas de aprendizado por
 reforço são aplicáveis a uma vasta gama de problemas, uma vez que existem
