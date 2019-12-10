@@ -56,6 +56,14 @@
    year = {2003}
 }
 
+@inproceedings{AcroBot1996,
+  title={Generalization in reinforcement learning: Successful examples using sparse coarse coding},
+  author={Sutton, Richard S},
+  booktitle={Advances in neural information processing systems},
+  pages={1038--1044},
+  year={1996}
+}
+
 @ARTICLE{Bellman1957,
 author = {Bellman, Richard},
      title = "A Markovian Decision Process",
@@ -416,7 +424,7 @@ month={May},}
  address = {New York, NY, USA},
 }
 
-@ARTICLE{Gym,
+@ARTICLE{Gym2016,
        author = {{Brockman}, Greg and {Cheung}, Vicki and {Pettersson}, Ludwig and
          {Schneider}, Jonas and {Schulman}, John and {Tang}, Jie and
          {Zaremba}, Wojciech},
@@ -432,6 +440,47 @@ archivePrefix = {arXiv},
  primaryClass = {cs.LG},
        adsurl = {https://ui.adsabs.harvard.edu/abs/2016arXiv160601540B},
       adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@ARTICLE{Cartpole83,
+author={A. G. Barto and R. S. Sutton and C. W. Anderson},
+journal={IEEE Transactions on Systems, Man, and Cybernetics},
+title={Neuronlike adaptive elements that can solve difficult learning control problems},
+year={1983},
+volume={SMC-13},
+number={5},
+pages={834-846},
+keywords={adaptive control;learning systems;neural nets;neural nets;adaptive control;neuronlike adaptive elements;learning control problem;movable cart;associative search element;adaptive critic element;animal learning studies;Adaptive systems;Problem-solving;Training;Pattern recognition;Neurons;Supervised learning;Biological neural networks},
+doi={10.1109/TSMC.1983.6313077},
+ISSN={2168-2909},
+month={Sep.},}
+
+@proceedings{FlappyBird1,
+    author = {Piper, Matthew and Bhounsule, Pranav and Castillo-Villar, Krystel K.},
+    title = "{How to Beat Flappy Bird: A Mixed-Integer Model Predictive Control Approach}",
+    volume = {Volume 2: Mechatronics; Estimation and Identification; Uncertain Systems and Robustness; Path Planning and Motion Control; Tracking Control Systems; Multi-Agent and Networked Systems; Manufacturing; Intelligent Transportation and Vehicles; Sensors and Actuators; Diagnostics and Detection; Unmanned, Ground and Surface Robotics; Motion and Vibration Control Applications},
+    series = {Dynamic Systems and Control Conference},
+    year = {2017},
+    month = {10},
+    abstract = "{Flappy Bird is a mobile game that involves tapping the screen to navigate a bird through a gap between pairs of vertical pipes. When the bird passes through the gap, the score increments by one and the game ends when the bird hits the floor or a pipe. Surprisingly, Flappy Bird is a very difficult game and scores in single digits are not uncommon even after extensive practice. In this paper, we create three controllers to play the game autonomously. The controllers are: (1) a manually tuned controller that flaps the bird based on a vertical set point condition; (2) an optimization-based controller that plans and executes an optimal path between consecutive tubes; (3) a model-based predictive controller (MPC). Our results showed that on average, the optimization-based controller scored highest, followed closely by the MPC, while the manually tuned controller scored the least. A key insight was that choosing a planning horizon slightly beyond consecutive tubes was critical for achieving high scores. The average computation time per iteration for the MPC was half that of optimization-based controller but the worst case time (maximum time) per iteration for the MPC was thrice that of optimization-based controller. The success of the optimization-based controller was due to the intuitive tuning of the terminal position and velocity constraints while for the MPC the important parameters were the prediction and control horizon. The MPC was straightforward to tune compared to the other two controllers. Our conclusion is that MPC provides the best compromise between performance and computation speed without requiring elaborate tuning.}",
+    doi = {10.1115/DSCC2017-5285},
+    url = {https://doi.org/10.1115/DSCC2017-5285},
+    note = {V002T07A003},
+    eprint = {https://asmedigitalcollection.asme.org/DSCC/proceedings-pdf/DSCC2017/58288/V002T07A003/2376157/v002t07a003-dscc2017-5285.pdf},
+}
+
+@misc{FlappyBird2,
+  title={Playing FlappyBird with Deep Reinforcement Learning},
+  author={Appiah, Naveen and Vare, Sagar},
+  year={2018},
+  publisher={Stanford University}
+}
+
+@misc{FlappyBird3,
+  title={Deep reinforcement learning for flappy bird},
+  author={Chen, Kevin},
+  year={2015},
+  publisher={Stanford University}
 }
 
 @techreport{DMControl,
